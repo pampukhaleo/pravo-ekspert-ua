@@ -11,12 +11,17 @@ interface FAQProps {
   faqs: FAQItem[];
 }
 
-const FAQ: React.FC<FAQProps> = ({ faqs }) => {
+const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   
   const toggleQuestion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+  
+  // If there are no FAQs, don't render the section
+  if (!faqs || faqs.length === 0) {
+    return null;
+  }
   
   return (
     <section className="py-10 bg-gray-50">
