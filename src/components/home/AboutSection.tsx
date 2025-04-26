@@ -16,47 +16,59 @@ const expertiseList = [
 
 const AboutSection: React.FC = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-[#eef4fa] via-[#f0f5fe] to-[#e6edf6]/70">
+    <section className="py-16 md:py-24 bg-white">
       <div className="container-custom">
-        <div className="max-w-4xl mx-auto mb-14 text-center animate-fade-in">
-          <BookOpen className="mx-auto text-brand-blue mb-4 animate-scale-in" size={42} />
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            Про <span className="text-brand-blue">Інститут</span>
+        <div className="mb-8">
+          <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Експертиза</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+            Надійний партнер для вирішення будь-якої ситуації
           </h2>
-          <div className="text-gray-700 font-medium text-lg leading-relaxed max-w-3xl mx-auto mb-0">
-            <p className="mb-2">
-              <strong>НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ (НІСЕ)</strong> успішно працює у сфері проведення експертизи з 2007 року.
-            </p>
-            <p className="mb-2">
-              Експерти атестовані Міністерством юстиції України. За потреби залучаємо вузькопрофільних фахівців з інших юрисдикцій, що дозволяє виконувати міжнародні комплексні експертизи.
-            </p>
-            <p>
-              Спеціалізуємось на >20 видах експертиз. Оберіть потрібну або скористайтесь пошуком:
-            </p>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl">
+            В НЕЗАЛЕЖНОМУ ІНСТИТУТІ СУДОВИХ ЕКСПЕРТИЗ ми надаємо високоякісні експертні послуги та супроводжуємо вас на кожному етапі із відданістю справі.
+          </p>
+        </div>
+        
+        <div className="mt-12 relative">
+          <div className="w-full h-80 md:h-96 bg-gray-100 rounded-xl overflow-hidden mb-16">
+            <img 
+              src="/lovable-uploads/afeaa026-31d9-4edf-856c-974bb6e2543d.png" 
+              alt="Експерт надає консультацію" 
+              className="w-full h-full object-cover"
+            />
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 md:gap-8 justify-center max-w-5xl mx-auto mb-8 animate-fade-in">
-          {expertiseList.map((expertise) => (
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {expertiseList.slice(0, 4).map((expertise) => (
+              <Link 
+                key={expertise.id}
+                to={`/ekspertyzy/${expertise.slug}`}
+                className="bg-white border border-gray-200 rounded-lg p-6 flex items-start hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="mr-5 mt-1 p-2 bg-gray-100 rounded-full">
+                  <BookOpen className="h-6 w-6 text-gray-700" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 text-lg">{expertise.name}</h3>
+                  <p className="text-gray-500 mt-1">Детальний аналіз та експертна оцінка</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="mt-8 flex flex-wrap items-center gap-4 justify-center md:justify-start">
             <Link 
-              key={expertise.id}
-              to={`/ekspertyzy/${expertise.slug}`}
-              className="bg-white/90 border border-gray-200 backdrop-blur-lg rounded-xl shadow-md hover:shadow-lg hover:scale-105 hover:bg-[#e2eafc]/70 transition-all duration-200 p-6 flex flex-col items-start cursor-pointer min-h-[160px]"
+              to="/ekspertyzy" 
+              className="px-5 py-3 bg-gray-900 text-white rounded-md font-medium hover:bg-gray-800 transition-colors"
             >
-              <h3 className="font-semibold text-brand-blue mb-2 text-lg">{expertise.name}</h3>
-              <span className="text-gray-600 text-sm mt-auto pt-3">Детальніше &rarr;</span>
+              Всі наші експертизи
             </Link>
-          ))}
-        </div>
-        
-        <div className="mt-8 text-center animate-fade-in">
-          <Link 
-            to="/ekspertyzy" 
-            className="inline-block px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-[#346994] via-[#4a7bb6] to-[#b0c4de] text-white shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200"
-            style={{ letterSpacing: ".01em" }}
-          >
-            Більше експертиз
-          </Link>
+            <Link
+              to="/pro-nas"
+              className="px-5 py-3 border border-gray-300 rounded-md font-medium hover:bg-gray-50 transition-colors"
+            >
+              Дізнатися більше
+            </Link>
+          </div>
         </div>
       </div>
     </section>

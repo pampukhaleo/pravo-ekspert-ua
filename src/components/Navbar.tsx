@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 10) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -44,11 +44,11 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+    <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${scrolled || isOpen ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <span className="text-brand-blue font-bold text-xl md:text-2xl">НІСЕ</span>
+            <span className={`font-bold text-xl md:text-2xl ${scrolled || location.pathname !== '/' ? 'text-gray-900' : 'text-white'}`}>НІСЕ</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -57,8 +57,12 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`text-base font-medium transition-colors hover:text-brand-blue ${
-                  isActive(item.path) ? 'text-brand-blue' : 'text-gray-700'
+                className={`text-base font-medium transition-colors hover:text-gray-900 ${
+                  isActive(item.path) 
+                    ? 'text-gray-900' 
+                    : scrolled || location.pathname !== '/' 
+                      ? 'text-gray-600' 
+                      : 'text-white'
                 }`}
               >
                 {item.name}
@@ -66,9 +70,13 @@ const Navbar: React.FC = () => {
             ))}
             <Link 
               to="/kontakty" 
-              className="btn-primary"
+              className={`px-5 py-2 rounded-md ${
+                scrolled || location.pathname !== '/' 
+                  ? 'bg-gray-900 text-white hover:bg-gray-800' 
+                  : 'bg-white text-gray-900 hover:bg-gray-100'
+              } font-medium transition-colors`}
             >
-              Зв'язатися з нами
+              Замовити консультацію
             </Link>
           </div>
 
@@ -79,9 +87,9 @@ const Navbar: React.FC = () => {
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
             {isOpen ? (
-              <X className="h-6 w-6 text-brand-blue" />
+              <X className="h-6 w-6 text-gray-900" />
             ) : (
-              <Menu className="h-6 w-6 text-brand-blue" />
+              <Menu className={`h-6 w-6 ${scrolled || location.pathname !== '/' ? 'text-gray-900' : 'text-white'}`} />
             )}
           </button>
         </nav>
@@ -94,8 +102,8 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`text-base font-medium transition-colors hover:text-brand-blue py-2 ${
-                    isActive(item.path) ? 'text-brand-blue' : 'text-gray-700'
+                  className={`text-base font-medium transition-colors hover:text-gray-900 py-2 ${
+                    isActive(item.path) ? 'text-gray-900' : 'text-gray-600'
                   }`}
                 >
                   {item.name}
@@ -103,9 +111,9 @@ const Navbar: React.FC = () => {
               ))}
               <Link 
                 to="/kontakty" 
-                className="btn-primary text-center mt-4"
+                className="px-5 py-2 bg-gray-900 text-white rounded-md font-medium hover:bg-gray-800 transition-colors text-center mt-4"
               >
-                Зв'язатися з нами
+                Замовити консультацію
               </Link>
             </div>
           </div>
