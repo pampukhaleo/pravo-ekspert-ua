@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   Carousel, 
@@ -8,44 +9,19 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
-
-const expertises = [
-  {
-    id: 1,
-    title: "Будівельно-технічна експертиза",
-    description: "Будівельна експертиза дозволяє перевірити технічний стан та відповідність будівлі будівельним нормам і правилам, при аварійних пригодах (затоплення, обвал, поява тріщин, дефектів і т.п.), а також при розділі приміщень та земельних ділянок, що перебувають у власності фізичних та юридичних осіб.",
-    image: "/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png",
-    slug: "budivelno-tekhnichna-ekspertyza",
-    keyDirections: [
-      {
-        title: "Оцінка збитку після залиття",
-        slug: "otsinka-zbytku-pislia-zalyttia",
-        description: "Експертиза збитку, нанесеного в результаті затоплення, проводиться з метою визначення вартості ремонтно-відновлювальних робіт, необхідних для відновлення приміщення або будівлі, яка постраждала від затоплення."
-      },
-      {
-        title: "Оцінка вартості нерухомості для суду",
-        slug: "otsinka-vartosti-nerukhomosti-dlia-sudu",
-        description: "Фахівці Незалежного Інституту Судових Експертиз проводять експертну оцінку вартості нерухомості для суду в рамках судового провадження (як за ухвалою суду, так і за заявою сторін)."
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "Земельно-технічна експертиза",
-    description: "Земельно-технічна експертиза необхідна при вирішенні земельних спорів, пов'язаних з розділом земельної ділянки, визначенням порядку користування земельної ділянкою, встановленням її місцезнаходження і меж, накладенням меж ділянок одна на одну, помилками в розрахунку площі та ін.",
-    image: "/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png",
-    slug: "zemelno-tekhnichna-ekspertyza",
-    keyDirections: [
-      {
-        title: "Експертиза меж земельної ділянки",
-        slug: "ekspertyza-mezh-zemelnoi-dilianky",
-        description: "Власники земельних ділянок нерідко помиляються в своїх уявленнях про місце проходження меж їх земельних ділянок. Це може призводити до виникнення спорів щодо меж земельних ділянок між сусідами, вирішити які можна за допомогою земельно-технічної експертизи як в досудовому порядку, так і в рамках судового процесу."
-      }
-    ]
-  }
-];
+import { expertiseData } from "@/data/expertiseData";
 
 const ExpertiseCarousel = () => {
+  // Convert expertiseData object to array
+  const expertises = Object.entries(expertiseData).map(([slug, data]) => ({
+    id: slug,
+    title: data.title,
+    description: data.description,
+    image: "/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png",
+    slug: slug,
+    keyDirections: data.directions
+  }));
+
   return (
     <section className="py-16 bg-white">
       <div className="container-custom">
