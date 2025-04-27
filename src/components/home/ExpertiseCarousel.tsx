@@ -17,7 +17,7 @@ const ExpertiseCarousel = () => {
     id: slug,
     title: data.title,
     description: data.description,
-    image: "/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png",
+    image: data.backgroundImage,
     slug: slug,
     keyDirections: data.directions
   }));
