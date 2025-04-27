@@ -13,10 +13,13 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
   description,
   backgroundImage = "/placeholder.svg" // Default fallback image
 }) => {
-  // Remove the Unsplash URL and use the direct path to public folder
-  const imagePath = backgroundImage.startsWith('http') 
+  // Properly format the image URL
+  // If the image path doesn't start with '/' or 'http', add '/' to ensure it's a valid path
+  const imagePath = backgroundImage.startsWith('http') || backgroundImage.startsWith('/') 
     ? backgroundImage 
-    : backgroundImage;
+    : `/${backgroundImage}`;
+
+  console.log('Background image path:', imagePath); // For debugging
 
   return (
     <section 
