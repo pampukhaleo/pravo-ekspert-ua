@@ -23,7 +23,26 @@ const ExpertisePage = () => {
     faqs: []
   };
   
-  const expertise = slug && expertiseData[slug] ? expertiseData[slug] : defaultData;
+  // Перевірка, чи це посилання на основну експертизу чи на напрямок
+  let expertise = defaultData;
+  let selectedDirection = null;
+
+  // Перевірка, чи існує експертиза з таким slug
+  if (slug && expertiseData[slug]) {
+    expertise = expertiseData[slug];
+  } else {
+    // Пошук напрямку по всім експертизам
+    for (const expertiseKey in expertiseData) {
+      const currentExpertise = expertiseData[expertiseKey];
+      const foundDirection = currentExpertise.directions.find(dir => dir.slug === slug);
+      
+      if (foundDirection) {
+        expertise = currentExpertise;
+        selectedDirection = foundDirection;
+        break;
+      }
+    }
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -31,23 +50,23 @@ const ExpertisePage = () => {
       
       <main className="flex-grow">
         <ExpertiseHeader 
-          title={expertise.title} 
-          description={expertise.description}
+          title={selectedDirection ? selectedDirection.title : expertise.title} 
+          description={selectedDirection ? selectedDirection.description : expertise.description}
           backgroundImage={expertise.backgroundImage}
         />
         
-        <KeyDirections directions={expertise.directions} />
+        {!selectedDirection && <KeyDirections directions={expertise.directions} />}
         
         <section className="py-10">
           <div className="container-custom">
             <div 
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: expertise.content }}
+              dangerouslySetInnerHTML={{ __html: selectedDirection ? selectedDirection.fullContent : expertise.content }}
             />
           </div>
         </section>
         
-        <FAQ faqs={expertise.faqs || []} />
+        {!selectedDirection && <FAQ faqs={expertise.faqs || []} />}
         
         <WhyUs />
         
