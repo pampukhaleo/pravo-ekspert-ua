@@ -11,13 +11,18 @@ interface ExpertiseHeaderProps {
 const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({ 
   title, 
   description,
-  backgroundImage = "https://images.unsplash.com/photo-1426604966848-d7adac402bff" 
+  backgroundImage = "/placeholder.svg" // Default fallback image
 }) => {
+  // Remove the Unsplash URL and use the direct path to public folder
+  const imagePath = backgroundImage.startsWith('http') 
+    ? backgroundImage 
+    : backgroundImage;
+
   return (
     <section 
       className="relative pt-40 pb-20 md:pt-48 md:pb-28"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://source.unsplash.com/${backgroundImage})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imagePath})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
