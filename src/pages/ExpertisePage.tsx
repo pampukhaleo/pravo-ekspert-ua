@@ -17,7 +17,7 @@ const ExpertisePage = () => {
   const defaultData = {
     title: "Експертиза",
     description: "Детальна інформація про експертизу",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "/placeholder.svg",
     content: "<p>Інформація про даний вид експертизи.</p>",
     directions: [],
     faqs: []
@@ -44,6 +44,11 @@ const ExpertisePage = () => {
     }
   }
   
+  // Get the correct background image, considering both expertise and direction
+  const backgroundImage = selectedDirection && selectedDirection.backgroundImage 
+    ? selectedDirection.backgroundImage 
+    : expertise.backgroundImage;
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -52,7 +57,7 @@ const ExpertisePage = () => {
         <ExpertiseHeader 
           title={selectedDirection ? selectedDirection.title : expertise.title} 
           description={selectedDirection ? selectedDirection.description : expertise.description}
-          backgroundImage={expertise.backgroundImage}
+          backgroundImage={backgroundImage}
         />
         
         {!selectedDirection && <KeyDirections directions={expertise.directions} />}
