@@ -8,8 +8,8 @@ const Hero: React.FC = () => {
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-28 bg-gray-900 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="/lovable-uploads/82aaa092-850b-4fe7-aa90-b8d382b3524b.png" 
-          alt="Експерти НІСЕ" 
+          src="backgroundnise.jpg"
+          alt="Незалежний Інститут Судових Експертиз НІСЕ"
           className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40"></div>
@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mb-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Супроводжуємо вас через кожен юридичний шлях з експертизою
+            Незалежний Інститут Судових Експертиз
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">

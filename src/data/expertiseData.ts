@@ -121,7 +121,7 @@ export const expertiseData = {
   "elektrotekhnichna-ekspertyza": {
     title: "ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Електротехнічна експертиза проводиться з метою дослідження роботи електромережі та електрообладнання, встановлення причин виникнення в них аварійних режимів тощо.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "elektrotehnichna.jpg",
     content: `
       <p>В рамках електротехнічної експертизи фахівці НІСЕ:</p>
       <ul class="list-disc pl-6 space-y-2">
@@ -246,7 +246,7 @@ export const expertiseData = {
   "kompleksna-pozhezhna-ta-elektrotekhnichna-ekspertyza": {
     title: "КОМПЛЕКСНА ПОЖЕЖНА ТА ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Комплексна комісійна пожежно-технічна та електротехнічна експертиза встановлює причини та обставини виникнення пожежі та особливості її перебігу. Експертиза проводиться із залученням до роботи експертів кількох експертних спеціальностей, а також вузькопрофільних фахівців.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "pozezna.jpg",
     content: `
       <p>В рамках проведення пожежної та електротехнічної експертизи експерти НІСЕ встановлять:</p>
       <ul class="list-disc pl-6 space-y-2">
@@ -347,7 +347,7 @@ export const expertiseData = {
   "trasolohichna-ekspertyza": {
     title: "ТРАСОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Трасологічна експертиза вивчає сліди, слідоутворювальні поверхні, установлення властивостей та станів об'єктів, а також установлення механізму слідоутворення тощо.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "trasologichna.gif",
     content: `
     <p>Трасологічна експертиза може призначатися:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -617,7 +617,7 @@ export const expertiseData = {
   "ekspertyza-intelektualnoi-vlasnosti": {
     title: "ЕКСПЕРТИЗА ОБ'ЄКТІВ ІНТЕЛЕКТУАЛЬНОЇ ВЛАСНОСТІ",
     description: "Дослідження властивостей, ознак, законності створення та використання об'єктів інтелектуальної власності, оцінка збитків.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "intvlasnist.jpg",
     content: `
     <p>В рамках експертизи об'єктів інтелектуальної власності експерти НІСЕ:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -646,7 +646,7 @@ export const expertiseData = {
   "mystetvoznavcha-ekspertyza": {
     title: "МИСТЕЦТВОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Експертиза автентичності, авторства, стану збереження та ринкової вартості творів мистецтва.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "mystectvo.jpg",
     content: `
     <p>Експерти НІСЕ встановлюють автентичність, авторство, стан збереження, дату створення творів мистецтва та визначають їх ринкову вартість.</p>
     <p>Об'єкти: живопис, скульптура, антикваріат, об'єкти нумізматики, старовинні книги тощо.</p>
