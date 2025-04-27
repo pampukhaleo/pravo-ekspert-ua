@@ -30,7 +30,10 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
               to={`/ekspertyzy/${direction.slug}`}
               className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
             >
-              <h3 className="text-brand-blue font-medium">{direction.title}</h3>
+              <h3 className="text-brand-blue font-medium mb-2">{direction.title}</h3>
+              {direction.description && (
+                <p className="text-sm text-gray-600">{direction.description}</p>
+              )}
             </Link>
           ))}
         </div>
