@@ -25,7 +25,7 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
     <section 
       className="relative pt-40 pb-20 md:pt-48 md:pb-28"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imagePath})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/pravo-ekspert-ua/${imagePath})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
