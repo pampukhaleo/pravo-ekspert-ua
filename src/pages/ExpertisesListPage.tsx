@@ -4,24 +4,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
-
-// Placeholder for expertise list
-const expertiseList = [
-  { id: 1, name: "Будівельно-технічна експертиза", slug: "budivelno-tekhnichna-ekspertyza", description: "Оцінка технічного стану будівель, відповідності будівельним нормам" },
-  { id: 2, name: "Оціночно-будівельна експертиза", slug: "otsinochno-budivelna-ekspertyza", description: "Визначення вартості об'єктів нерухомості, будівельних робіт" },
-  { id: 3, name: "Земельно-технічна експертиза", slug: "zemelno-tekhnichna-ekspertyza", description: "Дослідження земельних ділянок, визначення їх меж та характеристик" },
-  { id: 4, name: "Інженерно-технічна експертиза", slug: "inzhenerno-tekhnichna-ekspertyza", description: "Дослідження інженерних систем, обладнання, комунікацій" },
-  { id: 5, name: "Експертиза з питань землеустрою", slug: "ekspertyza-z-pytan-zemleustroiu", description: "Аналіз документації із землеустрою, відповідності нормативам" },
-  { id: 6, name: "Оціночна експертиза", slug: "otsinochna-ekspertyza", description: "Визначення ринкової вартості майна різних видів" },
-  { id: 7, name: "Почеркознавча експертиза", slug: "pocherkoznavcha-ekspertyza", description: "Встановлення автентичності підписів, почерку, авторства документів" },
-  { id: 8, name: "Економічна експертиза", slug: "ekonomichna-ekspertyza", description: "Аналіз фінансово-господарської діяльності, виявлення порушень" },
-  { id: 9, name: "Товарознавча експертиза", slug: "tovaroznavcha-ekspertyza", description: "Дослідження якості товарів, відповідності стандартам" },
-  { id: 10, name: "Автотоварознавча експертиза", slug: "avtotovaroznavcha-ekspertyza", description: "Оцінка вартості автомобілів, визначення збитків після ДТП" },
-  { id: 11, name: "Електротехнічна експертиза", slug: "elektrotekhnichna-ekspertyza", description: "Дослідження електричних приладів, систем, причин аварій" },
-  { id: 12, name: "Пожежно-технічна експертиза", slug: "pozhezhno-tekhnichna-ekspertyza", description: "Встановлення причин пожеж, оцінка збитків" },
-];
+import { expertiseData } from '../data/expertiseData';
 
 const ExpertisesListPage = () => {
+  // Convert expertiseData object to array and add slug
+  const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
+    slug,
+    ...data
+  }));
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -40,12 +31,12 @@ const ExpertisesListPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {expertiseList.map((expertise) => (
               <Link 
-                key={expertise.id}
+                key={expertise.slug}
                 to={`/ekspertyzy/${expertise.slug}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
               >
                 <div className="p-6 flex flex-col h-full">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">{expertise.name}</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-2">{expertise.title}</h2>
                   <p className="text-gray-600 mb-4 flex-grow">{expertise.description}</p>
                   <div className="mt-auto pt-2">
                     <span className="text-brand-blue font-medium">Детальніше &rarr;</span>
