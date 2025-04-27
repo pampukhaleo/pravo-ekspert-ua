@@ -66,7 +66,7 @@ const ExpertisePage = () => {
           </div>
         </section>
         
-        {!selectedDirection && <FAQ faqs={expertise.faqs || []} />}
+        <FAQ faqs={expertise.faqs || []} />
         
         <WhyUs />
         
