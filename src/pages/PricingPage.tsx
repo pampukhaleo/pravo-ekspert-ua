@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
 
-// Placeholder for pricing data
+// Дані про ціни
 const pricingData = [
   {
     id: 1,

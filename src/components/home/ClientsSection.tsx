@@ -57,7 +57,7 @@ const ClientsSection: React.FC = () => {
               <div className="mt-auto">
                 <img 
                   src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMCA1YzAgLTUgLTEwIDUgLTEwIDEwIiBzdHJva2U9IiM3Nzc3NzciIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgLz48L3N2Zz4=" 
-                  alt="Signature" 
+                  alt="Підпис" 
                   className="h-12 opacity-70"
                 />
               </div>

@@ -18,7 +18,7 @@ const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
   
-  // If there are no FAQs, don't render the section
+  // Якщо немає питань, не відображаємо розділ
   if (!faqs || faqs.length === 0) {
     return null;
   }

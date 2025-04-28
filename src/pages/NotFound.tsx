@@ -10,7 +10,7 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error(
-      "404 Error: User attempted to access non-existent route:",
+      "404 Помилка: Користувач спробував отримати доступ до неіснуючого маршруту:",
       location.pathname
     );
   }, [location.pathname]);

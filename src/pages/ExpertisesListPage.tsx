@@ -7,7 +7,7 @@ import ConsultationButton from '../components/ConsultationButton';
 import { expertiseData } from '../data/expertiseData';
 
 const ExpertisesListPage = () => {
-  // Convert expertiseData object to array and add slug
+  // Перетворюємо об'єкт expertiseData на масив та додаємо slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
     ...data

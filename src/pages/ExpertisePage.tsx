@@ -13,7 +13,7 @@ import { expertiseData } from '../data/expertiseData';
 const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
   
-  // Fallback data in case the slug doesn't match any expertise
+  // Резервні дані на випадок, якщо slug не збігається з жодною експертизою
   const defaultData = {
     title: "Експертиза",
     description: "Детальна інформація про експертизу",
@@ -44,7 +44,7 @@ const ExpertisePage = () => {
     }
   }
   
-  // Get the correct background image, considering both expertise and direction
+  // Отримуємо правильне фонове зображення, враховуючи як експертизу, так і напрямок
   const backgroundImage = selectedDirection && selectedDirection.backgroundImage 
     ? selectedDirection.backgroundImage 
     : expertise.backgroundImage;

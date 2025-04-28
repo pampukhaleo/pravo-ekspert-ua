@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { expertiseData } from "@/data/expertiseData";
 
 const ExpertiseCarousel = () => {
-  // Convert expertiseData object to array
+  // Перетворюємо об'єкт expertiseData на масив
   const expertises = Object.entries(expertiseData).map(([slug, data]) => ({
     id: slug,
     title: data.title,

@@ -11,15 +11,15 @@ interface ExpertiseHeaderProps {
 const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({ 
   title, 
   description,
-  backgroundImage = "/placeholder.svg" // Default fallback image
+  backgroundImage = "/placeholder.svg" // Зображення за замовчуванням
 }) => {
-  // Properly format the image URL
-  // If the image path doesn't start with '/' or 'http', add '/' to ensure it's a valid path
+  // Правильно форматуємо URL зображення
+  // Якщо шлях до зображення не починається з '/' або 'http', додаємо '/' для забезпечення правильного шляху
   const imagePath = backgroundImage.startsWith('http') || backgroundImage.startsWith('/') 
     ? backgroundImage 
     : `/${backgroundImage}`;
 
-  console.log('Background image path:', imagePath); // For debugging
+  console.log('Шлях до фонового зображення:', imagePath); // Для відлагодження
 
   return (
     <section 

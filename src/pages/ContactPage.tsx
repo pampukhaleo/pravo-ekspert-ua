@@ -22,10 +22,10 @@ const ContactPage = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send the form data to a server
-    console.log('Form submitted:', formData);
+    // У реальному додатку тут буде відправка даних на сервер
+    console.log('Форма відправлена:', formData);
     setIsSubmitted(true);
-    // Reset form after submission
+    // Скидання форми після відправки
     setFormData({
       name: '',
       email: '',
@@ -33,7 +33,7 @@ const ContactPage = () => {
       message: '',
       expertise: 'Не обрано'
     });
-    // Reset submission status after 5 seconds
+    // Скидання статусу відправки через 5 секунд
     setTimeout(() => setIsSubmitted(false), 5000);
   };
   
