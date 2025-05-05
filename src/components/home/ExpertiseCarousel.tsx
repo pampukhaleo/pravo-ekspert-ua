@@ -19,7 +19,7 @@ const ExpertiseCarousel = () => {
     description: data.description,
     image: data.backgroundImage,
     slug: slug,
-    keyDirections: data.directions
+    keyDirections: data.directions || [] // Add fallback for missing directions
   }));
 
   return (
