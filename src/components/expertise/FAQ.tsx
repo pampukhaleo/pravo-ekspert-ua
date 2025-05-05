@@ -1,5 +1,11 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface FAQItem {
   id: number;
@@ -12,12 +18,6 @@ interface FAQProps {
 }
 
 const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  
-  const toggleQuestion = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
-  
   // Якщо немає питань, не відображаємо розділ
   if (!faqs || faqs.length === 0) {
     return null;
@@ -28,25 +28,18 @@ const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
       <div className="container-custom">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">НАЙЧАСТІШЕ ЗАДАВАНІ ПИТАННЯ</h2>
         
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div key={faq.id} className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-              <button
-                className={`w-full text-left p-4 flex justify-between items-center font-medium text-gray-900 focus:outline-none`}
-                onClick={() => toggleQuestion(index)}
-              >
-                <span>{faq.question}</span>
-                <span className="text-brand-blue text-xl">{activeIndex === index ? '−' : '+'}</span>
-              </button>
-              
-              {activeIndex === index && (
-                <div className="p-4 pt-0 text-gray-700 border-t border-gray-100">
-                  <p>{faq.answer}</p>
-                </div>
-              )}
-            </div>
+        <Accordion type="single" collapsible className="w-full">
+          {faqs.map((faq) => (
+            <AccordionItem key={faq.id} value={`item-${faq.id}`} className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-4">
+              <AccordionTrigger className="px-4 py-3 font-medium text-gray-900">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-gray-700">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   );
