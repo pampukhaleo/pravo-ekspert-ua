@@ -1,14 +1,16 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Hero from '../components/home/Hero';
 import ExpertiseCarousel from '../components/home/ExpertiseCarousel';
-import AboutSection from '../components/home/AboutSection';
 import ServicesSection from '../components/home/ServicesSection';
-import ClientsSection from '../components/home/ClientsSection';
 import PartnersSection from '../components/home/PartnersSection';
-import { Link } from 'react-router-dom';
+import EventsCalendar from '../components/home/EventsCalendar';
+import VideoRecordings from '../components/home/VideoRecordings';
+import NewsSection from '../components/home/NewsSection';
+import FaqSection from '../components/home/FaqSection';
 
 const Index = () => {
   return (
@@ -19,9 +21,11 @@ const Index = () => {
         <Hero />
         <ExpertiseCarousel />
         <PartnersSection />
-        <AboutSection />
         <ServicesSection />
-        <ClientsSection />
+        <EventsCalendar />
+        <VideoRecordings />
+        <NewsSection />
+        <FaqSection />
         
         <section className="relative py-20 bg-gray-900">
           <div className="absolute inset-0 z-0">
