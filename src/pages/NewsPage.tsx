@@ -1,57 +1,14 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-// Sample news data - in a real app, this would come from an API
-const newsItems = [
-  {
-    id: 1,
-    title: 'Нові стандарти проведення будівельно-технічних експертиз в Україні',
-    excerpt: 'Міністерство юстиції затвердило оновлені стандарти проведення будівельно-технічних експертиз, які вступлять в дію з наступного місяця.',
-    date: '05.05.2025',
-    imageUrl: '/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png',
-    slug: 'novi-standarti-provedennya-budivelno-tekhnichnikh-ekspertiz'
-  },
-  {
-    id: 2,
-    title: 'НІСЕ розширює спектр послуг з оціночної експертизи',
-    excerpt: 'Незалежний Інститут Судових Експертиз розпочав надання нових послуг у сфері оціночної експертизи інтелектуальної власності.',
-    date: '28.04.2025',
-    imageUrl: '/lovable-uploads/afeaa026-31d9-4edf-856c-974bb6e2543d.png',
-    slug: 'nise-rozshiryue-spektr-poslug-z-otsinochnoi-ekspertizi'
-  },
-  {
-    id: 3,
-    title: 'Результати річного звіту діяльності НІСЕ: зростання на 35%',
-    excerpt: 'Підбито підсумки діяльності Незалежного Інституту Судових Експертиз за минулий рік. Кількість проведених експертиз зросла на 35%.',
-    date: '15.03.2025',
-    imageUrl: '/lovable-uploads/82aaa092-850b-4fe7-aa90-b8d382b3524b.png',
-    slug: 'rezultati-richnogo-zvitu-diyalnosti-nise'
-  },
-  {
-    id: 4,
-    title: 'Розширення кадрового складу: нові експерти в команді НІСЕ',
-    excerpt: 'До нашої команди приєдналися п\'ять нових висококваліфікованих експертів з різних спеціалізацій.',
-    date: '01.03.2025',
-    imageUrl: '/lovable-uploads/291e2a7e-c8fd-4783-b66d-ab1590fa9a82.png',
-    slug: 'rozshirennya-kadrovogo-skladu-novi-eksperti'
-  },
-  {
-    id: 5,
-    title: 'Міжнародна акредитація судово-експертних методів НІСЕ',
-    excerpt: 'Наші методи проведення комп\'ютерно-технічних експертиз отримали міжнародну акредитацію.',
-    date: '10.02.2025',
-    imageUrl: '/lovable-uploads/afeaa026-31d9-4edf-856c-974bb6e2543d.png',
-    slug: 'mizhnarodna-akreditatsiya-sudovo-ekspertnikh-metodiv'
-  }
-];
+import { newsItems } from '../data/newsData';
 
 const NewsPage = () => {
   // Scroll to top when component mounts
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
