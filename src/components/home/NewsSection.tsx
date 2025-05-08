@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Newspaper } from 'lucide-react';
+import { Newspaper, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 
 // Sample news data - in a real app, this would come from an API
 const newsItems = [
@@ -54,7 +55,7 @@ const NewsSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {newsItems.map(news => (
             <Card key={news.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
-              <Link to={`/novini/${news.slug}`}>
+              <Link to={`/novini/${news.slug}`} onClick={() => window.scrollTo(0, 0)}>
                 <div className="aspect-[16/9] overflow-hidden">
                   <img 
                     src={news.imageUrl} 
@@ -75,12 +76,17 @@ const NewsSection: React.FC = () => {
         </div>
         
         <div className="mt-10 text-center">
-          <Link 
-            to="/novini"
+          <Button 
+            asChild
+            variant="outline"
             className="px-6 py-3 border border-gray-300 rounded-md font-medium hover:bg-gray-50 transition-colors"
+            onClick={() => window.scrollTo(0, 0)}
           >
-            Всі новини
-          </Link>
+            <Link to="/novini" className="inline-flex items-center">
+              Всі новини
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

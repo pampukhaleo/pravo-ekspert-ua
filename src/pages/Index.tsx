@@ -1,6 +1,5 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Hero from '../components/home/Hero';
@@ -13,6 +12,11 @@ import NewsSection from '../components/home/NewsSection';
 import FaqSection from '../components/home/FaqSection';
 
 const Index = () => {
+  // Ensure we start at the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
