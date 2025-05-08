@@ -1,96 +1,12 @@
 
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { newsItems } from '../data/newsData';
-
-// Extend our news data with full content
-const fullNewsItems = [
-  {
-    ...newsItems[0],
-    content: `
-      <p>Міністерство юстиції України затвердило оновлені стандарти проведення будівельно-технічних експертиз, які вступлять в дію з наступного місяця. Ці зміни є частиною великої програми модернізації системи судових експертиз в Україні.</p>
-      <p>Основні оновлення стосуються:</p>
-      <ul>
-        <li>Запровадження цифрових технологій у процес проведення експертизи</li>
-        <li>Оновлення методології відповідно до міжнародних стандартів</li>
-        <li>Розширення переліку об'єктів дослідження</li>
-        <li>Деталізація вимог до оформлення експертних висновків</li>
-      </ul>
-      <p>Незалежний Інститут Судових Експертиз вже розпочав впровадження нових стандартів у свою роботу. Наші експерти пройшли необхідне навчання та готові застосовувати оновлені методики.</p>
-      <p>Ці зміни дозволять підвищити якість експертних досліджень та зменшити терміни їх проведення, що є важливим фактором для учасників судових процесів.</p>
-    `
-  },
-  {
-    ...newsItems[1],
-    content: `
-      <p>Незалежний Інститут Судових Експертиз розпочав надання нових послуг у сфері оціночної експертизи інтелектуальної власності. Відтепер наші клієнти можуть отримати кваліфіковану оцінку вартості торгових марок, патентів, авторських прав та інших нематеріальних активів.</p>
-      <p>Нові послуги включають:</p>
-      <ul>
-        <li>Оцінка вартості торгових марок та брендів</li>
-        <li>Експертиза патентів на винаходи та корисні моделі</li>
-        <li>Оцінка вартості авторських прав на літературні твори та програмне забезпечення</li>
-        <li>Експертиза об'єктів промислового дизайну</li>
-      </ul>
-      <p>Для проведення цих експертиз ми залучили команду професіоналів з великим досвідом роботи у сфері інтелектуальної власності, які мають міжнародні сертифікати та відповідну кваліфікацію.</p>
-      <p>Розширення спектру послуг є відповіддю на зростаючий попит на експертні дослідження у сфері інтелектуальної власності, зокрема у зв'язку з розвитком ІТ-індустрії та креативних галузей в Україні.</p>
-    `
-  },
-  {
-    ...newsItems[2],
-    content: `
-      <p>Підбито підсумки діяльності Незалежного Інституту Судових Експертиз за минулий рік. Згідно з річним звітом, кількість проведених експертиз зросла на 35% у порівнянні з попереднім роком.</p>
-      <p>Основні досягнення за звітний період:</p>
-      <ul>
-        <li>Загальна кількість проведених експертиз - понад 1200</li>
-        <li>Розширення штату експертів на 7 нових спеціалістів</li>
-        <li>Відкриття нового офісу у місті Львів</li>
-        <li>Запровадження 5 нових видів експертних досліджень</li>
-        <li>Проведення 15 навчальних семінарів для працівників юридичної сфери</li>
-      </ul>
-      <p>Найбільше зростання спостерігалося у сфері комп'ютерно-технічних експертиз (+47%) та будівельно-технічних експертиз (+41%), що відображає загальні тенденції розвитку економіки України.</p>
-      <p>На наступний рік заплановано подальше розширення діяльності інституту, зокрема, відкриття представництв у містах Одеса та Харків, а також впровадження нових технологічних рішень для підвищення ефективності експертних досліджень.</p>
-    `
-  }
-];
-
-// Add additional items with content
-const allNewsWithContent = [
-  ...fullNewsItems,
-  {
-    ...newsItems.find(item => item.id === 4),
-    content: `
-      <p>До команди Незалежного Інституту Судових Експертиз приєдналися п'ять нових висококваліфікованих експертів з різних спеціалізацій. Це частина нашої стратегії з розширення спектру послуг та підвищення якості експертних досліджень.</p>
-      <p>Нові члени команди:</p>
-      <ul>
-        <li>Доктор технічних наук, експерт у галузі інженерно-транспортних досліджень</li>
-        <li>Кандидат економічних наук, спеціаліст з фінансово-економічних експертиз</li>
-        <li>Експерт з комп'ютерно-технічних досліджень з 15-річним досвідом роботи</li>
-        <li>Спеціаліст з лінгвістичних експертиз, філолог з міжнародними сертифікатами</li>
-        <li>Експерт з мистецтвознавчих досліджень, який спеціалізується на оцінці предметів мистецтва</li>
-      </ul>
-      <p>Усі нові експерти пройшли ретельний відбір та мають відповідні сертифікати і ліцензії. Їхній досвід та знання дозволять нам надавати ще більш якісні та професійні послуги нашим клієнтам.</p>
-      <p>Ми продовжуємо інвестувати в розвиток нашого кадрового потенціалу, адже кваліфіковані фахівці - це основа якісних експертних досліджень.</p>
-    `
-  },
-  {
-    ...newsItems.find(item => item.id === 5),
-    content: `
-      <p>Методи проведення комп'ютерно-технічних експертиз, які використовуються в Незалежному Інституті Судових Експертиз, отримали міжнародну акредитацію від Європейської асоціації судових експертів. Це підтверджує відповідність наших методик найвищим міжнародним стандартам.</p>
-      <p>Акредитація поширюється на такі напрямки досліджень:</p>
-      <ul>
-        <li>Дослідження комп'ютерного обладнання та носіїв інформації</li>
-        <li>Аналіз програмного забезпечення та баз даних</li>
-        <li>Дослідження інформаційних систем та мереж</li>
-        <li>Встановлення обставин несанкціонованого доступу до комп'ютерних систем</li>
-      </ul>
-      <p>Отримання міжнародної акредитації є результатом багаторічної роботи наших експертів над удосконаленням методів дослідження та постійного підвищення їхньої кваліфікації.</p>
-      <p>Для наших клієнтів це означає, що експертні висновки, видані НІСЕ, матимуть вищий рівень довіри не лише в Україні, але й за кордоном, що особливо важливо для міжнародних судових процесів та комерційних спорів.</p>
-    `
-  }
-];
+import NewsArticleHeader from '../components/news/NewsArticleHeader';
+import NewsArticleContent from '../components/news/NewsArticleContent';
+import NewsNotFound from '../components/news/NewsNotFound';
+import { allNewsWithContent } from '../data/fullNewsData';
 
 const NewsArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -101,84 +17,23 @@ const NewsArticlePage = () => {
     window.scrollTo(0, 0);
   }, [slug]);
   
-  if (!article) {
-    return (
-      <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <main className="flex-grow pt-24 pb-16">
-          <div className="container-custom">
-            <Link to="/" className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-8 transition-colors">
-              <ArrowLeft className="h-5 w-5 mr-2" />
-              На головну
-            </Link>
-            <h1 className="text-2xl font-bold mb-4">Статтю не знайдено</h1>
-            <p className="mb-8">Запитана стаття не існує або була видалена.</p>
-            <Link 
-              to="/novini" 
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Повернутися до новин
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-  
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
       
       <main className="flex-grow pt-24 pb-16">
-        <div className="container-custom">
-          <div className="mb-6">
-            <div className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
-              <Link to="/" className="hover:text-blue-600 transition-colors">
-                Головна
-              </Link>
-              <ChevronRight className="h-4 w-4" />
-              <Link to="/novini" className="hover:text-blue-600 transition-colors">
-                Новини
-              </Link>
-              <ChevronRight className="h-4 w-4" />
-              <span className="truncate max-w-[200px]">{article.title}</span>
-            </div>
-          </div>
-          
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {article.title}
-            </h1>
-            
-            <div className="flex items-center mb-8">
-              <span className="text-sm text-gray-500">{article.date}</span>
-            </div>
-            
-            <div className="mb-8">
-              <img 
-                src={article.imageUrl} 
-                alt={article.title}
-                className="w-full h-auto rounded-lg shadow-md"
-              />
-            </div>
-            
-            <div 
-              className="prose prose-lg max-w-none mb-12" 
-              dangerouslySetInnerHTML={{ __html: article.content }}
+        {article ? (
+          <div className="container-custom">
+            <NewsArticleHeader 
+              title={article.title} 
+              date={article.date} 
+              imageUrl={article.imageUrl} 
             />
-            
-            <div className="border-t border-gray-200 pt-8 mt-8">
-              <Link 
-                to="/novini" 
-                className="inline-flex items-center text-blue-600 font-medium hover:underline"
-              >
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Назад до всіх новин
-              </Link>
-            </div>
+            <NewsArticleContent content={article.content} />
           </div>
-        </div>
+        ) : (
+          <NewsNotFound />
+        )}
       </main>
       
       <Footer />
