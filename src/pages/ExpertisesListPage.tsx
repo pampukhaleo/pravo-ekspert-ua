@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../componen
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 
 const ExpertisesListPage = () => {
-  // Перетворюємо об'єкт expertiseData на масив та додаємо slug
+  // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
     ...data,
