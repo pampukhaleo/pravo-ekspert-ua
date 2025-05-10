@@ -1,55 +1,73 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
+  const map = useRef<any>(null);
   const [mapboxToken, setMapboxToken] = useState<string>(() => {
     // Try to get token from localStorage if previously saved
     return localStorage.getItem('mapbox_token') || '';
   });
+  const [mapError, setMapError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!mapContainer.current || !mapboxToken) return;
 
-    try {
-      // Save token to localStorage for future visits
-      localStorage.setItem('mapbox_token', mapboxToken);
-
-      // Initialize map
-      mapboxgl.accessToken = mapboxToken;
-      
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        zoom: 14,
-        center: [30.516791, 50.515747], // Coordinates for Левка Лук'яненка, 21, Київ
-      });
-
-      // Add navigation controls
-      map.current.addControl(
-        new mapboxgl.NavigationControl(),
-        'top-right'
-      );
-
-      // Add marker
-      new mapboxgl.Marker()
-        .setLngLat([30.516791, 50.515747])
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<h3>НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ</h3><p>вул. Левка Лук\'яненка, 21, корпус 3, офіс 7</p>')
-        )
-        .addTo(map.current);
-    } catch (error) {
-      console.error("Error initializing map:", error);
+    // Clean up any previous map instance
+    if (map.current) {
+      map.current.remove();
+      map.current = null;
     }
+
+    // Reset error state
+    setMapError(null);
+
+    const initializeMap = async () => {
+      try {
+        // Save token to localStorage for future visits
+        localStorage.setItem('mapbox_token', mapboxToken);
+
+        // Dynamically import mapbox-gl to prevent SSR issues
+        const mapboxgl = await import('mapbox-gl');
+        
+        // Initialize map
+        mapboxgl.default.accessToken = mapboxToken;
+        
+        map.current = new mapboxgl.default.Map({
+          container: mapContainer.current,
+          style: 'mapbox://styles/mapbox/streets-v11',
+          zoom: 14,
+          center: [30.516791, 50.515747], // Coordinates for Левка Лук'яненка, 21, Київ
+        });
+
+        // Add navigation controls
+        map.current.addControl(
+          new mapboxgl.default.NavigationControl(),
+          'top-right'
+        );
+
+        // Add marker
+        new mapboxgl.default.Marker()
+          .setLngLat([30.516791, 50.515747])
+          .setPopup(
+            new mapboxgl.default.Popup({ offset: 25 })
+              .setHTML('<h3>НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ</h3><p>вул. Левка Лук\'яненка, 21, корпус 3, офіс 7</p>')
+          )
+          .addTo(map.current);
+      } catch (error) {
+        console.error("Error initializing map:", error);
+        setMapError("Помилка при завантаженні карти. Перевірте токен Mapbox.");
+      }
+    };
+
+    initializeMap();
 
     // Cleanup
     return () => {
       if (map.current) {
         map.current.remove();
+        map.current = null;
       }
     };
   }, [mapboxToken]);
@@ -94,6 +112,11 @@ const Map = () => {
       >
         {!mapboxToken && (
           <p className="text-gray-500">Введіть Mapbox токен для відображення карти</p>
+        )}
+        {mapError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-red-50 bg-opacity-70 rounded-lg">
+            <p className="text-red-600 p-4 text-center">{mapError}</p>
+          </div>
         )}
       </div>
     </div>
