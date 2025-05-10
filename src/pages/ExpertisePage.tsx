@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ExpertiseHeader from '../components/expertise/ExpertiseHeader';
@@ -9,9 +9,12 @@ import FAQ from '../components/expertise/FAQ';
 import WhyUs from '../components/expertise/WhyUs';
 import ConsultationButton from '../components/ConsultationButton';
 import { expertiseData } from '../data/expertiseData';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
+import { FileText, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [activeTab, setActiveTab] = useState('overview');
   
   // Резервні дані на випадок, якщо slug не збігається з жодною експертизою
   const defaultData = {
@@ -48,6 +51,14 @@ const ExpertisePage = () => {
   const backgroundImage = selectedDirection && selectedDirection.backgroundImage 
     ? selectedDirection.backgroundImage 
     : expertise.backgroundImage;
+
+  // Визначаємо етапи проведення експертизи (приклад даних)
+  const stages = [
+    { title: "Подання заяви", description: "Клієнт подає заяву на проведення експертизи із зазначенням необхідної інформації." },
+    { title: "Огляд матеріалів", description: "Наші експерти вивчають надані матеріали та визначають методологію дослідження." },
+    { title: "Проведення досліджень", description: "Виконання необхідних експериментів, вимірювань та аналізів за стандартами." },
+    { title: "Підготовка висновку", description: "Формування детального експертного висновку на основі проведених досліджень." }
+  ];
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -60,18 +71,111 @@ const ExpertisePage = () => {
           backgroundImage={backgroundImage}
         />
         
-        {!selectedDirection && <KeyDirections directions={expertise.directions} />}
-        
-        <section className="py-10">
-          <div className="container-custom">
-            <div 
-              className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: selectedDirection ? selectedDirection.fullContent : expertise.content }}
-            />
-          </div>
-        </section>
-        
-        <FAQ faqs={expertise.faqs || []} />
+        <div className="container-custom py-10">
+          <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab}>
+            <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 mb-8">
+              <TabsTrigger value="overview" className="flex gap-2 items-center">
+                <FileText size={18} />
+                <span>Огляд</span>
+              </TabsTrigger>
+              <TabsTrigger value="process" className="flex gap-2 items-center">
+                <CheckCircle size={18} />
+                <span>Етапи</span>
+              </TabsTrigger>
+              <TabsTrigger value="directions" className="flex gap-2 items-center">
+                <MessageSquare size={18} />
+                <span>Напрямки</span>
+              </TabsTrigger>
+              <TabsTrigger value="faq" className="flex gap-2 items-center">
+                <Clock size={18} />
+                <span>FAQ</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="animate-fade-in">
+              <div 
+                className="prose prose-lg max-w-none bg-white rounded-lg shadow-sm p-6"
+                dangerouslySetInnerHTML={{ __html: selectedDirection ? selectedDirection.fullContent : expertise.content }}
+              />
+            </TabsContent>
+            
+            <TabsContent value="process" className="animate-fade-in">
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Етапи проведення експертизи</h2>
+                <div className="relative">
+                  {/* Timeline connector */}
+                  <div className="absolute left-6 top-0 bottom-0 w-1 bg-gray-200 hidden md:block"></div>
+                  
+                  <div className="space-y-10">
+                    {stages.map((stage, index) => (
+                      <div key={index} className="flex flex-col md:flex-row items-start gap-4 md:gap-8 relative">
+                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-blue text-white font-bold text-lg z-10 flex-shrink-0">
+                          {index + 1}
+                        </div>
+                        <div className="bg-gray-50 rounded-lg p-6 shadow-sm border border-gray-100 flex-grow">
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">{stage.title}</h3>
+                          <p className="text-gray-600">{stage.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="directions" className="animate-fade-in">
+              {!selectedDirection && expertise.directions.length > 0 ? (
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-6">Напрямки експертизи</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {expertise.directions.map((direction, index) => (
+                      <Link
+                        key={index}
+                        to={`/ekspertyzy/${direction.slug}`}
+                        className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow flex flex-col h-full"
+                      >
+                        <h3 className="text-brand-blue font-semibold mb-3">{direction.title}</h3>
+                        {direction.description && (
+                          <p className="text-sm text-gray-600">{direction.description}</p>
+                        )}
+                        <div className="mt-auto pt-3">
+                          <span className="text-brand-blue text-sm font-medium">Детальніше →</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">Напрямки експертизи</h2>
+                  <p className="text-gray-600">
+                    {selectedDirection 
+                      ? "Це окремий напрямок експертизи." 
+                      : "Для даної експертизи немає додаткових напрямків."}
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+            
+            <TabsContent value="faq" className="animate-fade-in">
+              <FAQ faqs={expertise.faqs || []} />
+              {expertise.faqs?.length === 0 && (
+                <div className="bg-white rounded-lg shadow-sm p-6 text-center">
+                  <p className="text-gray-600">
+                    На даний момент немає часто задаваних питань для цієї експертизи.
+                    Ви можете задати своє питання через форму консультації.
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+          
+          {activeTab === 'overview' && !selectedDirection && expertise.directions.length > 0 && (
+            <div className="mt-10">
+              <KeyDirections directions={expertise.directions} />
+            </div>
+          )}
+        </div>
         
         <WhyUs />
         
