@@ -42,7 +42,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
               to={`/ekspertyzy/${direction.slug}`}
               className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all flex flex-col h-full group"
             >
-              <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center transition-transform group-hover:scale-105`}>
+              <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center`}>
                 {direction.icon ? (
                   <img src={direction.icon} alt={direction.title} className="h-12 w-12 object-contain" />
                 ) : (
@@ -58,7 +58,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
                 )}
                 <div className="flex items-center text-brand-blue mt-auto pt-2 opacity-80 group-hover:opacity-100 transition-opacity">
                   <span className="text-sm font-medium">Детальніше</span>
-                  <ArrowRight size={16} className="ml-2 transform transition-transform group-hover:translate-x-1" />
+                  <ArrowRight size={16} className="ml-2" />
                 </div>
               </div>
             </Link>

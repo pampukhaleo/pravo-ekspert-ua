@@ -13,7 +13,9 @@ const ExpertisesListPage = () => {
   // Перетворюємо об'єкт expertiseData на масив та додаємо slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
-    ...data
+    ...data,
+    // Ensure categories always exists
+    categories: data.categories || ['Загальні']
   }));
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,9 +24,7 @@ const ExpertisesListPage = () => {
 
   // Extract unique categories from expertise data
   const categories = Array.from(
-    new Set(expertiseList.flatMap(expertise => 
-      expertise.categories || ['Загальні']
-    ))
+    new Set(expertiseList.flatMap(expertise => expertise.categories))
   );
 
   // Filter expertises based on search term and selected category
@@ -33,7 +33,7 @@ const ExpertisesListPage = () => {
       expertise.description.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesCategory = selectedCategory ? 
-      (expertise.categories?.includes(selectedCategory) || false) : 
+      expertise.categories.includes(selectedCategory) : 
       true;
     
     return matchesSearch && matchesCategory;
@@ -46,16 +46,16 @@ const ExpertisesListPage = () => {
       <main className="flex-grow pt-32 pb-16">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 animate-fade-in">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Експертизи
             </h1>
-            <p className="text-lg text-gray-700 animate-fade-in delay-100">
+            <p className="text-lg text-gray-700">
               Ми надаємо широкий спектр експертних послуг у різних галузях. Оберіть потрібну вам експертизу з переліку нижче.
             </p>
           </div>
 
           {/* Search and filter section */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8 animate-fade-in delay-200">
+          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
@@ -117,7 +117,7 @@ const ExpertisesListPage = () => {
           </div>
 
           {/* Results count and filtering info */}
-          <div className="flex justify-between items-center mb-6 animate-fade-in delay-300">
+          <div className="flex justify-between items-center mb-6">
             <div className="text-gray-600">
               Знайдено результатів: <span className="font-semibold">{filteredExpertises.length}</span>
               {selectedCategory && <span className="ml-2">у категорії "<span className="font-semibold">{selectedCategory}</span>"</span>}
@@ -139,8 +139,7 @@ const ExpertisesListPage = () => {
                 <Link 
                   key={expertise.slug}
                   to={`/ekspertyzy/${expertise.slug}`}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full animate-fade-in"
-                  style={{animationDelay: `${index * 0.1 + 0.4}s`}}
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
                 >
                   <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-50 flex items-center justify-center p-6">
                     <FileText size={48} className="text-brand-blue" />
@@ -152,7 +151,7 @@ const ExpertisesListPage = () => {
                       <span className="text-brand-blue font-medium flex items-center gap-1">
                         Детальніше <ChevronRight size={16} />
                       </span>
-                      {expertise.categories && expertise.categories.length > 0 && (
+                      {expertise.categories.length > 0 && (
                         <span className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-600">
                           {expertise.categories[0]}
                         </span>
@@ -166,7 +165,7 @@ const ExpertisesListPage = () => {
           
           {/* List view */}
           {viewMode === 'list' && (
-            <div className="space-y-4 animate-fade-in delay-400">
+            <div className="space-y-4">
               <Accordion type="single" collapsible className="w-full">
                 {filteredExpertises.map((expertise) => (
                   <AccordionItem key={expertise.slug} value={expertise.slug} className="bg-white rounded-lg shadow-sm">
@@ -175,7 +174,7 @@ const ExpertisesListPage = () => {
                         <FileText size={24} className="text-brand-blue flex-shrink-0" />
                         <div>
                           <h3 className="font-medium text-gray-900">{expertise.title}</h3>
-                          {expertise.categories && expertise.categories.length > 0 && (
+                          {expertise.categories.length > 0 && (
                             <span className="text-xs px-2 py-0.5 bg-gray-100 rounded-full text-gray-600">
                               {expertise.categories[0]}
                             </span>
@@ -201,7 +200,7 @@ const ExpertisesListPage = () => {
           )}
 
           {filteredExpertises.length === 0 && (
-            <div className="text-center py-16 animate-fade-in">
+            <div className="text-center py-16">
               <div className="text-gray-400 flex justify-center mb-4">
                 <Search size={64} />
               </div>
@@ -212,7 +211,7 @@ const ExpertisesListPage = () => {
             </div>
           )}
           
-          <div className="mt-16 bg-gray-50 rounded-lg p-8 text-center animate-fade-in delay-500">
+          <div className="mt-16 bg-gray-50 rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Не знаєте, яка експертиза вам потрібна?</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
               Наші фахівці допоможуть обрати найбільш ефективне рішення для вашої ситуації. Зв'яжіться з нами для безкоштовної консультації.
