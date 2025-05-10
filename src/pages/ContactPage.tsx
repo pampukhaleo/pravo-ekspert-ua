@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import Map from '../components/Map';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -87,21 +87,8 @@ const ContactPage = () => {
               </div>
               
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Графік роботи</h2>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex justify-between">
-                    <span>Понеділок - П'ятниця</span>
-                    <span className="font-medium">9:00 - 18:00</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Субота</span>
-                    <span className="font-medium">10:00 - 15:00</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Неділя</span>
-                    <span className="font-medium">Вихідний</span>
-                  </li>
-                </ul>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Наше розташування</h2>
+                <Map />
               </div>
             </div>
             
