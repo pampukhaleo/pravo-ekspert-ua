@@ -14,7 +14,7 @@ const ExpertisesListPage = () => {
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
     ...data,
-    // Ensure categories always exists
+    // Ensure categories always exists with a default value if not present
     categories: data.categories || ['Загальні']
   }));
 
