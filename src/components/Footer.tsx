@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -90,19 +90,29 @@ const Footer: React.FC = () => {
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Phone className="h-5 w-5 mr-3 text-gray-400 mt-0.5" />
-                  <a href="tel:+380123456789" className="text-gray-400 hover:text-white transition-colors">
-                    +38 (012) 345-67-89
-                  </a>
+                  <div>
+                    <a href="tel:+380445813090" className="text-gray-400 hover:text-white transition-colors block">
+                      (044) 581 30 90
+                    </a>
+                    <a href="tel:+380503601682" className="text-gray-400 hover:text-white transition-colors block">
+                      (050) 360 16 82
+                    </a>
+                    <a href="tel:+380675555222" className="text-gray-400 hover:text-white transition-colors block">
+                      (067) 5555 222
+                    </a>
+                  </div>
                 </li>
                 <li className="flex items-start">
                   <Mail className="h-5 w-5 mr-3 text-gray-400 mt-0.5" />
-                  <a href="mailto:info@example.com" className="text-gray-400 hover:text-white transition-colors">
-                    info@example.com
+                  <a href="mailto:info@nise.com.ua" className="text-gray-400 hover:text-white transition-colors">
+                    info@nise.com.ua
                   </a>
                 </li>
-                <li className="text-gray-400 mt-4">
-                  м. Київ, вул. Примірна, 123<br />
-                  01234, Україна
+                <li className="flex items-start">
+                  <MapPin className="h-5 w-5 mr-3 text-gray-400 mt-0.5" />
+                  <span className="text-gray-400">
+                    04207, Україна, м. Київ, вул. Левка Лук'яненка, 21, корпус 3, офіс 7
+                  </span>
                 </li>
               </ul>
             </div>

@@ -62,8 +62,9 @@ const ContactPage = () => {
                     <Phone className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">Телефон</h3>
-                      <p className="text-gray-700">+38 (012) 345-67-89</p>
-                      <p className="text-gray-700">+38 (098) 765-43-21</p>
+                      <p className="text-gray-700">(044) 581 30 90</p>
+                      <p className="text-gray-700">(050) 360 16 82</p>
+                      <p className="text-gray-700">(067) 5555 222</p>
                     </div>
                   </div>
                   
@@ -71,7 +72,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">Email</h3>
-                      <p className="text-gray-700">info@example.com</p>
+                      <p className="text-gray-700">info@nise.com.ua</p>
                     </div>
                   </div>
                   
@@ -79,8 +80,7 @@ const ContactPage = () => {
                     <MapPin className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">Адреса</h3>
-                      <p className="text-gray-700">м. Київ, вул. Приклад, 123</p>
-                      <p className="text-gray-700">01001</p>
+                      <p className="text-gray-700">04207, Україна, м. Київ, вул. Левка Лук'яненка, 21, корпус 3, офіс 7</p>
                     </div>
                   </div>
                 </div>
