@@ -13,6 +13,7 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import NewsPage from "./pages/NewsPage";
 import NewsArticlePage from "./pages/NewsArticlePage";
+import ServicePage from "./pages/ServicePage";
 import NotFound from "./pages/NotFound";
 
 // ScrollToTop component to ensure pages start at the top
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/ekspertyzy" element={<ExpertisesListPage />} />
           <Route path="/ekspertyzy/:slug" element={<ExpertisePage />} />
+          <Route path="/posluhy/:slug" element={<ServicePage />} />
           <Route path="/tsiny" element={<PricingPage />} />
           <Route path="/kontakty" element={<ContactPage />} />
           <Route path="/pro-nas" element={<AboutPage />} />

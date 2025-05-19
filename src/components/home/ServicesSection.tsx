@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, Handshake, Users, ChevronRight } from 'lucide-react';
+import { FileText, Handshake, DollarSign, ChevronRight } from 'lucide-react';
 
 const services = [
   {
@@ -20,10 +20,10 @@ const services = [
   },
   {
     id: 3,
-    icon: Users,
-    title: "Консультація та допомога",
-    description: "Надаємо професійні консультації з питань проведення експертиз та вирішення спірних ситуацій.",
-    slug: "konsultatsiia-ta-dopomoha"
+    icon: DollarSign,
+    title: "Що входить у вартість",
+    description: "Докладний перелік послуг та робіт, які включені у вартість проведення експертизи.",
+    slug: "shcho-vkhodyt-u-vartist"
   },
 ];
 
@@ -43,18 +43,16 @@ const ServicesSection: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service) => (
-            <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
-              <div className="h-48 bg-gray-100 relative">
-                <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
-                  <service.icon className="h-10 w-10 text-white" />
-                </div>
-              </div>
+            <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
               <div className="p-6">
+                <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-brand-blue">
+                  <service.icon className="h-5 w-5" />
+                </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-5">{service.description}</p>
                 <Link 
-                  to={`/ekspertyzy/${service.slug}`} 
-                  className="inline-flex items-center text-gray-900 font-medium hover:underline"
+                  to={`/posluhy/${service.slug}`} 
+                  className="inline-flex items-center text-brand-blue font-medium hover:underline"
                 >
                   Дізнатися більше <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
@@ -66,7 +64,7 @@ const ServicesSection: React.FC = () => {
         <div className="mt-12 text-center">
           <Link 
             to="/kontakty" 
-            className="px-6 py-3 bg-gray-900 text-white rounded-md font-medium hover:bg-gray-800 transition-colors inline-flex items-center"
+            className="px-6 py-3 bg-brand-blue text-white rounded-md font-medium hover:bg-brand-dark transition-colors inline-flex items-center"
           >
             Замовити консультацію
           </Link>
