@@ -15,7 +15,7 @@ interface ExpertiseData {
     question: string;
     answer: string;
   }[];
-  categories?: string[]; // Make categories optional with the ? operator
+  categories: string[]; // Make categories optional with the ? operator
 }
 
 // Then declare the expertiseData using the interface
@@ -23,7 +23,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "budivelno-tekhnichna-ekspertyza": {
     title: "Будівельно-технічна експертиза",
     description: "Будівельна експертиза дозволяє перевірити технічний стан та відповідність будівлі будівельним нормам і правилам, при аварійних пригодах (затоплення, обвал, поява тріщин, дефектів і т.п.), а також при розділі приміщень та земельних ділянок, що перебувають у власності фізичних та юридичних осіб.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "budivelno-tehnichna.jpg",
     categories: ["Будівництво", "Нерухомість"],
     content: `
       <p>Об'єктами дослідження будівельної експертизи є: будівлі та споруди, приватні житлові будинки та квартири, приміщення під магазини і офіси, виробничі приміщення, склади, будівельні матеріали та відповідна технічна документація тощо.</p>
@@ -322,7 +322,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "ekonomichna-ekspertyza": {
     title: "ЕКОНОМІЧНА ЕКСПЕРТИЗА",
     description: "В рамках проведення економічної експертизи експерти аналізують фінансово-економічну діяльність підприємств, перевіряють достовірність проведених господарських операцій, які знайшли відображення в документах про економічну діяльність підприємств, фінансово-кредитні операції, бухгалтерський облік та звітність.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "ekonomichna.jpg",
     categories: ["Економіка", "Фінанси"],
     content: `
       <p>До об'єктів економічної експертизи відносяться:</p>
@@ -405,6 +405,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
     title: "КОМПЛЕКСНА ПОЖЕЖНА ТА ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Комплексна комісійна пожежно-технічна та електротехнічна експертиза встановлює причини та обставини виникнення пожежі та особливості її перебігу. Експертиза проводиться із залученням до роботи експертів кількох експертних спеціальностей, а також вузькопрофільних фахівців.",
     backgroundImage: "pozezna.jpg",
+    categories: ["Пожежа", "Електротехніка"],
     content: `
       <p>В рамках проведення пожежної та електротехнічної експертизи експерти НІСЕ встановлять:</p>
       <ul class="list-disc pl-6 space-y-2">
@@ -442,7 +443,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "avtotekhnichna-ekspertyza": {
     title: "АВТОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Автотехнічна експертиза проводиться з метою дослідження обставин та причин дорожньо-транспортних пригод",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "avtotehnichna.jpg",
+    categories: ["Авто", "Транспорт"],
     content: `
       <p>Ключові напрямки автотехнічної експертизи:</p>
       <ul class="list-disc pl-6 space-y-2">
@@ -476,7 +478,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "avtotovaroznavcha-ekspertyza": {
     title: "АВТОТОВАРОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Автотоварознавча експертиза проводиться з метою визначення ринкової вартості колісних транспортних засобів, їх складових, а також розміру вартості матеріальних збитків унаслідок пошкодження траспортного засобу, його вузлів та деталей.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "avtotovaroznavcha.webp",
+    categories: ["Авто", "Оцінка"],
     content: `
       <p>Головні завдання автотоварознавчої експертизи – визначення ринкової вартості колісних транспортних засобів в рамках судових справ, а також визначення розміру вартості матеріальних збитків, заподіяних власнику транспортного засобу в результаті дорожньо-транспортних пригод та інших аварій.</p>
 
@@ -506,6 +509,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
     title: "ТРАСОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Трасологічна експертиза вивчає сліди, слідоутворювальні поверхні, установлення властивостей та станів об'єктів, а також установлення механізму слідоутворення тощо.",
     backgroundImage: "trasologichna.gif",
+    categories: ["Криміналістика", "Сліди", "ДТП"],
     content: `
     <p>Трасологічна експертиза може призначатися:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -582,7 +586,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "ekolohichna-ekspertyza": {
     title: "ЕКОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Екологічна експертиза — це дослідження, аналіз і оцінка результатів господарської діяльності, яка може впливати або впливає на стан навколишнього природного середовища або здоров'я людей.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "ekologichna.jpg",
+    categories: ["Екологія", "Довкілля"],
     content: `
     <p>Одним з показників соціальної відповідальності бізнесу є турбота про навколишнє середовище. Проведення екологічної експертизи має на меті попередити згубний вплив наслідків діяльності людини на екологію та здоров'я.</p>
     <p>Експертиза допомагає вирішувати спори з державними органами щодо охорони атмосферного повітря, водних і земельних ресурсів, поводження з відходами та небезпечними речовинами.</p>
@@ -614,7 +619,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "tovaroznavcha-ekspertyza": {
     title: "ТОВАРОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Товарознавча експертиза проводиться з метою дослідження якостей споживчих і промислових товарів, обладнання, меблів.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "tovaroznavcha.jpg",
+    categories: ["Товари", "Оцінка"],
     content: `
     <p>Товарознавча експертиза дозволяє визначити якість, походження, вартість товарів, а також оцінити розмір збитків при пошкодженні майна (затоплення, пожежа).</p>
     <p>Експерти НІСЕ:</p>
@@ -644,7 +650,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "kompiuterno-tekhnichna-ekspertyza": {
     title: "КОМП'ЮТЕРНО-ТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Комп'ютерно-технічна експертиза досліджує характеристики цифрового обладнання і програмного забезпечення.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "komp-tehnichna.jpg",
+    categories: ["Комп'ютери", "Цифрова техніка"],
     content: `
     <p>Експерти НІСЕ:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -683,7 +690,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "psykholohichna-ekspertyza": {
     title: "ПСИХОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Експерти НІСЕ проводять психологічну експертизу моральної шкоди та визначення її розміру.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "psyhologichna.jpg",
+    categories: ["Психологія", "Моральна шкода"],
     content: `
     <p>Психологічна експертиза встановлює факт завдання моральної шкоди, її глибину та розмір компенсації.</p>
     <p>Необхідні умови:</p>
@@ -712,7 +720,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "semantyko-tekstualna-ekspertyza": {
     title: "СЕМАНТИКО-ТЕКСТУАЛЬНА ЕКСПЕРТИЗА",
     description: "Семантико-текстуальна експертиза досліджує писемне мовлення з метою встановлення наявності чи відсутності у ньому висловлювань, які містять негативну інформацію, негативні емоційні оцінки тощо.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "semantyko-tekstualna.jpg",
+    categories: ["Мова", "Лінгвістика"],
     content: `
     <p>В рамках проведення семантико-текстуальної (лінгвістичної) експертизи експерти НІСЕ:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -741,7 +750,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "pocherkoznavcha-ekspertyza": {
     title: "ПОЧЕРКОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Почеркознавча експертиза — ідентифікація виконавця рукописного тексту або підпису.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "pocherkoznavcha.jpg",
+    categories: ["Почерк"],
     content: `
     <p>Почеркознавча експертиза встановлює факт виконання підпису або рукопису конкретною особою, факт підробки, стан виконавця під час написання тощо.</p>
     <p>Об'єкти експертизи:</p>
@@ -776,6 +786,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
     title: "ЕКСПЕРТИЗА ОБ'ЄКТІВ ІНТЕЛЕКТУАЛЬНОЇ ВЛАСНОСТІ",
     description: "Дослідження властивостей, ознак, законності створення та використання об'єктів інтелектуальної власності, оцінка збитків.",
     backgroundImage: "intvlasnist.jpg",
+    categories: ["Інтелектуальна власність", "Авторство"],
     content: `
     <p>В рамках експертизи об'єктів інтелектуальної власності експерти НІСЕ:</p>
     <ul class="list-disc pl-6 space-y-2">
@@ -805,6 +816,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
     title: "МИСТЕЦТВОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Експертиза автентичності, авторства, стану збереження та ринкової вартості творів мистецтва.",
     backgroundImage: "mystectvo.jpg",
+    categories: ["Мистецтво", "Антикваріат"],
     content: `
     <p>Експерти НІСЕ встановлюють автентичність, авторство, стан збереження, дату створення творів мистецтва та визначають їх ринкову вартість.</p>
     <p>Об'єкти: живопис, скульптура, антикваріат, об'єкти нумізматики, старовинні книги тощо.</p>
@@ -845,7 +857,8 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "naukovo-pravova-ekspertyza": {
     title: "НАУКОВО-ПРАВОВА ЕКСПЕРТИЗА",
     description: "Науково-правова експертиза — дослідження норм законодавства, судової практики, правочинів, договорів.",
-    backgroundImage: "photo-1426604966848-d7adac402bff",
+    backgroundImage: "naukovo-pravova.jpg",
+    categories: ["Право", "Юриспруденція"],
     content: `
     <p>Експерти НІСЕ проводять науково-правову експертизу для аналізу:</p>
     <ul class="list-disc pl-6 space-y-2">
