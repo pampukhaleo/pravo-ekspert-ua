@@ -33,7 +33,7 @@ const ExpertiseCarousel = () => {
           </p>
         </div>
 
-        <div className="relative px-10">
+        <div className="relative">
           <Carousel
             opts={{
               align: "start",
@@ -41,17 +41,31 @@ const ExpertiseCarousel = () => {
             }}
             className="w-full"
           >
+            <div className="flex justify-end space-x-2 mb-4">
+              <CarouselPrevious 
+                className="relative inset-auto bg-white hover:bg-gray-50 border border-gray-200 shadow-sm"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700" />
+              </CarouselPrevious>
+              
+              <CarouselNext 
+                className="relative inset-auto bg-white hover:bg-gray-50 border border-gray-200 shadow-sm"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-700" />
+              </CarouselNext>
+            </div>
+            
             <CarouselContent className="-ml-4">
               {expertises.map((expertise) => (
                 <CarouselItem key={expertise.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                   <Link to={`/ekspertyzy/${expertise.slug}`}>
-                    <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+                    <Card className="h-full hover:shadow-lg transition-shadow duration-300 group">
                       <CardHeader className="p-0">
                         <div className="aspect-[4/3] relative overflow-hidden rounded-t-lg">
                           <img 
                             src={expertise.image} 
                             alt={expertise.title}
-                            className="object-cover w-full h-full"
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
                       </CardHeader>
@@ -66,18 +80,6 @@ const ExpertiseCarousel = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
-            <CarouselPrevious 
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-200 shadow-md"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
-            </CarouselPrevious>
-            
-            <CarouselNext 
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-200 shadow-md"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-700" />
-            </CarouselNext>
           </Carousel>
         </div>
       </div>
