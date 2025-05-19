@@ -43,21 +43,22 @@ const ServicesSection: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service) => (
-            <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+            <Link 
+              key={service.id}
+              to={`/posluhy/${service.slug}`}
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group cursor-pointer"
+            >
               <div className="p-6">
                 <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-brand-blue">
                   <service.icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-5">{service.description}</p>
-                <Link 
-                  to={`/posluhy/${service.slug}`} 
-                  className="inline-flex items-center text-brand-blue font-medium hover:underline"
-                >
+                <span className="inline-flex items-center text-brand-blue font-medium group-hover:underline">
                   Дізнатися більше <ChevronRight className="ml-1 h-4 w-4" />
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         
