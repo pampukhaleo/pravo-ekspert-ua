@@ -1,164 +1,22 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import React from 'react';
 
 // Default location for "вул. Левка Лук'яненка, 21, корпус 3, офіс 7"
-const DEFAULT_COORDINATES = {
-  lng: 30.516791,
-  lat: 50.451574
-};
-
-// Default public token - this is a public token that can be used for development
-// In production, it's recommended to use your own token
-const DEFAULT_MAPBOX_TOKEN = 'pk.eyJ1IjoibG92YWJsZSIsImEiOiJjbHY3NHB1NjEwMXF5MmpvN2w1YmFxNGVrIn0.Qw_TzRxVkkwFytNL_fHPkA';
+const DEFAULT_ADDRESS = "вул. Левка Лук'яненка, 21, корпус 3, офіс 7, Київ, Україна";
 
 const Map = () => {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<any>(null);
-  const [mapboxToken, setMapboxToken] = useState<string>(() => {
-    // Try to get token from localStorage if previously saved, otherwise use default
-    return localStorage.getItem('mapbox_token') || DEFAULT_MAPBOX_TOKEN;
-  });
-  const [mapError, setMapError] = useState<string | null>(null);
-  const [mapLoaded, setMapLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!mapContainer.current) return;
-
-    // Clean up any previous map instance
-    if (map.current) {
-      map.current.remove();
-      map.current = null;
-      setMapLoaded(false);
-    }
-
-    // Reset error state
-    setMapError(null);
-
-    if (!mapboxToken) return;
-
-    const initializeMap = async () => {
-      try {
-        // Save token to localStorage for future visits
-        if (mapboxToken !== DEFAULT_MAPBOX_TOKEN) {
-          localStorage.setItem('mapbox_token', mapboxToken);
-        }
-
-        // Dynamically import mapbox-gl to prevent SSR issues
-        const mapboxgl = await import('mapbox-gl');
-        
-        // Initialize map
-        mapboxgl.default.accessToken = mapboxToken;
-        
-        map.current = new mapboxgl.default.Map({
-          container: mapContainer.current,
-          style: 'mapbox://styles/mapbox/streets-v11',
-          zoom: 15,
-          center: [DEFAULT_COORDINATES.lng, DEFAULT_COORDINATES.lat],
-        });
-
-        // Add navigation controls
-        map.current.addControl(
-          new mapboxgl.default.NavigationControl(),
-          'top-right'
-        );
-
-        // Add marker
-        new mapboxgl.default.Marker()
-          .setLngLat([DEFAULT_COORDINATES.lng, DEFAULT_COORDINATES.lat])
-          .setPopup(
-            new mapboxgl.default.Popup({ offset: 25 })
-              .setHTML('<h3>НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ</h3><p>вул. Левка Лук\'яненка, 21, корпус 3, офіс 7</p>')
-          )
-          .addTo(map.current);
-          
-        map.current.on('load', () => {
-          setMapLoaded(true);
-        });
-      } catch (error) {
-        console.error("Error initializing map:", error);
-        setMapError("Помилка при завантаженні карти. Перевірте токен Mapbox.");
-      }
-    };
-
-    initializeMap();
-
-    // Cleanup
-    return () => {
-      if (map.current) {
-        map.current.remove();
-        map.current = null;
-      }
-    };
-  }, [mapboxToken]);
-
-  const handleTokenSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const input = document.getElementById('mapbox-token') as HTMLInputElement;
-    if (input && input.value) {
-      setMapboxToken(input.value);
-    }
-  };
-
   return (
-    <div className="space-y-4">
-      {!mapboxToken && (
-        <form onSubmit={handleTokenSubmit} className="mb-4">
-          <label htmlFor="mapbox-token" className="block text-sm font-medium text-gray-700 mb-1">
-            Для відображення карти, введіть Mapbox токен
-          </label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              id="mapbox-token"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              placeholder="pk.eyJ1IjoieW91..."
-            />
-            <button 
-              type="submit"
-              className="bg-brand-blue hover:bg-brand-light text-white px-4 py-2 rounded-md transition-colors"
-            >
-              Зберегти
-            </button>
-          </div>
-          <p className="text-xs text-gray-500 mt-1">
-            Отримати токен можна на сайті <a href="https://mapbox.com" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">mapbox.com</a>
-          </p>
-        </form>
-      )}
-      
-      <div 
-        ref={mapContainer}
-        className={`w-full h-96 rounded-lg shadow-md ${!mapboxToken ? 'bg-gray-100 flex items-center justify-center' : ''}`}
-      >
-        {!mapboxToken && (
-          <p className="text-gray-500">Введіть Mapbox токен для відображення карти</p>
-        )}
-        {mapError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-red-50 bg-opacity-70 rounded-lg">
-            <p className="text-red-600 p-4 text-center">{mapError}</p>
-          </div>
-        )}
-        {!mapLoaded && mapboxToken && !mapError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-70 rounded-lg">
-            <p className="text-gray-600 p-4 text-center">Завантаження карти...</p>
-          </div>
-        )}
-      </div>
-      
-      {mapboxToken && mapboxToken !== DEFAULT_MAPBOX_TOKEN && (
-        <div className="flex justify-end">
-          <button
-            onClick={() => {
-              localStorage.removeItem('mapbox_token');
-              setMapboxToken(DEFAULT_MAPBOX_TOKEN);
-            }}
-            className="text-sm text-gray-500 hover:text-gray-700"
-          >
-            Використати стандартний токен
-          </button>
-        </div>
-      )}
+    <div className="w-full h-96 rounded-lg shadow-md overflow-hidden">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.0732708086186!2d30.51425880000001!3d50.4519218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0dc3eecc05%3A0xdce2a0cd34f38c18!2z0LLRg9C7LiDQm9C10LLQutCwINCb0YPQuifRj9C90LXQvdC60LAsIDIxLCDQmtC40ZfQsiwgMDQyMDc!5e0!3m2!1suk!2sua!4v1716119417372!5m2!1suk!2sua"
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title="НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ Location"
+      ></iframe>
     </div>
   );
 };
