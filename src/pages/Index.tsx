@@ -10,6 +10,7 @@ import EventsCalendar from '../components/home/EventsCalendar';
 import VideoRecordings from '../components/home/VideoRecordings';
 import NewsSection from '../components/home/NewsSection';
 import FaqSection from '../components/home/FaqSection';
+import AboutSection from '../components/home/AboutSection';
 
 const Index = () => {
   // Ensure we start at the top of the page
@@ -24,6 +25,7 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <ExpertiseCarousel />
+        <AboutSection />
         <PartnersSection />
         <ServicesSection />
         <EventsCalendar />

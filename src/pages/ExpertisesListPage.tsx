@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
 import { expertiseData } from '../data/expertiseData';
-import { FileText, Search, Filter, ChevronRight } from 'lucide-react';
+import { Search, Filter, ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 
@@ -141,8 +140,16 @@ const ExpertisesListPage = () => {
                   to={`/ekspertyzy/${expertise.slug}`}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
                 >
-                  <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-50 flex items-center justify-center p-6">
-                    <FileText size={48} className="text-brand-blue" />
+                  <div className="h-40 bg-blue-50 flex items-center justify-center p-0 overflow-hidden">
+                    {expertise.imagePath ? (
+                      <img 
+                        src={expertise.imagePath} 
+                        alt={expertise.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-r from-blue-100 to-blue-50" />
+                    )}
                   </div>
                   <div className="p-6 flex flex-col h-full">
                     <h2 className="text-xl font-semibold text-gray-900 mb-2">{expertise.title}</h2>
@@ -171,7 +178,15 @@ const ExpertisesListPage = () => {
                   <AccordionItem key={expertise.slug} value={expertise.slug} className="bg-white rounded-lg shadow-sm">
                     <AccordionTrigger className="px-4 py-4 hover:no-underline">
                       <div className="flex items-center gap-3 text-left">
-                        <FileText size={24} className="text-brand-blue flex-shrink-0" />
+                        {expertise.imagePath ? (
+                          <img 
+                            src={expertise.imagePath} 
+                            alt={expertise.title}
+                            className="w-10 h-10 object-cover rounded-md flex-shrink-0" 
+                          />
+                        ) : (
+                          <div className="w-10 h-10 bg-blue-100 rounded-md flex-shrink-0" />
+                        )}
                         <div>
                           <h3 className="font-medium text-gray-900">{expertise.title}</h3>
                           {expertise.categories.length > 0 && (
