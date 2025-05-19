@@ -38,7 +38,7 @@ const faqs = [
 
 const FaqSection: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-16 md:py-24">
       <div className="container-custom">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">

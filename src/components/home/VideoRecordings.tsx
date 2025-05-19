@@ -7,27 +7,27 @@ import { Youtube } from 'lucide-react';
 const videoRecordings = [
   {
     id: 1,
-    title: 'Вебінар: Будівельно-технічна експертиза в судовій практиці',
-    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    duration: '45:18',
+    title: 'Вебінар: Cемантико-текстуальна експертиза писемного мовлення.',
+    thumbnailUrl: 'https://i9.ytimg.com/vi/YeVV3lGKiDA/maxresdefault.jpg?v=67f408e4&sqp=CPSVrcEG&rs=AOn4CLDq2XkeXcpG_6AppLNiZ97kxmR5Ww',
+    videoUrl: 'https://www.youtube.com/live/YeVV3lGKiDA?si=NDBQdxjIRs9OfHfg',
+    duration: '1:16:37',
     date: '15.04.2025'
   },
   {
     id: 2,
-    title: 'Експертна оцінка: правові аспекти та практичні поради',
-    thumbnailUrl: 'https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-    duration: '38:42',
-    date: '22.03.2025'
+    title: 'Вебінар: Судово-психологічна експертиза у справах щодо відшкодування моральної шкоди',
+    thumbnailUrl: 'https://i9.ytimg.com/vi/lX8lu41SQKY/maxresdefault.jpg?v=67dd8a23&sqp=CKCYrcEG&rs=AOn4CLC8gqZ4LA8peDg-cp2BLf4lLFwDzQ',
+    videoUrl: 'https://youtube.com/live/lX8lu41SQKY',
+    duration: '1:12:02',
+    date: '01.04.2025'
   },
   {
     id: 3,
-    title: 'Земельно-технічна експертиза: від заяви до висновку',
-    thumbnailUrl: 'https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
-    duration: '52:07',
-    date: '10.02.2025'
+    title: 'Вебінар: «Почеркознавча експертиза: сучасні методики, європейський досвід та практичні аспекти',
+    thumbnailUrl: 'https://i9.ytimg.com/vi/drNvUYSsAxU/maxresdefault.jpg?v=67bc91a3&sqp=CKCYrcEG&rs=AOn4CLBOKy7OOg4qrArWN1Z6BFav05phDg',
+    videoUrl: 'https://youtube.com/live/drNvUYSsAxU',
+    duration: '1:34:07',
+    date: '04.03.2025'
   }
 ];
 
@@ -83,7 +83,7 @@ const VideoRecordings: React.FC = () => {
         
         <div className="mt-10 text-center">
           <a 
-            href="https://www.youtube.com/channel/CHANNEL_ID"
+            href="https://www.youtube.com/@%D0%9D%D0%B5%D0%B7%D0%B0%D0%BB%D0%B5%D0%B6%D0%BD%D0%B8%D0%B9%D0%86%D0%BD%D1%81%D1%82%D0%B8%D1%82%D1%83%D1%82%D0%A1%D1%83%D0%B4%D0%BE%D0%B2%D0%B8%D1%85%D0%95%D0%BA%D1%81%D0%BF%D0%B5/streams"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-gray-900 font-medium hover:underline"
