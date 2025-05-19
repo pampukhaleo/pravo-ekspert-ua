@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  const whiteBackgroundRoutes = ['/ekspertyzy', '/kontakty', '/tsiny', '/pro-nas'];
+  const whiteBackgroundRoutes = ['/ekspertyzy', '/kontakty', '/tsiny', '/pro-nas', '/posluhy/ekspertne-doslidzhennia-za-zaiavoiu', '/posluhy/ekspertyza-za-ukhvaloiu-sudu', '/posluhy/shcho-vkhodyt-u-vartist'];
   const isExactWhiteBgPage = whiteBackgroundRoutes.includes(location.pathname);
 
   const headerClasses = isExactWhiteBgPage
