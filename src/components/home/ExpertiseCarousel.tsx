@@ -67,19 +67,19 @@ const ExpertiseCarousel = () => {
               ))}
             </CarouselContent>
             
-            <div className="flex justify-center items-center mt-12 gap-6">
+            <div className="flex justify-center items-center mt-10 gap-4">
               <CarouselPrevious 
-                className="relative inset-auto h-14 px-8 py-4 bg-brand-blue hover:bg-brand-dark text-white border-none rounded-md shadow-md flex items-center justify-center transition-colors duration-300"
+                className="relative inset-auto h-12 px-6 py-3 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm flex items-center justify-center"
               >
-                <ChevronLeft className="w-6 h-6 text-white mr-2" />
-                <span className="text-white font-medium text-lg">Попередня</span>
+                <ChevronLeft className="w-5 h-5 text-gray-700 mr-2" />
+                <span className="text-gray-700 font-medium">Попередня</span>
               </CarouselPrevious>
               
               <CarouselNext 
-                className="relative inset-auto h-14 px-8 py-4 bg-brand-blue hover:bg-brand-dark text-white border-none rounded-md shadow-md flex items-center justify-center transition-colors duration-300"
+                className="relative inset-auto h-12 px-6 py-3 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm flex items-center justify-center"
               >
-                <span className="text-white font-medium text-lg">Наступна</span>
-                <ChevronRight className="w-6 h-6 text-white ml-2" />
+                <span className="text-gray-700 font-medium">Наступна</span>
+                <ChevronRight className="w-5 h-5 text-gray-700 ml-2" />
               </CarouselNext>
             </div>
           </Carousel>
