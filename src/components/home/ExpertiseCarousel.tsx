@@ -10,6 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { expertiseData } from "@/data/expertiseData";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ExpertiseCarousel = () => {
   // Перетворюємо об'єкт expertiseData на масив
@@ -32,7 +33,7 @@ const ExpertiseCarousel = () => {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative px-10">
           <Carousel
             opts={{
               align: "start",
@@ -65,8 +66,18 @@ const ExpertiseCarousel = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-0" />
-            <CarouselNext className="right-0" />
+            
+            <CarouselPrevious 
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-200 shadow-md"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-700" />
+            </CarouselPrevious>
+            
+            <CarouselNext 
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-200 shadow-md"
+            >
+              <ChevronRight className="w-5 h-5 text-gray-700" />
+            </CarouselNext>
           </Carousel>
         </div>
       </div>
