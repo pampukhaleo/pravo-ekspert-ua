@@ -1,10 +1,13 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Map from '../components/Map';
+import { useToast } from "@/components/ui/use-toast";
 
 const ContactPage = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,8 +15,6 @@ const ContactPage = () => {
     message: '',
     expertise: 'Не обрано'
   });
-  
-  const [isSubmitted, setIsSubmitted] = useState(false);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -24,7 +25,14 @@ const ContactPage = () => {
     e.preventDefault();
     // У реальному додатку тут буде відправка даних на сервер
     console.log('Форма відправлена:', formData);
-    setIsSubmitted(true);
+    
+    // Показуємо повідомлення про успішну відправку
+    toast({
+      title: "Повідомлення надіслано",
+      description: "Дякуємо за звернення! Ми зв'яжемося з вами найближчим часом.",
+      variant: "default",
+    });
+    
     // Скидання форми після відправки
     setFormData({
       name: '',
@@ -33,8 +41,6 @@ const ContactPage = () => {
       message: '',
       expertise: 'Не обрано'
     });
-    // Скидання статусу відправки через 5 секунд
-    setTimeout(() => setIsSubmitted(false), 5000);
   };
   
   return (
@@ -94,13 +100,6 @@ const ContactPage = () => {
             
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Форма зворотного зв'язку</h2>
-              
-              {isSubmitted ? (
-                <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 mb-6">
-                  <p className="font-medium">Дякуємо за звернення!</p>
-                  <p>Ми зв'яжемося з вами найближчим часом.</p>
-                </div>
-              ) : null}
               
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">

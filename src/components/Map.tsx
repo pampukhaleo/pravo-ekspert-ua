@@ -2,6 +2,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+// Default location for "вул. Левка Лук'яненка, 21, корпус 3, офіс 7"
+const DEFAULT_COORDINATES = {
+  lng: 30.516791,
+  lat: 50.451574
+};
+
 const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
@@ -10,18 +16,22 @@ const Map = () => {
     return localStorage.getItem('mapbox_token') || '';
   });
   const [mapError, setMapError] = useState<string | null>(null);
+  const [mapLoaded, setMapLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!mapContainer.current || !mapboxToken) return;
+    if (!mapContainer.current) return;
 
     // Clean up any previous map instance
     if (map.current) {
       map.current.remove();
       map.current = null;
+      setMapLoaded(false);
     }
 
     // Reset error state
     setMapError(null);
+
+    if (!mapboxToken) return;
 
     const initializeMap = async () => {
       try {
@@ -37,8 +47,8 @@ const Map = () => {
         map.current = new mapboxgl.default.Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/streets-v11',
-          zoom: 14,
-          center: [30.516791, 50.515747], // Coordinates for Левка Лук'яненка, 21, Київ
+          zoom: 15,
+          center: [DEFAULT_COORDINATES.lng, DEFAULT_COORDINATES.lat],
         });
 
         // Add navigation controls
@@ -49,12 +59,16 @@ const Map = () => {
 
         // Add marker
         new mapboxgl.default.Marker()
-          .setLngLat([30.516791, 50.515747])
+          .setLngLat([DEFAULT_COORDINATES.lng, DEFAULT_COORDINATES.lat])
           .setPopup(
             new mapboxgl.default.Popup({ offset: 25 })
               .setHTML('<h3>НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ</h3><p>вул. Левка Лук\'яненка, 21, корпус 3, офіс 7</p>')
           )
           .addTo(map.current);
+          
+        map.current.on('load', () => {
+          setMapLoaded(true);
+        });
       } catch (error) {
         console.error("Error initializing map:", error);
         setMapError("Помилка при завантаженні карти. Перевірте токен Mapbox.");
@@ -106,6 +120,7 @@ const Map = () => {
           </p>
         </form>
       )}
+      
       <div 
         ref={mapContainer}
         className={`w-full h-96 rounded-lg shadow-md ${!mapboxToken ? 'bg-gray-100 flex items-center justify-center' : ''}`}
@@ -118,7 +133,26 @@ const Map = () => {
             <p className="text-red-600 p-4 text-center">{mapError}</p>
           </div>
         )}
+        {!mapLoaded && mapboxToken && !mapError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-70 rounded-lg">
+            <p className="text-gray-600 p-4 text-center">Завантаження карти...</p>
+          </div>
+        )}
       </div>
+      
+      {mapboxToken && (
+        <div className="flex justify-end">
+          <button
+            onClick={() => {
+              localStorage.removeItem('mapbox_token');
+              setMapboxToken('');
+            }}
+            className="text-sm text-gray-500 hover:text-gray-700"
+          >
+            Змінити токен
+          </button>
+        </div>
+      )}
     </div>
   );
 };

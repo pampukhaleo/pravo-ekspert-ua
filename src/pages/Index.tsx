@@ -30,6 +30,7 @@ const Index = () => {
         <EventsCalendar />
         <VideoRecordings />
         {/*<NewsSection />*/}
+        <AboutSection />
         <FaqSection />
       </main>
       
