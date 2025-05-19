@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import EventCard from './events/EventCard';
 import CalendarView from './events/CalendarView';
@@ -51,16 +50,6 @@ const EventsCalendar: React.FC = () => {
         </div>
         
         {showCalendar && <CalendarView events={events} date={date} setDate={setDate} />}
-
-        <div className="mt-10 text-center">
-          <Link 
-            to="/zakhodi"
-            className="text-blue-600 font-medium hover:underline flex items-center justify-center gap-2"
-          >
-            Переглянути архів заходів
-            <CalendarIcon className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
     </section>
   );
