@@ -141,9 +141,9 @@ const ExpertisesListPage = () => {
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
                 >
                   <div className="h-40 bg-blue-50 flex items-center justify-center p-0 overflow-hidden">
-                    {expertise.imagePath ? (
+                    {expertise.backgroundImage ? (
                       <img 
-                        src={expertise.imagePath} 
+                        src={expertise.backgroundImage}
                         alt={expertise.title} 
                         className="w-full h-full object-cover"
                       />
@@ -178,9 +178,9 @@ const ExpertisesListPage = () => {
                   <AccordionItem key={expertise.slug} value={expertise.slug} className="bg-white rounded-lg shadow-sm">
                     <AccordionTrigger className="px-4 py-4 hover:no-underline">
                       <div className="flex items-center gap-3 text-left">
-                        {expertise.imagePath ? (
+                        {expertise.backgroundImage ? (
                           <img 
-                            src={expertise.imagePath} 
+                            src={expertise.backgroundImage}
                             alt={expertise.title}
                             className="w-10 h-10 object-cover rounded-md flex-shrink-0" 
                           />

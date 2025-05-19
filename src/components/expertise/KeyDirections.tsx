@@ -42,17 +42,10 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
               to={`/ekspertyzy/${direction.slug}`}
               className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all flex flex-col h-full group"
             >
-              <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center`}>
-                {direction.icon ? (
-                  <img src={direction.icon} alt={direction.title} className="h-12 w-12 object-contain" />
-                ) : (
-                  <div className="h-12 w-12 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
-                    <span className="text-xl font-bold text-gray-700">{direction.title.charAt(0)}</span>
-                  </div>
-                )}
+              <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center p-5`}>
+                <span className="font-bold text-gray-700">{ direction.title }</span>
               </div>
               <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-brand-blue font-semibold mb-3 group-hover:text-brand-light transition-colors">{direction.title}</h3>
                 {direction.description && (
                   <p className="text-sm text-gray-600 mb-4 flex-grow">{direction.description}</p>
                 )}
