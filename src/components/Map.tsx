@@ -8,12 +8,16 @@ const DEFAULT_COORDINATES = {
   lat: 50.451574
 };
 
+// Default public token - this is a public token that can be used for development
+// In production, it's recommended to use your own token
+const DEFAULT_MAPBOX_TOKEN = 'pk.eyJ1IjoibG92YWJsZSIsImEiOiJjbHY3NHB1NjEwMXF5MmpvN2w1YmFxNGVrIn0.Qw_TzRxVkkwFytNL_fHPkA';
+
 const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
   const [mapboxToken, setMapboxToken] = useState<string>(() => {
-    // Try to get token from localStorage if previously saved
-    return localStorage.getItem('mapbox_token') || '';
+    // Try to get token from localStorage if previously saved, otherwise use default
+    return localStorage.getItem('mapbox_token') || DEFAULT_MAPBOX_TOKEN;
   });
   const [mapError, setMapError] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState<boolean>(false);
@@ -36,7 +40,9 @@ const Map = () => {
     const initializeMap = async () => {
       try {
         // Save token to localStorage for future visits
-        localStorage.setItem('mapbox_token', mapboxToken);
+        if (mapboxToken !== DEFAULT_MAPBOX_TOKEN) {
+          localStorage.setItem('mapbox_token', mapboxToken);
+        }
 
         // Dynamically import mapbox-gl to prevent SSR issues
         const mapboxgl = await import('mapbox-gl');
@@ -140,16 +146,16 @@ const Map = () => {
         )}
       </div>
       
-      {mapboxToken && (
+      {mapboxToken && mapboxToken !== DEFAULT_MAPBOX_TOKEN && (
         <div className="flex justify-end">
           <button
             onClick={() => {
               localStorage.removeItem('mapbox_token');
-              setMapboxToken('');
+              setMapboxToken(DEFAULT_MAPBOX_TOKEN);
             }}
             className="text-sm text-gray-500 hover:text-gray-700"
           >
-            Змінити токен
+            Використати стандартний токен
           </button>
         </div>
       )}
