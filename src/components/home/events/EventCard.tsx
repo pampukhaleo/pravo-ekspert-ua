@@ -13,9 +13,10 @@ interface EventProps {
     description: string;
   };
   toggleCalendar?: () => void;
+  showCalendar?: boolean;
 }
 
-const EventCard: React.FC<EventProps> = ({ event, toggleCalendar }) => {
+const EventCard: React.FC<EventProps> = ({ event, toggleCalendar, showCalendar }) => {
   return (
     <div className="flex flex-col md:flex-row gap-6">
       <div className="md:w-1/5">
@@ -39,23 +40,24 @@ const EventCard: React.FC<EventProps> = ({ event, toggleCalendar }) => {
         <p className="text-gray-600 mb-6">
           {event.description}
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a 
-            href={event.link} 
+        <div className="flex flex-wrap gap-5">
+          <a
+            href={ event.link }
             className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors inline-flex items-center"
           >
             Зареєструватися
           </a>
-          {toggleCalendar && (
-            <Button
-              variant="outline"
-              className="flex items-center gap-2"
-              onClick={toggleCalendar}
+
+          { toggleCalendar && (
+            <button
+              onClick={ toggleCalendar }
+              className="px-6 py-3 bg-white border border-gray-300 text-gray-800 font-medium rounded-md hover:bg-gray-100 transition-colors inline-flex items-center"
             >
-              Переглянути всі події
-            </Button>
-          )}
+              { showCalendar ? 'Сховати календар' : 'Переглянути всі події' }
+            </button>
+          ) }
         </div>
+
       </div>
     </div>
   );

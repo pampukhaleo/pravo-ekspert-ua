@@ -34,20 +34,9 @@ const EventsCalendar: React.FC = () => {
 
         {nextEvent && (
           <div className="mb-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 md:p-10 shadow-sm">
-            <EventCard event={nextEvent} toggleCalendar={toggleCalendar} />
+            <EventCard event={nextEvent} toggleCalendar={toggleCalendar} showCalendar={showCalendar} />
           </div>
         )}
-        
-        <div className="flex justify-center">
-          <Button
-            onClick={toggleCalendar}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <CalendarIcon className="h-5 w-5" />
-            {showCalendar ? 'Сховати календар' : 'Переглянути всі події'}
-          </Button>
-        </div>
         
         {showCalendar && <CalendarView events={events} date={date} setDate={setDate} />}
       </div>
