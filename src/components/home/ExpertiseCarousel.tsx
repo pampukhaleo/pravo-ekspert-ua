@@ -41,20 +41,6 @@ const ExpertiseCarousel = () => {
             }}
             className="w-full"
           >
-            <div className="flex justify-end space-x-2 mb-4">
-              <CarouselPrevious 
-                className="relative inset-auto bg-white hover:bg-gray-50 border border-gray-200 shadow-sm"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-700" />
-              </CarouselPrevious>
-              
-              <CarouselNext 
-                className="relative inset-auto bg-white hover:bg-gray-50 border border-gray-200 shadow-sm"
-              >
-                <ChevronRight className="w-5 h-5 text-gray-700" />
-              </CarouselNext>
-            </div>
-            
             <CarouselContent className="-ml-4">
               {expertises.map((expertise) => (
                 <CarouselItem key={expertise.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
@@ -80,6 +66,22 @@ const ExpertiseCarousel = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            
+            <div className="flex justify-center items-center mt-10 gap-4">
+              <CarouselPrevious 
+                className="relative inset-auto h-12 px-6 py-3 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm flex items-center justify-center"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700 mr-2" />
+                <span className="text-gray-700 font-medium">Попередня</span>
+              </CarouselPrevious>
+              
+              <CarouselNext 
+                className="relative inset-auto h-12 px-6 py-3 bg-white hover:bg-gray-100 border border-gray-300 rounded-md shadow-sm flex items-center justify-center"
+              >
+                <span className="text-gray-700 font-medium">Наступна</span>
+                <ChevronRight className="w-5 h-5 text-gray-700 ml-2" />
+              </CarouselNext>
+            </div>
           </Carousel>
         </div>
       </div>
