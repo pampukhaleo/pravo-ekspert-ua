@@ -12,9 +12,10 @@ interface EventProps {
     link: string;
     description: string;
   };
+  toggleCalendar?: () => void;
 }
 
-const EventCard: React.FC<EventProps> = ({ event }) => {
+const EventCard: React.FC<EventProps> = ({ event, toggleCalendar }) => {
   return (
     <div className="flex flex-col md:flex-row gap-6">
       <div className="md:w-1/5">
@@ -45,13 +46,15 @@ const EventCard: React.FC<EventProps> = ({ event }) => {
           >
             Зареєструватися
           </a>
-          <Button
-            variant="outline"
-            className="flex items-center gap-2"
-            onClick={() => window.location.href = '/zakhodi'}
-          >
-            Переглянути всі події
-          </Button>
+          {toggleCalendar && (
+            <Button
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={toggleCalendar}
+            >
+              Переглянути всі події
+            </Button>
+          )}
         </div>
       </div>
     </div>
