@@ -48,23 +48,28 @@ const ServicesSection: React.FC = () => {
               to={`/posluhy/${service.slug}`}
               className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group cursor-pointer"
             >
-              <div className="p-6">
-                <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-brand-blue">
-                  <service.icon className="h-5 w-5" />
+              <div className="p-6 h-full flex flex-col">
+                <div
+                  className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-brand-blue">
+                  <service.icon className="h-5 w-5"/>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
-                <p className="text-gray-600 mb-5">{service.description}</p>
-                <span className="inline-flex items-center text-brand-blue font-medium group-hover:underline">
-                  Дізнатися більше <ChevronRight className="ml-1 h-4 w-4" />
-                </span>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{ service.title }</h3>
+                <p className="text-gray-600 mb-5">{ service.description }</p>
+
+                <div className="mt-auto">
+                  <span className="inline-flex items-center text-brand-blue font-medium group-hover:underline">
+                    Дізнатися більше <ChevronRight className="ml-1 h-4 w-4"/>
+                  </span>
+                </div>
               </div>
+
             </Link>
-          ))}
+          )) }
         </div>
-        
+
         <div className="mt-12 text-center">
-          <Link 
-            to="/kontakty" 
+          <Link
+            to="/kontakty"
             className="px-6 py-3 bg-brand-blue text-white rounded-md font-medium hover:bg-brand-dark transition-colors inline-flex items-center"
           >
             Замовити консультацію
