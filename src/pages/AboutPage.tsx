@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
@@ -7,7 +8,7 @@ import { Card, CardContent } from "../components/ui/card";
 import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
-import { Award, BookOpen, CheckCircle, Users, Phone, Shield, Briefcase } from "lucide-react";
+import { Award, BookOpen, CheckCircle, Users, Phone, Shield, Briefcase, ExternalLink } from "lucide-react";
 
 const stats = [
   { value: '15+', label: 'років досвіду', icon: <BookOpen className="h-5 w-5" /> },
@@ -17,23 +18,23 @@ const stats = [
 ];
 
 const expertiseAreas = [
-  'Земельно-технічна експертиза',
-  'Оціночно-земельна експертиза',
-  'Будівельно-технічна експертиза',
-  'Оціночно-будівельна експертиза',
-  'Електротехнічна експертиза',
-  'Пожежно-технічна експертиза',
-  'Економічна експертиза',
-  'Експертиза об\'єктів інтелектуальної власності',
-  'Товарознавча експертиза',
-  'Комп\'ютерно-технічна експертиза',
-  'Автотоварознавча експертиза',
-  'Автотехнічна експертиза',
-  'Почеркознавча експертиза',
-  'Семантико-текстуальна експертиза',
-  'Психологічна експертиза',
-  'Науково-правова експертиза',
-  'Мистецтвознавча експертиза та ін.',
+  { name: 'Земельно-технічна експертиза', slug: 'zemelno-tehnichna' },
+  { name: 'Оціночно-земельна експертиза', slug: 'ocinochno-zemelna' },
+  { name: 'Будівельно-технічна експертиза', slug: 'budivelno-tehnichna' },
+  { name: 'Оціночно-будівельна експертиза', slug: 'ocinochno-budivelna' },
+  { name: 'Електротехнічна експертиза', slug: 'elektrotehnichna' },
+  { name: 'Пожежно-технічна експертиза', slug: 'pozhezha-tehnichna' },
+  { name: 'Економічна експертиза', slug: 'ekonomichna' },
+  { name: 'Експертиза об\'єктів інтелектуальної власності', slug: 'intelektualna-vlasnist' },
+  { name: 'Товарознавча експертиза', slug: 'tovaroznavcha' },
+  { name: 'Комп\'ютерно-технічна експертиза', slug: 'kompyuterno-tehnichna' },
+  { name: 'Автотоварознавча експертиза', slug: 'avtotovaroznavcha' },
+  { name: 'Автотехнічна експертиза', slug: 'avtotehnichna' },
+  { name: 'Почеркознавча експертиза', slug: 'pocherkoznavcha' },
+  { name: 'Семантико-текстуальна експертиза', slug: 'semantyko-tekstualna' },
+  { name: 'Психологічна експертиза', slug: 'psyhologichna' },
+  { name: 'Науково-правова експертиза', slug: 'naukovo-pravova' },
+  { name: 'Мистецтвознавча експертиза та ін.', slug: 'mystectvo' },
 ];
 
 const AboutPage = () => {
@@ -180,7 +181,7 @@ const AboutPage = () => {
             </div>
           </div>
           
-          {/* Expertise areas with visual enhancements */}
+          {/* Expertise areas with visual enhancements and clickable links */}
           <div className="mb-16">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
               Напрямки експертних досліджень
@@ -194,21 +195,31 @@ const AboutPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {expertiseAreas.slice(0, Math.ceil(expertiseAreas.length / 2)).map((area, index) => (
-                    <div key={index} className="flex items-start gap-3 group">
+                    <Link 
+                      key={index} 
+                      to={`/ekspertyzy/${area.slug}`} 
+                      className="flex items-start gap-3 group hover:bg-gray-100/50 p-2 rounded-md transition-all"
+                    >
                       <div className="rounded-full bg-brand-light/20 p-1 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                         <CheckCircle className="h-4 w-4 text-brand-blue group-hover:text-white transition-colors" />
                       </div>
-                      <span className="group-hover:text-brand-blue transition-colors">{area}</span>
-                    </div>
+                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{area.name}</span>
+                      <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 text-brand-blue transition-opacity" />
+                    </Link>
                   ))}
                   
                   {expertiseAreas.slice(Math.ceil(expertiseAreas.length / 2)).map((area, index) => (
-                    <div key={index} className="flex items-start gap-3 group">
+                    <Link 
+                      key={index} 
+                      to={`/ekspertyzy/${area.slug}`} 
+                      className="flex items-start gap-3 group hover:bg-gray-100/50 p-2 rounded-md transition-all"
+                    >
                       <div className="rounded-full bg-brand-light/20 p-1 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                         <CheckCircle className="h-4 w-4 text-brand-blue group-hover:text-white transition-colors" />
                       </div>
-                      <span className="group-hover:text-brand-blue transition-colors">{area}</span>
-                    </div>
+                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{area.name}</span>
+                      <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 text-brand-blue transition-opacity" />
+                    </Link>
                   ))}
                 </div>
               </CardContent>
