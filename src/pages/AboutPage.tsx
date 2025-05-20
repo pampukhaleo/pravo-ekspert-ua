@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -9,6 +8,7 @@ import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 import { Award, BookOpen, CheckCircle, Users, Phone, Shield, Briefcase, ExternalLink } from "lucide-react";
+import { expertiseData } from '../data/expertiseData';
 
 const stats = [
   { value: '15+', label: 'років досвіду', icon: <BookOpen className="h-5 w-5" /> },
@@ -17,27 +17,13 @@ const stats = [
   { value: '95%', label: 'задоволених клієнтів', icon: <Users className="h-5 w-5" /> },
 ];
 
-const expertiseAreas = [
-  { name: 'Земельно-технічна експертиза', slug: 'zemelno-tehnichna' },
-  { name: 'Оціночно-земельна експертиза', slug: 'ocinochno-zemelna' },
-  { name: 'Будівельно-технічна експертиза', slug: 'budivelno-tehnichna' },
-  { name: 'Оціночно-будівельна експертиза', slug: 'ocinochno-budivelna' },
-  { name: 'Електротехнічна експертиза', slug: 'elektrotehnichna' },
-  { name: 'Пожежно-технічна експертиза', slug: 'pozhezha-tehnichna' },
-  { name: 'Економічна експертиза', slug: 'ekonomichna' },
-  { name: 'Експертиза об\'єктів інтелектуальної власності', slug: 'intelektualna-vlasnist' },
-  { name: 'Товарознавча експертиза', slug: 'tovaroznavcha' },
-  { name: 'Комп\'ютерно-технічна експертиза', slug: 'kompyuterno-tehnichna' },
-  { name: 'Автотоварознавча експертиза', slug: 'avtotovaroznavcha' },
-  { name: 'Автотехнічна експертиза', slug: 'avtotehnichna' },
-  { name: 'Почеркознавча експертиза', slug: 'pocherkoznavcha' },
-  { name: 'Семантико-текстуальна експертиза', slug: 'semantyko-tekstualna' },
-  { name: 'Психологічна експертиза', slug: 'psyhologichna' },
-  { name: 'Науково-правова експертиза', slug: 'naukovo-pravova' },
-  { name: 'Мистецтвознавча експертиза та ін.', slug: 'mystectvo' },
-];
-
 const AboutPage = () => {
+  // Convert expertiseData object to array and add slug
+  const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
+    slug,
+    ...data
+  }));
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -181,7 +167,7 @@ const AboutPage = () => {
             </div>
           </div>
           
-          {/* Expertise areas with visual enhancements and clickable links */}
+          {/* Expertise areas with visual enhancements and links to expertise pages */}
           <div className="mb-16">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
               Напрямки експертних досліджень
@@ -194,30 +180,30 @@ const AboutPage = () => {
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {expertiseAreas.slice(0, Math.ceil(expertiseAreas.length / 2)).map((area, index) => (
+                  {expertiseList.slice(0, Math.ceil(expertiseList.length / 2)).map((expertise) => (
                     <Link 
-                      key={index} 
-                      to={`/ekspertyzy/${area.slug}`} 
+                      key={expertise.slug}
+                      to={`/ekspertyzy/${expertise.slug}`} 
                       className="flex items-start gap-3 group hover:bg-gray-100/50 p-2 rounded-md transition-all"
                     >
                       <div className="rounded-full bg-brand-light/20 p-1 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                         <CheckCircle className="h-4 w-4 text-brand-blue group-hover:text-white transition-colors" />
                       </div>
-                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{area.name}</span>
+                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{expertise.title}</span>
                       <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 text-brand-blue transition-opacity" />
                     </Link>
                   ))}
                   
-                  {expertiseAreas.slice(Math.ceil(expertiseAreas.length / 2)).map((area, index) => (
+                  {expertiseList.slice(Math.ceil(expertiseList.length / 2)).map((expertise) => (
                     <Link 
-                      key={index} 
-                      to={`/ekspertyzy/${area.slug}`} 
+                      key={expertise.slug}
+                      to={`/ekspertyzy/${expertise.slug}`} 
                       className="flex items-start gap-3 group hover:bg-gray-100/50 p-2 rounded-md transition-all"
                     >
                       <div className="rounded-full bg-brand-light/20 p-1 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                         <CheckCircle className="h-4 w-4 text-brand-blue group-hover:text-white transition-colors" />
                       </div>
-                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{area.name}</span>
+                      <span className="group-hover:text-brand-blue transition-colors flex-grow">{expertise.title}</span>
                       <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 text-brand-blue transition-opacity" />
                     </Link>
                   ))}
