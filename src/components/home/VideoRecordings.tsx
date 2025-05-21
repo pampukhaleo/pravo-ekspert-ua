@@ -8,7 +8,7 @@ const videoRecordings = [
   {
     id: 1,
     title: 'Вебінар: Cемантико-текстуальна експертиза писемного мовлення.',
-    thumbnailUrl: 'https://i9.ytimg.com/vi/YeVV3lGKiDA/maxresdefault.jpg?v=67f408e4&sqp=CPSVrcEG&rs=AOn4CLDq2XkeXcpG_6AppLNiZ97kxmR5Ww',
+    thumbnailUrl: 'https://img.youtube.com/vi/YeVV3lGKiDA/maxresdefault.jpg',
     videoUrl: 'https://www.youtube.com/live/YeVV3lGKiDA?si=NDBQdxjIRs9OfHfg',
     duration: '1:16:37',
     date: '15.04.2025'
@@ -16,7 +16,7 @@ const videoRecordings = [
   {
     id: 2,
     title: 'Вебінар: Судово-психологічна експертиза у справах щодо відшкодування моральної шкоди',
-    thumbnailUrl: 'https://i9.ytimg.com/vi/lX8lu41SQKY/maxresdefault.jpg?v=67dd8a23&sqp=CKCYrcEG&rs=AOn4CLC8gqZ4LA8peDg-cp2BLf4lLFwDzQ',
+    thumbnailUrl: 'https://img.youtube.com/vi/lX8lu41SQKY/maxresdefault.jpg',
     videoUrl: 'https://youtube.com/live/lX8lu41SQKY',
     duration: '1:12:02',
     date: '01.04.2025'
@@ -24,7 +24,7 @@ const videoRecordings = [
   {
     id: 3,
     title: 'Вебінар: «Почеркознавча експертиза: сучасні методики, європейський досвід та практичні аспекти',
-    thumbnailUrl: 'https://i9.ytimg.com/vi/drNvUYSsAxU/maxresdefault.jpg?v=67bc91a3&sqp=CKCYrcEG&rs=AOn4CLBOKy7OOg4qrArWN1Z6BFav05phDg',
+    thumbnailUrl: 'https://img.youtube.com/vi/drNvUYSsAxU/maxresdefault.jpg',
     videoUrl: 'https://youtube.com/live/drNvUYSsAxU',
     duration: '1:34:07',
     date: '04.03.2025'

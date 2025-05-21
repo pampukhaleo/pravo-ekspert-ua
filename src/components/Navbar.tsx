@@ -49,11 +49,12 @@ const Navbar: React.FC = () => {
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img 
-              src="/lovable-uploads/82aaa092-850b-4fe7-aa90-b8d382b3524b.png" 
-              alt="НІСЕ Логотип" 
-              className="h-10 w-auto"
+            <img
+              src="logonise.png"
+              alt="НІСЕ Логотип"
+              className="h-12 w-auto"
             />
+            <span className={ `font-bold text-xl md:text-2xl ml-3 ${ textClasses }` }>НІСЕ</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
