@@ -124,34 +124,23 @@ const ExpertisePage = () => {
             </TabsContent>
             
             <TabsContent value="directions" className="animate-fade-in">
-              {!selectedDirection && expertise.directions.length > 0 ? (
+              {expertise.directions.length > 0 ? (
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <h2 className="text-2xl font-semibold text-gray-900 mb-6">Напрямки експертизи</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {expertise.directions.map((direction, index) => (
-                      <Link
-                        key={index}
-                        to={`/ekspertyzy/${direction.slug}`}
-                        className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow flex flex-col h-full"
-                      >
-                        <h3 className="text-brand-blue font-semibold mb-3">{direction.title}</h3>
-                        {direction.description && (
-                          <p className="text-sm text-gray-600">{direction.description}</p>
-                        )}
-                        <div className="mt-auto pt-3">
-                          <span className="text-brand-blue text-sm font-medium">Детальніше →</span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+                  {/* Always show KeyDirections with filtered directions */}
+                  <KeyDirections directions={expertise.directions} currentSlug={slug} />
+                  {/* If there are no other directions after filtering, show this message */}
+                  {(selectedDirection && expertise.directions.filter(dir => dir.slug !== slug).length === 0) && (
+                    <p className="text-gray-600">
+                      Немає інших напрямків для цієї експертизи.
+                    </p>
+                  )}
                 </div>
               ) : (
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <h2 className="text-2xl font-semibold text-gray-900 mb-4">Напрямки експертизи</h2>
                   <p className="text-gray-600">
-                    {selectedDirection 
-                      ? "Це окремий напрямок експертизи." 
-                      : "Для даної експертизи немає додаткових напрямків."}
+                    Для даної експертизи немає додаткових напрямків.
                   </p>
                 </div>
               )}

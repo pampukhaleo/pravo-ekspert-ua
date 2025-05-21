@@ -13,10 +13,22 @@ interface Direction {
 
 interface KeyDirectionsProps {
   directions: Direction[];
+  currentSlug?: string; // Add currentSlug to identify the current direction
 }
 
-const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
-  if (!directions || directions.length === 0) {
+const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions, currentSlug }) => {
+  // If there are no directions or only one direction which is the current one, don't show anything
+  if (!directions || directions.length === 0 || (directions.length === 1 && directions[0].slug === currentSlug)) {
+    return null;
+  }
+
+  // Filter out the current direction if we're viewing a specific direction
+  const filteredDirections = currentSlug 
+    ? directions.filter(direction => direction.slug !== currentSlug)
+    : directions;
+  
+  // If there are no other directions after filtering, don't show anything
+  if (filteredDirections.length === 0) {
     return null;
   }
 
@@ -36,7 +48,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions }) => {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">КЛЮЧОВІ НАПРЯМКИ РОБОТИ:</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {directions.map((direction, index) => (
+          {filteredDirections.map((direction, index) => (
             <Link
               key={index}
               to={`/ekspertyzy/${direction.slug}`}
