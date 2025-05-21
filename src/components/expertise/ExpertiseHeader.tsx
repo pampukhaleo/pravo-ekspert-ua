@@ -19,8 +19,6 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
     ? backgroundImage 
     : `/${backgroundImage}`;
 
-  console.log('Шлях до фонового зображення:', imagePath); // Для відлагодження
-
   return (
     <section 
       className="relative pt-40 pb-20 md:pt-48 md:pb-28"

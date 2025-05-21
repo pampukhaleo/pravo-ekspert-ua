@@ -174,7 +174,7 @@ const ExpertisePage = () => {
             <p className="text-xl mb-8 max-w-2xl mx-auto">
               Наші спеціалісти допоможуть вам обрати оптимальне рішення для вашої ситуації
             </p>
-            <ConsultationButton className="bg-white text-black hover:bg-gray-100" />
+            <ConsultationButton className="bg-white !text-black hover:bg-gray-100" />
           </div>
         </section>
       </main>

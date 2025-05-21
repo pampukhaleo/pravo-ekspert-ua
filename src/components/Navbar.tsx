@@ -8,6 +8,8 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  const base = import.meta.env.BASE_URL;
+
   const whiteBackgroundRoutes = ['/ekspertyzy', '/kontakty', '/tsiny', '/pro-nas', '/posluhy/ekspertne-doslidzhennia-za-zaiavoiu', '/posluhy/ekspertyza-za-ukhvaloiu-sudu', '/posluhy/shcho-vkhodyt-u-vartist'];
   const isExactWhiteBgPage = whiteBackgroundRoutes.includes(location.pathname);
 
@@ -50,7 +52,7 @@ const Navbar: React.FC = () => {
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
-              src="logonise.png"
+              src={`${base}logonise.png`}
               alt="НІСЕ Логотип"
               className="h-12 w-auto"
             />
