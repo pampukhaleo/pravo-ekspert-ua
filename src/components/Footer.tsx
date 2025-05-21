@@ -10,7 +10,15 @@ const Footer: React.FC = () => {
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-xl font-bold mb-6">НІСЕ</h3>
+              <div className="mb-6">
+                <Link to="/">
+                  <img 
+                    src="/lovable-uploads/82aaa092-850b-4fe7-aa90-b8d382b3524b.png" 
+                    alt="НІСЕ Логотип" 
+                    className="h-12 w-auto"
+                  />
+                </Link>
+              </div>
               <p className="text-gray-400 mb-6">
                 НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ успішно працює у сфері проведення експертизи з 2007 року.
               </p>
@@ -30,7 +38,6 @@ const Footer: React.FC = () => {
                     <path
                       d="M9.993 15.51l-.393 4.037c.564 0 .811-.244 1.112-.537l2.665-2.522 5.527 4.035c1.012.556 1.73.264 1.99-.936L23.95 4.614c.315-1.424-.516-1.977-1.47-1.636L1.588 9.285c-1.388.537-1.373 1.29-.244 1.638l5.785 1.8 13.41-8.463c.63-.39 1.21-.173.736.217l-10.5 9.033z"/>
                   </svg>
-
                 </a>
               </div>
             </div>
