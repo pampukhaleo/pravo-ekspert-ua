@@ -23,15 +23,14 @@ const PartnersSection: React.FC = () => {
   return (
     <section className="py-12 border-t border-gray-200 bg-white">
       <div className="container-custom">
+
         <div className="text-center mb-8">
-          <p className="text-gray-600 font-medium">
-            Нам довіряють провідні організації в галузі
-          </p>
+          <h2 className="text-2xl font-bold mb-4">НАМ ДОВІРЯЮТЬ</h2>
         </div>
-        
+
         <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-          {partners.map((partner) => (
-            <img src={ partner.img } alt={partner.name}/>
+          { partners.map((partner) => (
+            <img src={ partner.img } alt={ partner.name }/>
           )) }
         </div>
       </div>

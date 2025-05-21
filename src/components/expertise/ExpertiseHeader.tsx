@@ -45,8 +45,8 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
               <div className="flex-1">
                 <p className="text-white mb-2">Потрібна консультація?</p>
                 <div className="flex items-center text-white">
-                  <span className="mr-4">+38 (012) 345-67-89</span>
-                  <span>info@example.com</span>
+                  <span className="mr-4">+38 (067) 5555 222</span>
+                  <span>info@nise.com.ua</span>
                 </div>
               </div>
               <div>

@@ -27,9 +27,9 @@ const ExpertiseCarousel = () => {
     <section className="py-16 bg-white">
       <div className="container-custom">
         <div className="mb-12">
-          <h2 className="text-4xl font-bold mb-4">Наші експертизи</h2>
+          <h2 className="text-4xl font-bold mb-4">ЕКСПЕРТИЗА В НІСЕ</h2>
           <p className="text-xl text-gray-600">
-            Професійна експертна оцінка у різних галузях
+            Працюємо за більш ніж 20-ма напрямками та спеціальностями
           </p>
         </div>
 
@@ -56,7 +56,7 @@ const ExpertiseCarousel = () => {
                         </div>
                       </CardHeader>
                       <CardContent className="p-6">
-                        <CardTitle className="text-xl mb-2">{expertise.title}</CardTitle>
+                        <CardTitle className="text-xl mb-2 text-center">{expertise.title.toUpperCase()}</CardTitle>
                         <CardDescription className="text-gray-600">
                           {expertise.description}
                         </CardDescription>

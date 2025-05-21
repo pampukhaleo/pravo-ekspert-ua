@@ -132,9 +132,12 @@ const AboutPage = () => {
                   
                   <div className="mt-6">
                     <h3 className="text-lg font-semibold mb-4">Отримайте консультацію</h3>
-                    <Button className="w-full bg-white text-brand-blue hover:bg-white/90" size="lg">
-                      <Phone className="mr-2 h-4 w-4" /> Зв'язатися з нами
-                    </Button>
+                    <Link to="/kontakty">
+                      <Button className="w-full bg-white text-brand-blue hover:bg-white/90" size="lg">
+                        <Phone className="mr-2 h-4 w-4" /> Зв'язатися з нами
+                      </Button>
+                    </Link>
+
                   </div>
                 </CardContent>
               </Card>
@@ -222,9 +225,6 @@ const AboutPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ConsultationButton size="lg" className="btn-animate" />
-              <Button variant="outline" size="lg" className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white btn-animate">
-                <Phone className="mr-2 h-4 w-4" /> Зв'язатися з нами
-              </Button>
             </div>
           </div>
         </div>

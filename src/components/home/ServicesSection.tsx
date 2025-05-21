@@ -34,18 +34,24 @@ const ServicesSection: React.FC = () => {
         <div className="text-center mb-12">
           <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Послуги</span>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
-            Комплексні експертні послуги, адаптовані для вас
+            Комплексна експертна підтримка, орієнтована на ваші потреби
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            У НЕЗАЛЕЖНОМУ ІНСТИТУТІ СУДОВИХ ЕКСПЕРТИЗ ми пропонуємо широкий спектр експертних послуг, адаптованих до ваших потреб, з персоналізованою підтримкою від досвідчених експертів.
+            <b>Незалежний інститут судових експертиз</b> проводить експертизи та експертні дослідження як за ухвалою суду,
+            постановою слідчого, так і за сторони чи адвоката.
+          </p>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Кожна експертиза супроводжується індивідуальним підходом та професійною підтримкою досвідчених фахівців, щоб
+            забезпечити об’єктивність, точність і практичну цінність наших експертних висновків, які є належним доказом
+            в суді.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <Link 
-              key={service.id}
-              to={`/posluhy/${service.slug}`}
+          { services.map((service) => (
+            <Link
+              key={ service.id }
+              to={ `/posluhy/${ service.slug }` }
               className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group cursor-pointer"
             >
               <div className="p-6 h-full flex flex-col">
