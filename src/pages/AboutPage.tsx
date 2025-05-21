@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -41,10 +42,10 @@ const AboutPage = () => {
             </p>
           </div>
           
-          {/* Main content with enhanced layout */}
+          {/* Main content with enhanced layout - removed hover-lift class */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="md:col-span-2">
-              <Card className="h-full shadow-md border-0 overflow-hidden hover-lift relative">
+              <Card className="h-full shadow-md border-0 overflow-hidden relative">
                 <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-brand-light to-brand-dark"></div>
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-brand-blue mb-6 flex items-center">
@@ -82,7 +83,7 @@ const AboutPage = () => {
             </div>
             
             <div>
-              <Card className="h-full shadow-md border-0 overflow-hidden bg-gradient-to-br from-brand-blue to-brand-dark text-white hover-lift">
+              <Card className="h-full shadow-md border-0 overflow-hidden bg-gradient-to-br from-brand-blue to-brand-dark text-white">
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold mb-6 flex items-center">
                     <Shield className="mr-2 h-5 w-5" />
