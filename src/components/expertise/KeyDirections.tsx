@@ -55,7 +55,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions, currentSlug }
               className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all flex flex-col h-full group"
             >
               <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center p-5`}>
-                <span className="font-bold text-gray-700">{ direction.title }</span>
+                <span className="font-bold text-gray-700">{ direction.title.toUpperCase() }</span>
               </div>
               <div className="p-5 flex flex-col flex-grow">
                 {direction.description && (
