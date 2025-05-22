@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const base = import.meta.env.BASE_URL;
+
   return (
     <footer>
       <div className="bg-gray-900 text-white pt-16 pb-12">
@@ -13,7 +15,7 @@ const Footer: React.FC = () => {
               <div className="mb-6">
                 <Link to="/" className="flex items-center gap-2">
                   <img
-                    src="logonise.png"
+                    src={`${base}logonise.png`}
                     alt="НІСЕ Логотип"
                     className="h-12 w-auto"
                   />

@@ -152,8 +152,8 @@ const ExpertisesListPage = () => {
                     )}
                   </div>
                   <div className="p-6 flex flex-col h-full">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">{expertise.title}</h2>
-                    <p className="text-gray-600 mb-4 flex-grow line-clamp-3">{expertise.description}</p>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">{expertise.title.toUpperCase()}</h2>
+                    <p className="text-gray-600 line-clamp-4">{expertise.description}</p>
                     <div className="mt-auto pt-2 flex justify-between items-center">
                       <span className="text-brand-blue font-medium flex items-center gap-1">
                         Детальніше <ChevronRight size={16} />
