@@ -86,7 +86,10 @@ const ExpertisePage = () => {
           {/* Breadcrumb navigation */}
           {selectedDirection && parentExpertiseSlug && (
             <div className="mb-6 flex items-center text-sm text-gray-600">
-              <Link to={`/ekspertyzy/${parentExpertiseSlug}`} className="hover:text-brand-blue transition-colors">
+              <Link 
+                to={`/ekspertyzy/${parentExpertiseSlug}?from=directions`} 
+                className="hover:text-brand-blue transition-colors"
+              >
                 {expertise.title}
               </Link>
               <ChevronRight size={16} className="mx-2" />
