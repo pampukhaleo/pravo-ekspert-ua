@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ExpertiseHeader from '../components/expertise/ExpertiseHeader';
@@ -14,7 +14,16 @@ import { FileText, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('overview');
+  
+  // Check if we're coming from a direction link
+  useEffect(() => {
+    // If the URL has a 'from=directions' query parameter, set the active tab to 'overview'
+    if (location.search.includes('from=directions')) {
+      setActiveTab('overview');
+    }
+  }, [location]);
   
   // Резервні дані на випадок, якщо slug не збігається з жодною експертизою
   const defaultData = {
@@ -72,7 +81,7 @@ const ExpertisePage = () => {
         />
         
         <div className="container-custom py-10">
-          <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab}>
+          <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab} value={activeTab}>
             <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 mb-8">
               <TabsTrigger value="overview" className="flex gap-2 items-center">
                 <FileText size={18} />
