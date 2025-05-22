@@ -10,6 +10,14 @@ import WhyUs from '../components/expertise/WhyUs';
 import ConsultationButton from '../components/ConsultationButton';
 import { expertiseData } from '../data/expertiseData';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
+import { 
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage
+} from '../components/ui/breadcrumb';
 import { FileText, MessageSquare, CheckCircle, Clock, ChevronRight } from 'lucide-react';
 
 const ExpertisePage = () => {
@@ -83,17 +91,33 @@ const ExpertisePage = () => {
         />
         
         <div className="container-custom py-10">
-          {/* Breadcrumb navigation */}
+          {/* Enhanced Breadcrumb navigation */}
           {selectedDirection && parentExpertiseSlug && (
-            <div className="mb-6 flex items-center text-sm text-gray-600">
-              <Link 
-                to={`/ekspertyzy/${parentExpertiseSlug}?from=directions`} 
-                className="hover:text-brand-blue transition-colors"
-              >
-                {expertise.title}
-              </Link>
-              <ChevronRight size={16} className="mx-2" />
-              <span className="font-medium text-gray-900">{selectedDirection.title}</span>
+            <div className="mb-8 py-3 px-5 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+              <Breadcrumb>
+                <BreadcrumbList className="text-base">
+                  <BreadcrumbItem>
+                    <BreadcrumbLink 
+                      asChild
+                      className="font-medium text-brand-blue hover:text-brand-dark transition-colors"
+                    >
+                      <Link to={`/ekspertyzy/${parentExpertiseSlug}?from=directions`}>
+                        {expertise.title}
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  
+                  <BreadcrumbSeparator>
+                    <ChevronRight size={18} className="text-gray-400" />
+                  </BreadcrumbSeparator>
+                  
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="font-semibold text-gray-900">
+                      {selectedDirection.title}
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
             </div>
           )}
         
