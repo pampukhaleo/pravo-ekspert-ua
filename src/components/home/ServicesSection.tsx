@@ -36,13 +36,13 @@ const ServicesSection: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
             Комплексна експертна підтримка, орієнтована на ваші потреби
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             <b>Незалежний інститут судових експертиз</b> проводить експертизи та експертні дослідження як за ухвалою суду,
             постановою слідчого, так і за заявою сторони чи адвоката.
           </p>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Кожна експертиза супроводжується індивідуальним підходом та професійною підтримкою досвідчених фахівців, щоб
-            забезпечити об’єктивність, точність і практичну цінність наших експертних висновків, які є належним доказом
+            забезпечити об'єктивність, точність і практичну цінність наших експертних висновків, які є належним доказом
             в суді.
           </p>
         </div>
@@ -60,7 +60,7 @@ const ServicesSection: React.FC = () => {
                   <service.icon className="h-5 w-5"/>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{ service.title }</h3>
-                <p className="text-gray-600 mb-5">{ service.description }</p>
+                <p className="text-gray-600 mb-5 leading-relaxed">{ service.description }</p>
 
                 <div className="mt-auto">
                   <span className="inline-flex items-center text-brand-blue font-medium group-hover:underline">

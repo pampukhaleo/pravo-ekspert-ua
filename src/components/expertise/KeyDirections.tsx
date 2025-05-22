@@ -59,7 +59,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions, currentSlug }
               </div>
               <div className="p-5 flex flex-col flex-grow">
                 {direction.description && (
-                  <p className="text-sm text-gray-600 mb-4 flex-grow">{direction.description}</p>
+                  <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">{direction.description}</p>
                 )}
                 <div className="flex items-center text-brand-blue mt-auto pt-2 opacity-80 group-hover:opacity-100 transition-opacity">
                   <span className="text-sm font-medium">Детальніше</span>

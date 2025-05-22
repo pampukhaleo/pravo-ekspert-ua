@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
             Незалежний Інститут Судових Експертиз
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed tracking-wide">
             Наша команда кваліфікованих експертів, атестованих Міністерством юстиції України, гарантує професіоналізм,  достовірність та високу якість експертної підтримки. Ми працюємо для того, щоб ви отримали об'єктивні та обґрунтовані експертні відповіді на найскладніші питання.
           </p>
           <div className="flex flex-wrap gap-4">

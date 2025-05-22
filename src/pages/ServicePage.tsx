@@ -72,13 +72,13 @@ const ServicePage: React.FC = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">{serviceContent.title}</h1>
           
           <div className="bg-white p-8 rounded-xl shadow-sm">
-            <ol className="space-y-6">
+            <ol className="space-y-8">
               {serviceContent.content.map((item, index) => (
                 <li key={index} className="flex gap-4">
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center font-medium">
                     {index + 1}
                   </span>
-                  <p className="text-lg text-gray-700 pt-1">{item}</p>
+                  <p className="text-lg text-gray-700 leading-relaxed pt-1">{item}</p>
                 </li>
               ))}
             </ol>

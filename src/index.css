@@ -100,6 +100,33 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
   }
+  
+  /* Improved text readability */
+  p {
+    @apply leading-relaxed;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Better paragraph spacing */
+  .prose p {
+    @apply mb-5;
+  }
+  
+  .prose h2 {
+    @apply mt-8 mb-4;
+  }
+  
+  .prose h3 {
+    @apply mt-6 mb-3;
+  }
+  
+  .prose ul, .prose ol {
+    @apply my-4 space-y-2;
+  }
+  
+  .prose li {
+    @apply leading-relaxed;
+  }
 }
 
 @layer components {
@@ -147,6 +174,39 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  
+  /* Enhanced content readability */
+  .content-readable {
+    @apply max-w-prose text-base sm:text-lg text-gray-700 leading-relaxed;
+  }
+  
+  .content-readable p {
+    @apply mb-5;
+  }
+  
+  .content-readable h2 {
+    @apply text-2xl font-bold text-gray-900 mt-10 mb-5;
+  }
+  
+  .content-readable h3 {
+    @apply text-xl font-semibold text-gray-900 mt-8 mb-4;
+  }
+  
+  .content-readable ul, .content-readable ol {
+    @apply pl-6 my-5 space-y-3;
+  }
+  
+  .content-readable li {
+    @apply leading-relaxed mb-2;
+  }
+  
+  .content-readable a {
+    @apply text-brand-blue hover:underline;
+  }
+  
+  .content-readable blockquote {
+    @apply border-l-4 border-brand-blue pl-4 italic my-6;
   }
 }
 
