@@ -10,7 +10,7 @@ import WhyUs from '../components/expertise/WhyUs';
 import ConsultationButton from '../components/ConsultationButton';
 import { expertiseData } from '../data/expertiseData';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
-import { FileText, MessageSquare, CheckCircle, Clock } from 'lucide-react';
+import { FileText, MessageSquare, CheckCircle, Clock, ChevronRight } from 'lucide-react';
 
 const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -38,6 +38,7 @@ const ExpertisePage = () => {
   // Перевірка, чи це посилання на основну експертизу чи на напрямок
   let expertise = defaultData;
   let selectedDirection = null;
+  let parentExpertiseSlug = null;
 
   // Перевірка, чи існує експертиза з таким slug
   if (slug && expertiseData[slug]) {
@@ -51,6 +52,7 @@ const ExpertisePage = () => {
       if (foundDirection) {
         expertise = currentExpertise;
         selectedDirection = foundDirection;
+        parentExpertiseSlug = expertiseKey; // Зберігаємо slug батьківської експертизи
         break;
       }
     }
@@ -81,6 +83,17 @@ const ExpertisePage = () => {
         />
         
         <div className="container-custom py-10">
+          {/* Breadcrumb navigation */}
+          {selectedDirection && parentExpertiseSlug && (
+            <div className="mb-6 flex items-center text-sm text-gray-600">
+              <Link to={`/ekspertyzy/${parentExpertiseSlug}`} className="hover:text-brand-blue transition-colors">
+                {expertise.title}
+              </Link>
+              <ChevronRight size={16} className="mx-2" />
+              <span className="font-medium text-gray-900">{selectedDirection.title}</span>
+            </div>
+          )}
+        
           <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab} value={activeTab}>
             <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 mb-8">
               <TabsTrigger value="overview" className="flex gap-2 items-center">
