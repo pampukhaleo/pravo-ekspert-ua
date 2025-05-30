@@ -12,8 +12,8 @@ import { Award, BookOpen, CheckCircle, Users, Phone, Shield, Briefcase, External
 import { expertiseData } from '../data/expertiseData';
 
 const stats = [
-  { value: '15+', label: 'років досвіду', icon: <BookOpen className="h-5 w-5" /> },
-  { value: '1000+', label: 'проведених експертиз', icon: <CheckCircle className="h-5 w-5" /> },
+  { value: '18+', label: 'років досвіду', icon: <BookOpen className="h-5 w-5" /> },
+  { value: '7000+', label: 'проведених експертиз', icon: <CheckCircle className="h-5 w-5" /> },
   { value: '20+', label: 'видів експертиз', icon: <Award className="h-5 w-5" /> },
   { value: '95%', label: 'задоволених клієнтів', icon: <Users className="h-5 w-5" /> },
 ];
