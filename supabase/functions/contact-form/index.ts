@@ -19,7 +19,7 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, phone, expertise, message } = await req.json();
+    const { name, email, phone, expertise, message, companyName } = await req.json();
     
     const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
     const chatId = Deno.env.get('TELEGRAM_CHAT_ID');
@@ -28,9 +28,12 @@ serve(async (req) => {
       throw new Error('Telegram credentials not configured');
     }
 
+    // Use dynamic company name or fallback to NISE
+    const company = companyName || 'NISE';
+
     // Format message for Telegram (escape special characters)
     const telegramMessage = `
-🏢 *Нова заявка з сайту NISE*
+🏢 *Нова заявка з сайту ${escapeMarkdown(company)}*
 
 👤 *Ім'я:* ${escapeMarkdown(name)}
 📧 *Email:* ${escapeMarkdown(email)}

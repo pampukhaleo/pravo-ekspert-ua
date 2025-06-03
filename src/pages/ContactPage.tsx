@@ -30,7 +30,10 @@ const ContactPage = () => {
     try {
       // Call the Supabase Edge Function to send the message to Telegram
       const { error } = await supabase.functions.invoke('contact-form', {
-        body: formData
+        body: {
+          ...formData,
+          companyName: 'NISE'
+        }
       });
 
       if (error) {
