@@ -3,7 +3,12 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
+import { 
+  Accordion, 
+  AccordionContent, 
+  AccordionItem, 
+  AccordionTrigger 
+} from '../components/ui/accordion';
 
 // Новые данные о ценах
 const pricingData = [
@@ -229,7 +234,7 @@ const PricingPage = () => {
               Наші ціни
             </h1>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Вартість експертизи залежить від складності об'єкта, обсягу робіт та термінів виконання. Нижче наведені базові ціни на наші послуги.
+              Вартість експертизи залежить від складності об'єкта, обсягу робіт та термінів виконання. Розгорніть відповідний розділ для детальної інформації.
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 text-amber-800">
               <p className="text-base leading-relaxed">
@@ -238,33 +243,44 @@ const PricingPage = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            {pricingData.map((expertise) => (
-              <Card key={expertise.id} className="hover:shadow-lg transition-shadow duration-300">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-xl font-bold text-gray-900 leading-tight">
-                    {expertise.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-6">
-                    {expertise.services.map((service, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-brand-blue mr-3 mt-1 text-sm">•</span>
-                        <span className="text-gray-700 leading-relaxed text-sm">
-                          {service}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="pt-4 border-t border-gray-100">
-                    <p className="text-2xl font-bold text-brand-blue">
-                      {expertise.price}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-4xl mx-auto mb-16">
+            <Accordion type="single" collapsible className="space-y-4">
+              {pricingData.map((expertise) => (
+                <AccordionItem 
+                  key={expertise.id} 
+                  value={`item-${expertise.id}`}
+                  className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex justify-between items-center w-full text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                        {expertise.title}
+                      </h3>
+                      <div className="text-xl font-bold text-brand-blue shrink-0">
+                        {expertise.price}
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="border-t border-gray-100 pt-4">
+                      <h4 className="text-sm font-medium text-gray-600 mb-3 uppercase tracking-wide">
+                        Послуги включають:
+                      </h4>
+                      <ul className="space-y-3">
+                        {expertise.services.map((service, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-brand-blue mr-3 mt-1 text-sm">•</span>
+                            <span className="text-gray-700 leading-relaxed text-sm">
+                              {service}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
           
           <div className="bg-gray-50 rounded-lg p-8">
