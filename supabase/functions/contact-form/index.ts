@@ -7,8 +7,9 @@ const corsHeaders = {
 }
 
 // Function to escape special characters for Telegram Markdown
-function escapeMarkdown(text: string): string {
-  return text.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+function escapeMarkdown(text: string | undefined | null): string {
+  if (!text) return '';
+  return text.toString().replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
 }
 
 serve(async (req) => {
