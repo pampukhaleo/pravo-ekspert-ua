@@ -5,9 +5,11 @@ import Footer from '../components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Map from '../components/Map';
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactPage = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,26 +23,45 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // У реальному додатку тут буде відправка даних на сервер
-    console.log('Форма відправлена:', formData);
+    setIsSubmitting(true);
     
-    // Показуємо повідомлення про успішну відправку
-    toast({
-      title: "Повідомлення надіслано",
-      description: "Дякуємо за звернення! Ми зв'яжемося з вами найближчим часом.",
-      variant: "default",
-    });
-    
-    // Скидання форми після відправки
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
-      expertise: 'Не обрано'
-    });
+    try {
+      // Call the Supabase Edge Function to send the message to Telegram
+      const { error } = await supabase.functions.invoke('contact-form', {
+        body: formData
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      // Показуємо повідомлення про успішну відправку
+      toast({
+        title: "Повідомлення надіслано",
+        description: "Дякуємо за звернення! Ми зв'яжемося з вами найближчим часом.",
+        variant: "default",
+      });
+      
+      // Скидання форми після відправки
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        expertise: 'Не обрано'
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Помилка",
+        description: "Не вдалося надіслати повідомлення. Будь ласка, спробуйте пізніше.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -175,9 +196,10 @@ const ContactPage = () => {
                 
                 <button
                   type="submit"
-                  className="w-full bg-brand-blue hover:bg-brand-light text-white font-medium py-3 px-6 rounded-md transition-colors duration-300"
+                  disabled={isSubmitting}
+                  className="w-full bg-brand-blue hover:bg-brand-light text-white font-medium py-3 px-6 rounded-md transition-colors duration-300 disabled:opacity-50"
                 >
-                  Надіслати
+                  {isSubmitting ? 'Надсилання...' : 'Надіслати'}
                 </button>
               </form>
             </div>
