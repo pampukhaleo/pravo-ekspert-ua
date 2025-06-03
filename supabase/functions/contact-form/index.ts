@@ -6,6 +6,11 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Function to escape special characters for Telegram Markdown
+function escapeMarkdown(text: string): string {
+  return text.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -22,19 +27,19 @@ serve(async (req) => {
       throw new Error('Telegram credentials not configured');
     }
 
-    // Format message for Telegram
+    // Format message for Telegram (escape special characters)
     const telegramMessage = `
 🏢 *Нова заявка з сайту NISE*
 
-👤 *Ім'я:* ${name}
-📧 *Email:* ${email}
-📞 *Телефон:* ${phone}
-🔍 *Тип експертизи:* ${expertise}
+👤 *Ім'я:* ${escapeMarkdown(name)}
+📧 *Email:* ${escapeMarkdown(email)}
+📞 *Телефон:* ${escapeMarkdown(phone)}
+🔍 *Тип експертизи:* ${escapeMarkdown(expertise)}
 
 💬 *Повідомлення:*
-${message}
+${escapeMarkdown(message)}
 
-⏰ *Час подачі:* ${new Date().toLocaleString('uk-UA')}
+⏰ *Час подачі:* ${escapeMarkdown(new Date().toLocaleString('uk-UA'))}
     `;
 
     // Send message to Telegram
