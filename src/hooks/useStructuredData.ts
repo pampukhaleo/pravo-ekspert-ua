@@ -68,6 +68,50 @@ interface WebPageData {
   };
 }
 
+interface FAQData {
+  "@context": string;
+  "@type": string;
+  mainEntity: Array<{
+    "@type": string;
+    name: string;
+    acceptedAnswer: {
+      "@type": string;
+      text: string;
+    };
+  }>;
+}
+
+interface LocalBusinessData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  url: string;
+  logo: string;
+  telephone: string[];
+  email: string;
+  address: {
+    "@type": string;
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: {
+    "@type": string;
+    latitude: number;
+    longitude: number;
+  };
+  openingHours: string[];
+  priceRange: string;
+  aggregateRating?: {
+    "@type": string;
+    ratingValue: string;
+    reviewCount: string;
+  };
+}
+
 export const useStructuredData = () => {
   const getOrganizationData = (): OrganizationData => ({
     "@context": "https://schema.org",
@@ -117,6 +161,52 @@ export const useStructuredData = () => {
     }
   });
 
+  const getFAQData = (faqs: Array<{ question: string; answer: string }>): FAQData => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  });
+
+  const getLocalBusinessData = (): LocalBusinessData => ({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+    description: "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України.",
+    url: "https://nise.com.ua",
+    logo: "https://nise.com.ua/logonise.png",
+    telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+    email: "info@nise.com.ua",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "вул. Левка Лук'яненка, 21, корпус 3, офіс 7",
+      addressLocality: "Київ",
+      addressRegion: "Київська область",
+      postalCode: "04207",
+      addressCountry: "UA"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 50.4501,
+      longitude: 30.5234
+    },
+    openingHours: [
+      "Mo-Fr 09:00-18:00"
+    ],
+    priceRange: "$$",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "127"
+    }
+  });
+
   const getBreadcrumbData = (items: Array<{ name: string; url: string }>) => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -152,6 +242,8 @@ export const useStructuredData = () => {
   return {
     getOrganizationData,
     getServiceData,
+    getFAQData,
+    getLocalBusinessData,
     getBreadcrumbData,
     getWebPageData
   };
