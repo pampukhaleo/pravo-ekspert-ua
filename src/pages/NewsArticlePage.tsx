@@ -22,9 +22,9 @@ const NewsArticlePage = () => {
   }, [slug]);
 
   const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Новини", url: "https://nise.com.ua/novini" },
-    { name: article?.title || "Стаття", url: `https://nise.com.ua/novini/${slug}` }
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Новини", url: "https://expertise.com.ua/novini" },
+    { name: article?.title || "Стаття", url: `https://expertise.com.ua/novini/${slug}` }
   ]);
 
   const articleStructuredData = article ? [
@@ -32,7 +32,7 @@ const NewsArticlePage = () => {
       article.title,
       article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
       article.date,
-      `https://nise.com.ua/novini/${slug}`,
+      `https://expertise.com.ua/novini/${slug}`,
       article.imageUrl,
       article.content
     ),
@@ -51,7 +51,7 @@ const NewsArticlePage = () => {
           title={`${article.title} | НІСЕ`}
           description={article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, '')}
           keywords="новини НІСЕ, судова експертиза, Незалежний Інститут Судових Експертиз"
-          url={`https://nise.com.ua/novini/${slug}`}
+          url={`https://expertise.com.ua/novini/${slug}`}
           type="article"
           image={article.imageUrl}
           structuredData={articleStructuredData}

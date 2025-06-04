@@ -18,17 +18,17 @@ const NewsPage = () => {
   }, []);
 
   const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Новини", url: "https://nise.com.ua/novini" }
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Новини", url: "https://expertise.com.ua/novini" }
   ]);
 
   const webPageData = getWebPageData(
     "Новини та події | НІСЕ",
     "Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні.",
-    "https://nise.com.ua/novini",
+    "https://expertise.com.ua/novini",
     [
-      { name: "Головна", url: "https://nise.com.ua" },
-      { name: "Новини", url: "https://nise.com.ua/novini" }
+      { name: "Головна", url: "https://expertise.com.ua" },
+      { name: "Новини", url: "https://expertise.com.ua/novini" }
     ]
   );
 
@@ -44,7 +44,7 @@ const NewsPage = () => {
         title="Новини та події | НІСЕ"
         description="Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні."
         keywords="новини НІСЕ, судова експертиза новини, події експертизи, Незалежний Інститут Судових Експертиз"
-        url="https://nise.com.ua/novini"
+        url="https://expertise.com.ua/novini"
         structuredData={combinedStructuredData}
       />
       

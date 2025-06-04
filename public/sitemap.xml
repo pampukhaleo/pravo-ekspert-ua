@@ -4,46 +4,46 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Main pages -->
   <url>
-    <loc>https://nise.com.ua/</loc>
+    <loc>https://expertise.com.ua/</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://nise.com.ua/logonise.png</image:loc>
+      <image:loc>https://expertise.com.ua/logonise.png</image:loc>
       <image:title>НІСЕ логотип</image:title>
     </image:image>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/ekspertyzy</loc>
+    <loc>https://expertise.com.ua/ekspertyzy</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/kontakty</loc>
+    <loc>https://expertise.com.ua/kontakty</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/pro-nas</loc>
+    <loc>https://expertise.com.ua/pro-nas</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/tsiny</loc>
+    <loc>https://expertise.com.ua/tsiny</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/novini</loc>
+    <loc>https://expertise.com.ua/novini</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -51,25 +51,25 @@
 
   <!-- Expertise pages -->
   <url>
-    <loc>https://nise.com.ua/ekspertyzy/budivelno-tehnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/budivelno-tehnichna</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://nise.com.ua/budivelno-tehnichna.jpg</image:loc>
+      <image:loc>https://expertise.com.ua/budivelno-tehnichna.jpg</image:loc>
       <image:title>Будівельно-технічна експертиза</image:title>
     </image:image>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/ekspertyzy/otsinnochna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/otsinnochna</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/ekspertyzy/zemelna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/zemelna</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -77,21 +77,21 @@
 
   <!-- Service pages -->
   <url>
-    <loc>https://nise.com.ua/posluhy/ekspertyza-za-ukhvaloiu-sudu</loc>
+    <loc>https://expertise.com.ua/posluhy/ekspertyza-za-ukhvaloiu-sudu</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/posluhy/ekspertne-doslidzhennia-za-zaiavoiu</loc>
+    <loc>https://expertise.com.ua/posluhy/ekspertne-doslidzhennia-za-zaiavoiu</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://nise.com.ua/posluhy/shcho-vkhodyt-u-vartist</loc>
+    <loc>https://expertise.com.ua/posluhy/shcho-vkhodyt-u-vartist</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

@@ -1,3 +1,4 @@
+
 interface OrganizationData {
   "@context": string;
   "@type": string;
@@ -291,8 +292,8 @@ export const useStructuredData = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-    url: "https://nise.com.ua",
-    logo: "https://nise.com.ua/logonise.png",
+    url: "https://expertise.com.ua",
+    logo: "https://expertise.com.ua/logonise.png",
     description: "Незалежний інститут судових експертиз, що надає професійні експертні послуги у різних галузях з 2008 року. Атестовані експерти Мін'юсту України.",
     address: {
       "@type": "PostalAddress",
@@ -327,7 +328,7 @@ export const useStructuredData = () => {
     provider: {
       "@type": "Organization",
       name: "НІСЕ",
-      url: "https://nise.com.ua"
+      url: "https://expertise.com.ua"
     },
     areaServed: "Україна",
     serviceType: "Судова експертиза",
@@ -352,8 +353,8 @@ export const useStructuredData = () => {
     provider: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-      url: "https://nise.com.ua",
-      logo: "https://nise.com.ua/logonise.png",
+      url: "https://expertise.com.ua",
+      logo: "https://expertise.com.ua/logonise.png",
       address: {
         "@type": "PostalAddress",
         streetAddress: "вул. Левка Лук'яненка, 21, корпус 3, офіс 7",
@@ -409,8 +410,8 @@ export const useStructuredData = () => {
     "@type": "LocalBusiness",
     name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
     description: "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України.",
-    url: "https://nise.com.ua",
-    logo: "https://nise.com.ua/logonise.png",
+    url: "https://expertise.com.ua",
+    logo: "https://expertise.com.ua/logonise.png",
     telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
     email: "info@nise.com.ua",
     address: {
@@ -454,14 +455,14 @@ export const useStructuredData = () => {
     author: {
       "@type": "Organization",
       name: "НІСЕ",
-      url: "https://nise.com.ua"
+      url: "https://expertise.com.ua"
     },
     publisher: {
       "@type": "Organization",
       name: "НІСЕ",
       logo: {
         "@type": "ImageObject",
-        url: "https://nise.com.ua/logonise.png"
+        url: "https://expertise.com.ua/logonise.png"
       }
     },
     image: imageUrl,
@@ -519,8 +520,8 @@ export const useStructuredData = () => {
     brand: {
       "@type": "Brand",
       name: "НІСЕ",
-      url: "https://nise.com.ua",
-      logo: "https://nise.com.ua/logonise.png"
+      url: "https://expertise.com.ua",
+      logo: "https://expertise.com.ua/logonise.png"
     },
     category: category,
     offers: {
@@ -531,13 +532,13 @@ export const useStructuredData = () => {
       seller: {
         "@type": "Organization",
         name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-        url: "https://nise.com.ua"
+        url: "https://expertise.com.ua"
       }
     },
     provider: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-      url: "https://nise.com.ua",
+      url: "https://expertise.com.ua",
       telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
       email: "info@nise.com.ua"
     },
@@ -562,7 +563,7 @@ export const useStructuredData = () => {
     parentOrganization: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-      url: "https://nise.com.ua"
+      url: "https://expertise.com.ua"
     }
   });
 
@@ -587,7 +588,7 @@ export const useStructuredData = () => {
       : "https://schema.org/OfflineEventAttendanceMode",
     location: isOnline ? {
       "@type": "VirtualLocation",
-      url: eventUrl || "https://nise.com.ua"
+      url: eventUrl || "https://expertise.com.ua"
     } : {
       "@type": "Place",
       name: "Офіс НІСЕ",
@@ -602,7 +603,7 @@ export const useStructuredData = () => {
     organizer: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
-      url: "https://nise.com.ua",
+      url: "https://expertise.com.ua",
       email: "info@nise.com.ua"
     },
     offers: price ? {

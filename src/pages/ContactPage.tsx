@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -26,8 +27,8 @@ const ContactPage = () => {
     getLocalBusinessData(),
     getContactPointData(),
     getBreadcrumbData([
-      { name: "Головна", url: "https://nise.com.ua" },
-      { name: "Контакти", url: "https://nise.com.ua/kontakty" }
+      { name: "Головна", url: "https://expertise.com.ua" },
+      { name: "Контакти", url: "https://expertise.com.ua/kontakty" }
     ])
   ];
   
@@ -89,7 +90,7 @@ const ContactPage = () => {
         title="Контакти | НІСЕ"
         description="Зв'яжіться з Незалежним Інститутом Судових Експертиз для консультації або замовлення експертизи. Телефони, адреса, електронна пошта."
         keywords="контакти НІСЕ, телефон експертиза, адреса НІСЕ, консультація експерта, замовити експертизу"
-        url="https://nise.com.ua/kontakty"
+        url="https://expertise.com.ua/kontakty"
         structuredData={combinedStructuredData}
       />
       

@@ -25,7 +25,7 @@ const NotFound = () => {
         title="Сторінку не знайдено | 404 | НІСЕ"
         description="Сторінка, яку ви шукаєте, не існує або була переміщена. Поверніться на головну сторінку НІСЕ."
         keywords="404, сторінка не знайдена, НІСЕ, судова експертиза"
-        url={`https://nise.com.ua${location.pathname}`}
+        url={`https://expertise.com.ua${location.pathname}`}
       />
       
       <Navbar />

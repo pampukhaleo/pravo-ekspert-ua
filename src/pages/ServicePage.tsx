@@ -63,9 +63,9 @@ const ServicePage: React.FC = () => {
   }, [serviceContent, navigate]);
 
   const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Послуги", url: "https://nise.com.ua/posluhy" },
-    { name: serviceContent?.title || "Послуга", url: `https://nise.com.ua/posluhy/${slug}` }
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Послуги", url: "https://expertise.com.ua/posluhy" },
+    { name: serviceContent?.title || "Послуга", url: `https://expertise.com.ua/posluhy/${slug}` }
   ]);
 
   const serviceStructuredData = serviceContent ? 
@@ -82,7 +82,7 @@ const ServicePage: React.FC = () => {
         title={`${serviceContent.title} | НІСЕ`}
         description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
         keywords={`${serviceContent.title.toLowerCase()}, НІСЕ, судова експертиза, послуги експертизи`}
-        url={`https://nise.com.ua/posluhy/${slug}`}
+        url={`https://expertise.com.ua/posluhy/${slug}`}
         structuredData={serviceStructuredData}
       />
       

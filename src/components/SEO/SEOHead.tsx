@@ -15,8 +15,8 @@ const SEOHead = ({
   title = "НІСЕ - Незалежний Інститут Судових Експертиз",
   description = "Експертиза є не лише належним доказом у судовому провадженні, але і засобом мирного врегулювання спірних питань!",
   keywords = "судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, експертний висновок, Київ",
-  image = "https://nise.com.ua/logonise.png",
-  url = "https://nise.com.ua",
+  image = "https://expertise.com.ua/logonise.png",
+  url = "https://expertise.com.ua",
   type = "website",
   structuredData
 }: SEOHeadProps) => {
