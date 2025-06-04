@@ -197,7 +197,7 @@ export const useStructuredData = () => {
     name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
     url: "https://nise.com.ua",
     logo: "https://nise.com.ua/logonise.png",
-    description: "Незалежний інститут судових експертиз, що надає професійні експертні послуги у різних галузях",
+    description: "Незалежний інститут судових експертиз, що надає професійні експертні послуги у різних галузях з 2008 року. Атестовані експерти Мін'юсту України.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "вул. Левка Лук'яненка, 21, корпус 3, офіс 7",
@@ -211,7 +211,10 @@ export const useStructuredData = () => {
       email: "info@nise.com.ua",
       contactType: "customer service"
     },
-    sameAs: [],
+    sameAs: [
+      "https://www.facebook.com/nise.com.ua",
+      "https://www.linkedin.com/company/nise-com-ua"
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
