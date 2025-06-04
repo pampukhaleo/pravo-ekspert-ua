@@ -8,7 +8,6 @@ import ServicesSection from '../components/home/ServicesSection';
 import PartnersSection from '../components/home/PartnersSection';
 import EventsCalendar from '../components/home/EventsCalendar';
 import VideoRecordings from '../components/home/VideoRecordings';
-import NewsSection from '../components/home/NewsSection';
 import FaqSection from '../components/home/FaqSection';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
@@ -52,7 +51,6 @@ const Index = () => {
         <ServicesSection />
         <EventsCalendar />
         <VideoRecordings />
-        {/*<NewsSection />*/}
         <FaqSection />
       </main>
       
