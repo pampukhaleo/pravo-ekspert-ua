@@ -112,6 +112,36 @@ interface LocalBusinessData {
   };
 }
 
+interface ArticleData {
+  "@context": string;
+  "@type": string;
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  author: {
+    "@type": string;
+    name: string;
+    url?: string;
+  };
+  publisher: {
+    "@type": string;
+    name: string;
+    logo: {
+      "@type": string;
+      url: string;
+    };
+  };
+  image?: string;
+  url: string;
+  articleSection: string;
+  wordCount?: number;
+  mainEntityOfPage: {
+    "@type": string;
+    "@id": string;
+  };
+}
+
 export const useStructuredData = () => {
   const getOrganizationData = (): OrganizationData => ({
     "@context": "https://schema.org",
@@ -207,6 +237,43 @@ export const useStructuredData = () => {
     }
   });
 
+  const getArticleData = (
+    title: string,
+    description: string,
+    datePublished: string,
+    url: string,
+    imageUrl?: string,
+    content?: string
+  ): ArticleData => ({
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: title,
+    description: description,
+    datePublished: datePublished,
+    dateModified: datePublished,
+    author: {
+      "@type": "Organization",
+      name: "НІСЕ",
+      url: "https://nise.com.ua"
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "НІСЕ",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://nise.com.ua/logonise.png"
+      }
+    },
+    image: imageUrl,
+    url: url,
+    articleSection: "Новини",
+    wordCount: content ? content.replace(/<[^>]*>/g, '').split(/\s+/).length : undefined,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url
+    }
+  });
+
   const getBreadcrumbData = (items: Array<{ name: string; url: string }>) => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -244,6 +311,7 @@ export const useStructuredData = () => {
     getServiceData,
     getFAQData,
     getLocalBusinessData,
+    getArticleData,
     getBreadcrumbData,
     getWebPageData
   };

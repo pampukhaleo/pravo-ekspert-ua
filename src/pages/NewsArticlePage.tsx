@@ -14,7 +14,7 @@ import { allNewsWithContent } from '../data/fullNewsData';
 const NewsArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = allNewsWithContent.find(item => item.slug === slug);
-  const { getBreadcrumbData } = useStructuredData();
+  const { getBreadcrumbData, getArticleData } = useStructuredData();
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -28,28 +28,16 @@ const NewsArticlePage = () => {
   ]);
 
   const articleStructuredData = article ? [
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      headline: article.title,
-      datePublished: article.date,
-      author: {
-        "@type": "Organization",
-        name: "НІСЕ"
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "НІСЕ",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://nise.com.ua/logonise.png"
-        }
-      },
-      image: article.imageUrl,
-      url: `https://nise.com.ua/novini/${slug}`
-    },
+    getArticleData(
+      article.title,
+      article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
+      article.date,
+      `https://nise.com.ua/novini/${slug}`,
+      article.imageUrl,
+      article.content
+    ),
     breadcrumbData
-  ] : breadcrumbData;
+  ] : [breadcrumbData];
 
   const breadcrumbItems = [
     { label: "Новини", href: "/novini" },
