@@ -29,30 +29,37 @@ const ScrollToTop = () => {
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter basename={import.meta.env.BASE_URL}>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/ekspertyzy" element={<ExpertisesListPage />} />
-            <Route path="/ekspertyzy/:slug" element={<ExpertisePage />} />
-            <Route path="/posluhy/:slug" element={<ServicePage />} />
-            <Route path="/tsiny" element={<PricingPage />} />
-            <Route path="/kontakty" element={<ContactPage />} />
-            <Route path="/pro-nas" element={<AboutPage />} />
-            <Route path="/novini" element={<NewsPage />} />
-            <Route path="/novini/:slug" element={<NewsArticlePage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
-);
+import { usePerformanceOptimization } from "./hooks/usePerformanceOptimization";
+
+const App = () => {
+  // Используем хук для оптимизации производительности
+  usePerformanceOptimization();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/ekspertyzy" element={<ExpertisesListPage />} />
+              <Route path="/ekspertyzy/:slug" element={<ExpertisePage />} />
+              <Route path="/posluhy/:slug" element={<ServicePage />} />
+              <Route path="/tsiny" element={<PricingPage />} />
+              <Route path="/kontakty" element={<ContactPage />} />
+              <Route path="/pro-nas" element={<AboutPage />} />
+              <Route path="/novini" element={<NewsPage />} />
+              <Route path="/novini/:slug" element={<NewsArticlePage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
