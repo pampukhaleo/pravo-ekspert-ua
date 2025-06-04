@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 import { expertiseData } from '../data/expertiseData';
 import { Search, Filter, ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 
 const ExpertisesListPage = () => {
+  const { getBreadcrumbData } = useStructuredData();
+  
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
@@ -38,8 +42,21 @@ const ExpertisesListPage = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://nise.com.ua" },
+    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" }
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="Судові експертизи | НІСЕ"
+        description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
+        keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
+        url="https://nise.com.ua/ekspertyzy"
+        structuredData={breadcrumbData}
+      />
+      
       <Navbar />
       
       <main className="flex-grow pt-32 pb-16">

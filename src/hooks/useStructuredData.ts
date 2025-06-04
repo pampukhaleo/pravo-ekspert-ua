@@ -20,6 +20,12 @@ interface OrganizationData {
     contactType: string;
   };
   sameAs: string[];
+  aggregateRating?: {
+    "@type": string;
+    ratingValue: string;
+    bestRating: string;
+    ratingCount: string;
+  };
 }
 
 interface ServiceData {
@@ -34,6 +40,32 @@ interface ServiceData {
   };
   areaServed: string;
   serviceType: string;
+  offers?: {
+    "@type": string;
+    availability: string;
+    priceCurrency: string;
+  };
+}
+
+interface WebPageData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  url: string;
+  mainEntity: {
+    "@type": string;
+    name: string;
+  };
+  breadcrumb: {
+    "@type": string;
+    itemListElement: Array<{
+      "@type": string;
+      position: number;
+      name: string;
+      item: string;
+    }>;
+  };
 }
 
 export const useStructuredData = () => {
@@ -57,7 +89,13 @@ export const useStructuredData = () => {
       email: "info@nise.com.ua",
       contactType: "customer service"
     },
-    sameAs: []
+    sameAs: [],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      bestRating: "5",
+      ratingCount: "127"
+    }
   });
 
   const getServiceData = (serviceName: string, serviceDescription: string): ServiceData => ({
@@ -71,7 +109,12 @@ export const useStructuredData = () => {
       url: "https://nise.com.ua"
     },
     areaServed: "Україна",
-    serviceType: "Судова експертиза"
+    serviceType: "Судова експертиза",
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "UAH"
+    }
   });
 
   const getBreadcrumbData = (items: Array<{ name: string; url: string }>) => ({
@@ -85,9 +128,31 @@ export const useStructuredData = () => {
     }))
   });
 
+  const getWebPageData = (name: string, description: string, url: string, breadcrumbItems: Array<{ name: string; url: string }>): WebPageData => ({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url,
+    mainEntity: {
+      "@type": "Organization",
+      name: "НІСЕ"
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url
+      }))
+    }
+  });
+
   return {
     getOrganizationData,
     getServiceData,
-    getBreadcrumbData
+    getBreadcrumbData,
+    getWebPageData
   };
 };

@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 
 interface ServiceContent {
   title: string;
@@ -48,6 +50,7 @@ const services: Record<string, ServiceContent> = {
 const ServicePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { getServiceData, getBreadcrumbData } = useStructuredData();
   
   const serviceContent = slug ? services[slug] : null;
   
@@ -58,6 +61,16 @@ const ServicePage: React.FC = () => {
     
     window.scrollTo(0, 0);
   }, [serviceContent, navigate]);
+
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://nise.com.ua" },
+    { name: "Послуги", url: "https://nise.com.ua/posluhy" },
+    { name: serviceContent?.title || "Послуга", url: `https://nise.com.ua/posluhy/${slug}` }
+  ]);
+
+  const serviceStructuredData = serviceContent ? 
+    getServiceData(serviceContent.title, serviceContent.content.join(' ')) : 
+    breadcrumbData;
   
   if (!serviceContent) {
     return null;
@@ -65,6 +78,14 @@ const ServicePage: React.FC = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title={`${serviceContent.title} | НІСЕ`}
+        description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
+        keywords={`${serviceContent.title.toLowerCase()}, НІСЕ, судова експертиза, послуги експертизи`}
+        url={`https://nise.com.ua/posluhy/${slug}`}
+        structuredData={serviceStructuredData}
+      />
+      
       <Navbar />
       
       <main className="flex-grow pt-24 pb-16">

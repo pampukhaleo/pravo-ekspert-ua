@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -8,6 +7,8 @@ import KeyDirections from '../components/expertise/KeyDirections';
 import FAQ from '../components/expertise/FAQ';
 import WhyUs from '../components/expertise/WhyUs';
 import ConsultationButton from '../components/ConsultationButton';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 import { expertiseData } from '../data/expertiseData';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import { 
@@ -24,6 +25,7 @@ const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('overview');
+  const { getServiceData, getBreadcrumbData } = useStructuredData();
   
   // Check if we're coming from a direction link
   useEffect(() => {
@@ -79,8 +81,32 @@ const ExpertisePage = () => {
     { title: "Підготовка експертного висновку", description: "На основі результатів досліджень формується обґрунтований, детальний експертний висновок, який містить висновки та обґрунтування." }
   ];
   
+  const pageTitle = selectedDirection ? selectedDirection.title : expertise.title;
+  const pageDescription = selectedDirection ? selectedDirection.description : expertise.description;
+  
+  const breadcrumbItems = selectedDirection && parentExpertiseSlug ? [
+    { name: "Головна", url: "https://nise.com.ua" },
+    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },
+    { name: expertise.title, url: `https://nise.com.ua/ekspertyzy/${parentExpertiseSlug}` },
+    { name: selectedDirection.title, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+  ] : [
+    { name: "Головна", url: "https://nise.com.ua" },
+    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },
+    { name: pageTitle, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+  ];
+
+  const structuredData = getServiceData(pageTitle, pageDescription);
+  
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title={`${pageTitle} | НІСЕ`}
+        description={`${pageDescription} - професійна експертиза від Незалежного Інституту Судових Експертиз`}
+        keywords={`${pageTitle.toLowerCase()}, судова експертиза, НІСЕ, експертний висновок, ${pageTitle.toLowerCase()} експертиза`}
+        url={`https://nise.com.ua/ekspertyzy/${slug}`}
+        structuredData={structuredData}
+      />
+      
       <Navbar />
       
       <main className="flex-grow">

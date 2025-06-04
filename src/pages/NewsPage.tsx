@@ -4,16 +4,33 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 import { newsItems } from '../data/newsData';
 
 const NewsPage = () => {
+  const { getBreadcrumbData } = useStructuredData();
+  
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://nise.com.ua" },
+    { name: "Новини", url: "https://nise.com.ua/novini" }
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SEOHead
+        title="Новини та події | НІСЕ"
+        description="Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні."
+        keywords="новини НІСЕ, судова експертиза новини, події експертизи, Незалежний Інститут Судових Експертиз"
+        url="https://nise.com.ua/novini"
+        structuredData={breadcrumbData}
+      />
+      
       <Navbar />
       
       <main className="flex-grow pt-24 pb-16">
