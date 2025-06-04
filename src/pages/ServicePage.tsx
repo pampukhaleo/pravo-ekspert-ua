@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEO/SEOHead';
@@ -90,6 +91,15 @@ const ServicePage: React.FC = () => {
       
       <main className="flex-grow pt-24 pb-16">
         <div className="container-custom">
+          {/* Back button */}
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-6 inline-flex items-center text-gray-600 hover:text-brand-blue transition-colors group"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Назад
+          </button>
+
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">{serviceContent.title}</h1>
           
           <div className="bg-white p-8 rounded-xl shadow-sm">
