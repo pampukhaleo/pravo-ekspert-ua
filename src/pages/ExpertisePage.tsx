@@ -18,7 +18,7 @@ const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('overview');
-  const { getServiceData, getBreadcrumbData } = useStructuredData();
+  const { getProfessionalServiceData, getBreadcrumbData } = useStructuredData();
   
   // Check if we're coming from a direction link
   useEffect(() => {
@@ -87,7 +87,12 @@ const ExpertisePage = () => {
   ];
 
   const structuredData = [
-    getServiceData(pageTitle, pageDescription),
+    getProfessionalServiceData(
+      pageTitle, 
+      pageDescription,
+      `https://nise.com.ua/ekspertyzy/${slug}`,
+      expertise.directions
+    ),
     getBreadcrumbData([
       { name: "Головна", url: "https://nise.com.ua" },
       { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },

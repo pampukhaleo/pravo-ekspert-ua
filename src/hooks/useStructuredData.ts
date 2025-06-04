@@ -47,6 +47,54 @@ interface ServiceData {
   };
 }
 
+interface ProfessionalServiceData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  url: string;
+  provider: {
+    "@type": string;
+    name: string;
+    url: string;
+    logo: string;
+    address: {
+      "@type": string;
+      streetAddress: string;
+      addressLocality: string;
+      addressRegion: string;
+      postalCode: string;
+      addressCountry: string;
+    };
+    telephone: string[];
+    email: string;
+  };
+  serviceType: string;
+  areaServed: {
+    "@type": string;
+    name: string;
+  };
+  availableChannel: {
+    "@type": string;
+    serviceUrl: string;
+    serviceName: string;
+  };
+  category: string;
+  audience: {
+    "@type": string;
+    audienceType: string;
+  };
+  hasOfferCatalog?: {
+    "@type": string;
+    name: string;
+    itemListElement: Array<{
+      "@type": string;
+      name: string;
+      description: string;
+    }>;
+  };
+}
+
 interface WebPageData {
   "@context": string;
   "@type": string;
@@ -191,6 +239,59 @@ export const useStructuredData = () => {
     }
   });
 
+  const getProfessionalServiceData = (
+    serviceName: string, 
+    serviceDescription: string, 
+    serviceUrl: string,
+    directions?: Array<{ title: string; description: string }>
+  ): ProfessionalServiceData => ({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: serviceName,
+    description: serviceDescription,
+    url: serviceUrl,
+    provider: {
+      "@type": "Organization",
+      name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+      url: "https://nise.com.ua",
+      logo: "https://nise.com.ua/logonise.png",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "вул. Левка Лук'яненка, 21, корпус 3, офіс 7",
+        addressLocality: "Київ",
+        addressRegion: "Київська область",
+        postalCode: "04207",
+        addressCountry: "UA"
+      },
+      telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+      email: "info@nise.com.ua"
+    },
+    serviceType: "Судова експертиза",
+    areaServed: {
+      "@type": "Country",
+      name: "Україна"
+    },
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: serviceUrl,
+      serviceName: serviceName
+    },
+    category: "Експертні послуги",
+    audience: {
+      "@type": "Audience",
+      audienceType: "Юридичні особи та приватні клієнти"
+    },
+    hasOfferCatalog: directions && directions.length > 0 ? {
+      "@type": "OfferCatalog",
+      name: `Напрямки ${serviceName.toLowerCase()}`,
+      itemListElement: directions.map(direction => ({
+        "@type": "Offer",
+        name: direction.title,
+        description: direction.description
+      }))
+    } : undefined
+  });
+
   const getFAQData = (faqs: Array<{ question: string; answer: string }>): FAQData => ({
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -309,6 +410,7 @@ export const useStructuredData = () => {
   return {
     getOrganizationData,
     getServiceData,
+    getProfessionalServiceData,
     getFAQData,
     getLocalBusinessData,
     getArticleData,
