@@ -14,12 +14,18 @@ import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 
 const Index = () => {
-  const { getOrganizationData, getLocalBusinessData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getWebPageData } = useStructuredData();
   
   // Комбинируем несколько типов structured data
   const combinedStructuredData = [
     getOrganizationData(),
-    getLocalBusinessData()
+    getLocalBusinessData(),
+    getWebPageData(
+      "Незалежний Інститут Судових Експертиз (НІСЕ)",
+      "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України. Будівельно-технічні, оціночні, земельні та інші види експертиз.",
+      "https://nise.com.ua",
+      [{ name: "Головна", url: "https://nise.com.ua" }]
+    )
   ];
 
   return (

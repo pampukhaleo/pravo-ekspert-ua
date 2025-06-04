@@ -10,7 +10,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 import { newsItems } from '../data/newsData';
 
 const NewsPage = () => {
-  const { getBreadcrumbData } = useStructuredData();
+  const { getBreadcrumbData, getWebPageData } = useStructuredData();
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -21,6 +21,18 @@ const NewsPage = () => {
     { name: "Головна", url: "https://nise.com.ua" },
     { name: "Новини", url: "https://nise.com.ua/novini" }
   ]);
+
+  const webPageData = getWebPageData(
+    "Новини та події | НІСЕ",
+    "Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні.",
+    "https://nise.com.ua/novini",
+    [
+      { name: "Головна", url: "https://nise.com.ua" },
+      { name: "Новини", url: "https://nise.com.ua/novini" }
+    ]
+  );
+
+  const combinedStructuredData = [breadcrumbData, webPageData];
 
   const breadcrumbItems = [
     { label: "Новини", isCurrentPage: true }
@@ -33,7 +45,7 @@ const NewsPage = () => {
         description="Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні."
         keywords="новини НІСЕ, судова експертиза новини, події експертизи, Незалежний Інститут Судових Експертиз"
         url="https://nise.com.ua/novini"
-        structuredData={breadcrumbData}
+        structuredData={combinedStructuredData}
       />
       
       <Navbar />
