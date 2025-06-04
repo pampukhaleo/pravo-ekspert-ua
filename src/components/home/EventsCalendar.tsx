@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button';
 import EventCard from './events/EventCard';
 import CalendarView from './events/CalendarView';
 import { events, getNextEvent } from './events/eventsData';
+import { useStructuredData } from '../../hooks/useStructuredData';
 
 const EventsCalendar: React.FC = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
+  const { getEventData } = useStructuredData();
   
   // Get the next upcoming event
   const nextEvent = getNextEvent();
@@ -16,6 +18,44 @@ const EventsCalendar: React.FC = () => {
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
   };
+
+  // Generate structured data for upcoming events
+  const eventsStructuredData = events
+    .filter(event => new Date(event.date) > new Date())
+    .slice(0, 3) // Limit to next 3 events
+    .map(event => getEventData(
+      event.title,
+      event.description,
+      event.date,
+      undefined, // endDate
+      event.type === 'webinar', // isOnline
+      event.price || "Безкоштовно"
+    ));
+
+  // Add structured data to page head if there are events
+  React.useEffect(() => {
+    if (eventsStructuredData.length > 0) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(eventsStructuredData);
+      script.id = 'events-structured-data';
+      
+      // Remove existing script if any
+      const existingScript = document.getElementById('events-structured-data');
+      if (existingScript) {
+        existingScript.remove();
+      }
+      
+      document.head.appendChild(script);
+      
+      return () => {
+        const scriptToRemove = document.getElementById('events-structured-data');
+        if (scriptToRemove) {
+          scriptToRemove.remove();
+        }
+      };
+    }
+  }, [eventsStructuredData]);
   
   return (
     <section className="py-16 md:py-24 bg-white">

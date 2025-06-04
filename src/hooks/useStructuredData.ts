@@ -1,4 +1,3 @@
-
 interface OrganizationData {
   "@context": string;
   "@type": string;
@@ -187,6 +186,103 @@ interface ArticleData {
   mainEntityOfPage: {
     "@type": string;
     "@id": string;
+  };
+}
+
+interface ProductData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  brand: {
+    "@type": string;
+    name: string;
+    url: string;
+    logo: string;
+  };
+  category: string;
+  offers: {
+    "@type": string;
+    availability: string;
+    priceCurrency: string;
+    priceRange?: string;
+    seller: {
+      "@type": string;
+      name: string;
+      url: string;
+    };
+  };
+  provider: {
+    "@type": string;
+    name: string;
+    url: string;
+    telephone: string[];
+    email: string;
+  };
+  serviceType: string;
+  areaServed: string;
+}
+
+interface ContactPointData {
+  "@context": string;
+  "@type": string;
+  contactType: string;
+  telephone: string[];
+  email: string;
+  availableLanguage: string[];
+  hoursAvailable: {
+    "@type": string;
+    dayOfWeek: string[];
+    opens: string;
+    closes: string;
+  };
+  areaServed: string;
+  parentOrganization: {
+    "@type": string;
+    name: string;
+    url: string;
+  };
+}
+
+interface EventData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate?: string;
+  eventStatus: string;
+  eventAttendanceMode: string;
+  location: {
+    "@type": string;
+    name: string;
+    address: {
+      "@type": string;
+      streetAddress: string;
+      addressLocality: string;
+      addressCountry: string;
+      postalCode: string;
+    };
+  } | {
+    "@type": string;
+    url: string;
+  };
+  organizer: {
+    "@type": string;
+    name: string;
+    url: string;
+    email: string;
+  };
+  offers?: {
+    "@type": string;
+    price: string;
+    priceCurrency: string;
+    availability: string;
+    url?: string;
+  };
+  audience?: {
+    "@type": string;
+    audienceType: string;
   };
 }
 
@@ -410,6 +506,118 @@ export const useStructuredData = () => {
     }
   });
 
+  const getProductData = (
+    serviceName: string,
+    serviceDescription: string,
+    category: string = "Судові експертизи",
+    priceRange?: string
+  ): ProductData => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: serviceName,
+    description: serviceDescription,
+    brand: {
+      "@type": "Brand",
+      name: "НІСЕ",
+      url: "https://nise.com.ua",
+      logo: "https://nise.com.ua/logonise.png"
+    },
+    category: category,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "UAH",
+      priceRange: priceRange,
+      seller: {
+        "@type": "Organization",
+        name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+        url: "https://nise.com.ua"
+      }
+    },
+    provider: {
+      "@type": "Organization",
+      name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+      url: "https://nise.com.ua",
+      telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+      email: "info@nise.com.ua"
+    },
+    serviceType: "Судова експертиза",
+    areaServed: "Україна"
+  });
+
+  const getContactPointData = (): ContactPointData => ({
+    "@context": "https://schema.org",
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+    email: "info@nise.com.ua",
+    availableLanguage: ["Ukrainian", "Russian"],
+    hoursAvailable: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00"
+    },
+    areaServed: "Україна",
+    parentOrganization: {
+      "@type": "Organization",
+      name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+      url: "https://nise.com.ua"
+    }
+  });
+
+  const getEventData = (
+    eventName: string,
+    eventDescription: string,
+    startDate: string,
+    endDate?: string,
+    isOnline: boolean = false,
+    price?: string,
+    eventUrl?: string
+  ): EventData => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: eventName,
+    description: eventDescription,
+    startDate: startDate,
+    endDate: endDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: isOnline 
+      ? "https://schema.org/OnlineEventAttendanceMode"
+      : "https://schema.org/OfflineEventAttendanceMode",
+    location: isOnline ? {
+      "@type": "VirtualLocation",
+      url: eventUrl || "https://nise.com.ua"
+    } : {
+      "@type": "Place",
+      name: "Офіс НІСЕ",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "вул. Левка Лук'яненка, 21, корпус 3, офіс 7",
+        addressLocality: "Київ",
+        addressCountry: "UA",
+        postalCode: "04207"
+      }
+    },
+    organizer: {
+      "@type": "Organization",
+      name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+      url: "https://nise.com.ua",
+      email: "info@nise.com.ua"
+    },
+    offers: price ? {
+      "@type": "Offer",
+      price: price,
+      priceCurrency: "UAH",
+      availability: "https://schema.org/InStock",
+      url: eventUrl
+    } : undefined,
+    audience: {
+      "@type": "Audience",
+      audienceType: "Юристи, експерти, представники бізнесу"
+    }
+  });
+
   return {
     getOrganizationData,
     getServiceData,
@@ -418,6 +626,9 @@ export const useStructuredData = () => {
     getLocalBusinessData,
     getArticleData,
     getBreadcrumbData,
-    getWebPageData
+    getWebPageData,
+    getProductData,
+    getContactPointData,
+    getEventData
   };
 };

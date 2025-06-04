@@ -11,7 +11,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -24,6 +24,7 @@ const ContactPage = () => {
   const combinedStructuredData = [
     getOrganizationData(),
     getLocalBusinessData(),
+    getContactPointData(),
     getBreadcrumbData([
       { name: "Головна", url: "https://nise.com.ua" },
       { name: "Контакти", url: "https://nise.com.ua/kontakty" }
