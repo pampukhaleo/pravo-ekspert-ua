@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -11,7 +10,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const { getOrganizationData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -20,6 +19,12 @@ const ContactPage = () => {
     message: '',
     expertise: 'Не обрано'
   });
+  
+  // Комбинируем Organization и LocalBusiness schema
+  const combinedStructuredData = [
+    getOrganizationData(),
+    getLocalBusinessData()
+  ];
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -79,7 +84,7 @@ const ContactPage = () => {
         description="Зв'яжіться з Незалежним Інститутом Судових Експертиз для консультації або замовлення експертизи. Телефони, адреса, електронна пошта."
         keywords="контакти НІСЕ, телефон експертиза, адреса НІСЕ, консультація експерта, замовити експертизу"
         url="https://nise.com.ua/kontakty"
-        structuredData={getOrganizationData()}
+        structuredData={combinedStructuredData}
       />
       
       <Navbar />

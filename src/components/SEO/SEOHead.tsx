@@ -8,7 +8,7 @@ interface SEOHeadProps {
   image?: string;
   url?: string;
   type?: 'website' | 'article';
-  structuredData?: object;
+  structuredData?: object | object[];
 }
 
 const SEOHead = ({
@@ -49,7 +49,7 @@ const SEOHead = ({
       {/* Structured Data */}
       {structuredData && (
         <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
+          {JSON.stringify(Array.isArray(structuredData) ? structuredData : [structuredData])}
         </script>
       )}
     </Helmet>

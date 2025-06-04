@@ -1,49 +1,46 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import Hero from '../components/home/Hero';
-import ExpertiseCarousel from '../components/home/ExpertiseCarousel';
+import AboutSection from '../components/home/AboutSection';
 import ServicesSection from '../components/home/ServicesSection';
+import ExpertiseCarousel from '../components/home/ExpertiseCarousel';
 import PartnersSection from '../components/home/PartnersSection';
-import EventsCalendar from '../components/home/EventsCalendar';
-import VideoRecordings from '../components/home/VideoRecordings';
-import NewsSection from '../components/home/NewsSection';
+import ClientsSection from '../components/home/ClientsSection';
 import FaqSection from '../components/home/FaqSection';
+import NewsSection from '../components/home/NewsSection';
+import Footer from '../components/Footer';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 
 const Index = () => {
-  const { getOrganizationData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData } = useStructuredData();
   
-  // Ensure we start at the top of the page
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // Комбинируем несколько типов structured data
+  const combinedStructuredData = [
+    getOrganizationData(),
+    getLocalBusinessData()
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen">
       <SEOHead
         title="НІСЕ - Незалежний Інститут Судових Експертиз"
-        description="Професійні експертні послуги у сфері будівельно-технічної, оціночної, земельної та інших видів судової експертизи. Досвідчені експерти, якісні висновки."
-        keywords="судова експертиза, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, експертний висновок, НІСЕ, Київ"
+        description="Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України. Будівельно-технічні, оціночні, земельні та інші види експертиз."
+        keywords="судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, НІСЕ, експертний висновок, Київ"
         url="https://nise.com.ua"
-        structuredData={getOrganizationData()}
+        structuredData={combinedStructuredData}
       />
       
       <Navbar />
-      
-      <main className="flex-grow">
-        <Hero />
-        <ExpertiseCarousel />
-        <PartnersSection />
-        <ServicesSection />
-        <EventsCalendar />
-        <VideoRecordings />
-        {/*<NewsSection />*/}
-        <FaqSection />
-      </main>
-      
+      <Hero />
+      <AboutSection />
+      <ServicesSection />
+      <ExpertiseCarousel />
+      <PartnersSection />
+      <ClientsSection />
+      <FaqSection />
+      <NewsSection />
       <Footer />
     </div>
   );
