@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,8 +12,10 @@ const EventsCalendar: React.FC = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { getEventData } = useStructuredData();
   
-  // Get the next upcoming event
+  // Get the next upcoming event - only if it's in the future
   const nextEvent = getNextEvent();
+  const today = new Date();
+  const hasUpcomingEvents = nextEvent && new Date(nextEvent.date) > today;
   
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
@@ -72,9 +75,26 @@ const EventsCalendar: React.FC = () => {
           </p>
         </div>
 
-        {nextEvent && (
+        {hasUpcomingEvents && (
           <div className="mb-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 md:p-10 shadow-sm">
             <EventCard event={nextEvent} toggleCalendar={toggleCalendar} showCalendar={showCalendar} />
+          </div>
+        )}
+
+        {!hasUpcomingEvents && (
+          <div className="mb-12 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 md:p-10 shadow-sm text-center">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">
+              Заходи планується
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Наразі немає запланованих заходів. Слідкуйте за оновленнями, щоб не пропустити наступні вебінари та семінари.
+            </p>
+            <button
+              onClick={toggleCalendar}
+              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors inline-flex items-center"
+            >
+              {showCalendar ? 'Сховати календар' : 'Переглянути календар'}
+            </button>
           </div>
         )}
         
