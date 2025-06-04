@@ -7,6 +7,14 @@ import { Youtube } from 'lucide-react';
 const videoRecordings = [
   {
     id: 1,
+    title: 'Вебінар: Психологічна експертиза у спорах між батьками щодо виховання та місця проживання дитини',
+    thumbnailUrl: 'https://img.youtube.com/vi/wb8XchP9Iz8/maxresdefault.jpg',
+    videoUrl: 'https://youtube.com/live/wb8XchP9Iz8',
+    duration: '1:17:54',
+    date: '20.05.2025'
+  },
+  {
+    id: 2,
     title: 'Вебінар: Cемантико-текстуальна експертиза писемного мовлення.',
     thumbnailUrl: 'https://img.youtube.com/vi/YeVV3lGKiDA/maxresdefault.jpg',
     videoUrl: 'https://www.youtube.com/live/YeVV3lGKiDA?si=NDBQdxjIRs9OfHfg',
@@ -14,21 +22,13 @@ const videoRecordings = [
     date: '15.04.2025'
   },
   {
-    id: 2,
+    id: 3,
     title: 'Вебінар: Судово-психологічна експертиза у справах щодо відшкодування моральної шкоди',
     thumbnailUrl: 'https://img.youtube.com/vi/lX8lu41SQKY/maxresdefault.jpg',
     videoUrl: 'https://youtube.com/live/lX8lu41SQKY',
     duration: '1:12:02',
     date: '01.04.2025'
   },
-  {
-    id: 3,
-    title: 'Вебінар: «Почеркознавча експертиза: сучасні методики, європейський досвід та практичні аспекти',
-    thumbnailUrl: 'https://img.youtube.com/vi/drNvUYSsAxU/maxresdefault.jpg',
-    videoUrl: 'https://youtube.com/live/drNvUYSsAxU',
-    duration: '1:34:07',
-    date: '04.03.2025'
-  }
 ];
 
 const VideoRecordings: React.FC = () => {
