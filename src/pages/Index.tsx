@@ -10,8 +10,12 @@ import EventsCalendar from '../components/home/EventsCalendar';
 import VideoRecordings from '../components/home/VideoRecordings';
 import NewsSection from '../components/home/NewsSection';
 import FaqSection from '../components/home/FaqSection';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 
 const Index = () => {
+  const { getOrganizationData } = useStructuredData();
+  
   // Ensure we start at the top of the page
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,6 +23,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SEOHead
+        title="НІСЕ - Незалежний Інститут Судових Експертиз"
+        description="Професійні експертні послуги у сфері будівельно-технічної, оціночної, земельної та інших видів судової експертизи. Досвідчені експерти, якісні висновки."
+        keywords="судова експертиза, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, експертний висновок, НІСЕ, Київ"
+        url="https://nise.com.ua"
+        structuredData={getOrganizationData()}
+      />
+      
       <Navbar />
       
       <main className="flex-grow">

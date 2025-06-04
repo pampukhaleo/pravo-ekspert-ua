@@ -6,9 +6,12 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import Map from '../components/Map';
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 
 const ContactPage = () => {
   const { toast } = useToast();
+  const { getOrganizationData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -71,6 +74,14 @@ const ContactPage = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="Контакти | НІСЕ"
+        description="Зв'яжіться з Незалежним Інститутом Судових Експертиз для консультації або замовлення експертизи. Телефони, адреса, електронна пошта."
+        keywords="контакти НІСЕ, телефон експертиза, адреса НІСЕ, консультація експерта, замовити експертизу"
+        url="https://nise.com.ua/kontakty"
+        structuredData={getOrganizationData()}
+      />
+      
       <Navbar />
       
       <main className="flex-grow pt-32 pb-16">
