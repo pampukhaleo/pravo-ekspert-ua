@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Breadcrumbs from '../components/Breadcrumbs';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 import { newsItems } from '../data/newsData';
@@ -21,6 +22,10 @@ const NewsPage = () => {
     { name: "Новини", url: "https://nise.com.ua/novini" }
   ]);
 
+  const breadcrumbItems = [
+    { label: "Новини", isCurrentPage: true }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <SEOHead
@@ -34,13 +39,10 @@ const NewsPage = () => {
       <Navbar />
       
       <main className="flex-grow pt-24 pb-16">
+        <Breadcrumbs items={breadcrumbItems} />
+        
         <div className="container-custom">
           <div className="mb-6">
-            <Link to="/" className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-8 transition-colors">
-              <ArrowLeft className="h-5 w-5 mr-2" />
-              На головну
-            </Link>
-            
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Новини та події</h1>
             <p className="text-lg text-gray-600 max-w-3xl mb-12">
               Останні новини та події Незалежного Інституту Судових Експертиз

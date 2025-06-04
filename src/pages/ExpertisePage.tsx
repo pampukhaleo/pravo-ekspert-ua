@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Breadcrumbs from '../components/Breadcrumbs';
 import ExpertiseHeader from '../components/expertise/ExpertiseHeader';
 import KeyDirections from '../components/expertise/KeyDirections';
 import FAQ from '../components/expertise/FAQ';
@@ -11,15 +12,7 @@ import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 import { expertiseData } from '../data/expertiseData';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
-import { 
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage
-} from '../components/ui/breadcrumb';
-import { FileText, MessageSquare, CheckCircle, Clock, ChevronRight } from 'lucide-react';
+import { FileText, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 
 const ExpertisePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -85,17 +78,27 @@ const ExpertisePage = () => {
   const pageDescription = selectedDirection ? selectedDirection.description : expertise.description;
   
   const breadcrumbItems = selectedDirection && parentExpertiseSlug ? [
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },
-    { name: expertise.title, url: `https://nise.com.ua/ekspertyzy/${parentExpertiseSlug}` },
-    { name: selectedDirection.title, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+    { label: "Експертизи", href: "/ekspertyzy" },
+    { label: expertise.title, href: `/ekspertyzy/${parentExpertiseSlug}` },
+    { label: selectedDirection.title, isCurrentPage: true }
   ] : [
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },
-    { name: pageTitle, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+    { label: "Експертизи", href: "/ekspertyzy" },
+    { label: pageTitle, isCurrentPage: true }
   ];
 
-  const structuredData = getServiceData(pageTitle, pageDescription);
+  const structuredData = [
+    getServiceData(pageTitle, pageDescription),
+    getBreadcrumbData([
+      { name: "Головна", url: "https://nise.com.ua" },
+      { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" },
+      ...(selectedDirection && parentExpertiseSlug ? [
+        { name: expertise.title, url: `https://nise.com.ua/ekspertyzy/${parentExpertiseSlug}` },
+        { name: selectedDirection.title, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+      ] : [
+        { name: pageTitle, url: `https://nise.com.ua/ekspertyzy/${slug}` }
+      ])
+    ])
+  ];
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -116,37 +119,9 @@ const ExpertisePage = () => {
           backgroundImage={backgroundImage}
         />
         
-        <div className="container-custom py-10">
-          {/* Enhanced Breadcrumb navigation */}
-          {selectedDirection && parentExpertiseSlug && (
-            <div className="mb-8 py-3 px-5 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
-              <Breadcrumb>
-                <BreadcrumbList className="text-base">
-                  <BreadcrumbItem>
-                    <BreadcrumbLink 
-                      asChild
-                      className="font-medium text-brand-blue hover:text-brand-dark transition-colors"
-                    >
-                      <Link to={`/ekspertyzy/${parentExpertiseSlug}?from=directions`}>
-                        {expertise.title}
-                      </Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  
-                  <BreadcrumbSeparator>
-                    <ChevronRight size={18} className="text-gray-400" />
-                  </BreadcrumbSeparator>
-                  
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="font-semibold text-gray-900">
-                      {selectedDirection.title}
-                    </BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          )}
+        <Breadcrumbs items={breadcrumbItems} />
         
+        <div className="container-custom py-10">
           <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab} value={activeTab}>
             <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 mb-8">
               <TabsTrigger value="overview" className="flex gap-2 items-center">
@@ -178,7 +153,6 @@ const ExpertisePage = () => {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-6">Етапи проведення експертизи</h2>
                 <div className="relative">
-                  {/* Timeline connector */}
                   <div className="absolute left-6 top-0 bottom-0 w-1 bg-gray-200 hidden md:block"></div>
                   
                   <div className="space-y-10">
@@ -202,9 +176,7 @@ const ExpertisePage = () => {
               {expertise.directions.length > 0 ? (
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <h2 className="text-2xl font-semibold text-gray-900 mb-6">Напрямки експертизи</h2>
-                  {/* Always show KeyDirections with filtered directions */}
                   <KeyDirections directions={expertise.directions} currentSlug={slug} />
-                  {/* If there are no other directions after filtering, show this message */}
                   {(selectedDirection && expertise.directions.filter(dir => dir.slug !== slug).length === 0) && (
                     <p className="text-gray-600">
                       Немає інших напрямків для цієї експертизи.

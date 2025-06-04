@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Breadcrumbs from '../components/Breadcrumbs';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Map from '../components/Map';
 import { useToast } from "@/components/ui/use-toast";
@@ -10,7 +11,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const { getOrganizationData, getLocalBusinessData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -20,10 +21,13 @@ const ContactPage = () => {
     expertise: 'Не обрано'
   });
   
-  // Комбинируем Organization и LocalBusiness schema
   const combinedStructuredData = [
     getOrganizationData(),
-    getLocalBusinessData()
+    getLocalBusinessData(),
+    getBreadcrumbData([
+      { name: "Головна", url: "https://nise.com.ua" },
+      { name: "Контакти", url: "https://nise.com.ua/kontakty" }
+    ])
   ];
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -36,7 +40,6 @@ const ContactPage = () => {
     setIsSubmitting(true);
     
     try {
-      // Call the Supabase Edge Function to send the message to Telegram
       const { error } = await supabase.functions.invoke('contact-form', {
         body: {
           ...formData,
@@ -48,15 +51,13 @@ const ContactPage = () => {
         throw new Error(error.message);
       }
 
-      // Показуємо повідомлення про успішну відправку з автоматичним зникненням через 5 секунд
       toast({
         title: "Повідомлення надіслано",
         description: "Дякуємо за звернення! Ми зв'яжемося з вами найближчим часом.",
         variant: "default",
-        duration: 5000, // 5 секунд
+        duration: 5000,
       });
       
-      // Скидання форми після відправки
       setFormData({
         name: '',
         email: '',
@@ -70,12 +71,16 @@ const ContactPage = () => {
         title: "Помилка",
         description: "Не вдалося надіслати повідомлення. Будь ласка, спробуйте пізніше.",
         variant: "destructive",
-        duration: 5000, // 5 секунд
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const breadcrumbItems = [
+    { label: "Контакти", isCurrentPage: true }
+  ];
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -90,6 +95,8 @@ const ContactPage = () => {
       <Navbar />
       
       <main className="flex-grow pt-32 pb-16">
+        <Breadcrumbs items={breadcrumbItems} />
+        
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
