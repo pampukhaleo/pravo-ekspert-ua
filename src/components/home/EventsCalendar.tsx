@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -26,7 +25,7 @@ const EventsCalendar: React.FC = () => {
     .map(event => getEventData(
       event.title,
       event.description,
-      event.date,
+      event.date.toISOString(), // Convert Date to string
       undefined, // endDate
       event.type === 'webinar', // isOnline
       event.price || "Безкоштовно"
