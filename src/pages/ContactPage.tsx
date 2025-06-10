@@ -119,9 +119,15 @@ const ContactPage = () => {
                     <Phone className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">Телефон</h3>
-                      <p className="text-gray-700">(044) 581 30 90</p>
-                      <p className="text-gray-700">(050) 360 16 82</p>
-                      <p className="text-gray-700">(067) 5555 222</p>
+                      <p className="text-gray-700">
+                        <a href="tel:+380445813090" className="hover:underline">(044) 581 30 90</a>
+                      </p>
+                      <p className="text-gray-700">
+                        <a href="tel:+380503601682" className="hover:underline">(050) 360 16 82</a>
+                      </p>
+                      <p className="text-gray-700">
+                        <a href="tel:+380675555222" className="hover:underline">(067) 5555 222</a>
+                      </p>
                     </div>
                   </div>
                   
@@ -129,10 +135,12 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">Email</h3>
-                      <p className="text-gray-700">info@nise.com.ua</p>
+                      <p className="text-gray-700">
+                        <a href="mailto:info@nise.com.ua" className="hover:underline">info@nise.com.ua</a>
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start">
                     <MapPin className="h-6 w-6 text-brand-blue mr-4 mt-1" />
                     <div>
