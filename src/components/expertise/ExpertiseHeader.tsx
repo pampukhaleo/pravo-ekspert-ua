@@ -11,10 +11,9 @@ interface ExpertiseHeaderProps {
 const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({ 
   title, 
   description,
-  backgroundImage = "/placeholder.svg" // Зображення за замовчуванням
+  backgroundImage = "/placeholder.svg"
 }) => {
   // Правильно форматуємо URL зображення
-  // Якщо шлях до зображення не починається з '/' або 'http', додаємо '/' для забезпечення правильного шляху
   const imagePath = backgroundImage.startsWith('http') || backgroundImage.startsWith('/') 
     ? backgroundImage 
     : `/${backgroundImage}`;
@@ -23,7 +22,7 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
     <section 
       className="relative pt-40 pb-20 md:pt-48 md:pb-28"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/pravo-ekspert-ua/${imagePath})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imagePath})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
