@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { expertiseImages } from "@/assets/expertiseImages";
 
 const Footer: React.FC = () => {
-  const base = import.meta.env.BASE_URL;
+  const logo = expertiseImages["logonise.png"];
 
   return (
     <footer>
@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
               <div className="mb-6">
                 <Link to="/" className="flex items-center gap-2">
                   <img
-                    src={`${base}logonise.png`}
+                    src={logo}
                     alt="НІСЕ Логотип"
                     className="h-12 w-auto"
                   />

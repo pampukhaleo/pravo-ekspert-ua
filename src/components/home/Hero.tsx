@@ -1,14 +1,16 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
+import { expertiseImages } from "@/assets/expertiseImages";
 
 const Hero: React.FC = () => {
+  const background = expertiseImages["backgroundnise.jpg"];
+
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-28 bg-gray-900 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="backgroundnise.jpg"
+          src={ background }
           alt="Незалежний Інститут Судових Експертиз НІСЕ"
           className="w-full h-full object-cover opacity-40"
         />

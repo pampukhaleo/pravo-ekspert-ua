@@ -1,23 +1,23 @@
-
 import React from 'react';
+import { expertiseImages } from "@/assets/expertiseImages";
 
-const partners = [
-  { id: 1, img: "privat.png", name: 'privat' },
-  { id: 2, img: "dominos.png", name: 'dominos' },
-  { id: 3, img: "mau.png", name: 'mau' },
-  { id: 4, img: "epicentr.png", name: 'epicentr' },
-  { id: 5, img: "dtek.png", name: 'dtek' },
-  { id: 5, img: "ukrtelekom.png", name: 'ukrtelekom' },
-  { id: 5, img: "redbull.png", name: 'redbull' },
-  { id: 5, img: "metro.png", name: 'metro' },
-  { id: 5, img: "zytomyrenergo.png", name: 'zytomyrenergo' },
-  { id: 5, img: "kyivoblenergo.png", name: 'kyivoblenergo' },
-  { id: 5, img: "hersonoblenergo.png", name: 'hersonoblenergo' },
-  { id: 5, img: "poltavaoblenergo.png", name: 'poltavaoblenergo' },
-  { id: 5, img: "zakarpattyaoblenergo.png", name: 'zakarpattyaoblenergo' },
-  { id: 5, img: "uzniyport.png", name: 'uzniyport' },
-
+export const partners = [
+  { id: 1, img: expertiseImages["privat.png"], name: 'privat' },
+  { id: 2, img: expertiseImages["dominos.png"], name: 'dominos' },
+  { id: 3, img: expertiseImages["mau.png"], name: 'mau' },
+  { id: 4, img: expertiseImages["epicentr.png"], name: 'epicentr' },
+  { id: 5, img: expertiseImages["dtek.png"], name: 'dtek' },
+  { id: 6, img: expertiseImages["ukrtelekom.png"], name: 'ukrtelekom' },
+  { id: 7, img: expertiseImages["redbull.png"], name: 'redbull' },
+  { id: 8, img: expertiseImages["metro.png"], name: 'metro' },
+  { id: 9, img: expertiseImages["zytomyrenergo.png"], name: 'zytomyrenergo' },
+  { id: 10, img: expertiseImages["kyivoblenergo.png"], name: 'kyivoblenergo' },
+  { id: 11, img: expertiseImages["hersonoblenergo.png"], name: 'hersonoblenergo' },
+  { id: 12, img: expertiseImages["poltavaoblenergo.png"], name: 'poltavaoblenergo' },
+  { id: 13, img: expertiseImages["zakarpattyaoblenergo.png"], name: 'zakarpattyaoblenergo' },
+  { id: 14, img: expertiseImages["uzniyport.png"], name: 'uzniyport' },
 ];
+
 
 const PartnersSection: React.FC = () => {
   return (

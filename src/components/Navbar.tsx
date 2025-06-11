@@ -1,14 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { expertiseImages } from "@/assets/expertiseImages";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  const base = import.meta.env.BASE_URL;
+  const logo = expertiseImages["logonise.png"];
 
   const whiteBackgroundRoutes = ['/ekspertyzy', '/kontakty', '/tsiny', '/pro-nas', '/posluhy/ekspertne-doslidzhennia-za-zaiavoiu', '/posluhy/ekspertyza-za-ukhvaloiu-sudu', '/posluhy/shcho-vkhodyt-u-vartist'];
   const isExactWhiteBgPage = whiteBackgroundRoutes.includes(location.pathname);
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
-              src={`${base}logonise.png`}
+              src={logo}
               alt="НІСЕ Логотип"
               className="h-12 w-auto"
             />
