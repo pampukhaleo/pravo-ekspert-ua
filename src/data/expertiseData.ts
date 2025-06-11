@@ -23,7 +23,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "budivelno-tekhnichna-ekspertyza": {
     title: "Будівельно-технічна експертиза",
     description: "Будівельна експертиза дозволяє перевірити технічний стан та відповідність будівлі будівельним нормам і правилам, при аварійних пригодах (затоплення, обвал, поява тріщин, дефектів і т.п.), а також при розділі приміщень та земельних ділянок, що перебувають у власності фізичних та юридичних осіб.",
-    backgroundImage: "budivelno-tehnichna.jpg",
+    backgroundImage: "budivelno-tehnichna.png",
     categories: ["Будівництво", "Нерухомість"],
     content: `
       <p>Об'єктами дослідження будівельної експертизи є: будівлі та споруди, приватні житлові будинки та квартири, приміщення під магазини і офіси, виробничі приміщення, склади, будівельні матеріали та відповідна технічна документація тощо.</p>
@@ -188,7 +188,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "zemelno-tekhnichna-ekspertyza": {
     title: "Земельно-технічна експертиза",
     description: "Земельно-технічна експертиза необхідна при вирішенні земельних спорів, пов'язаних з розділом земельної ділянки, визначенням порядку користування земельною ділянкою, встановленням її місцезнаходження і меж, накладенням меж ділянок одна на одну, помилками в розрахунку площі та ін.",
-    backgroundImage: "zemelnotehnichna.jpg",
+    backgroundImage: "zemelno-technichna.png",
     categories: ["Земельні питання", "Нерухомість"],
     content: `
       <p><b>Експерти Незалежного Інституту Судових Експертиз проводять земельно-технічну експертизу за такими напрямками:</p></b>
@@ -327,7 +327,6 @@ export const expertiseData: Record<string, ExpertiseData> = {
       }
     ]
   },
-
   "ekonomichna-ekspertyza": {
     title: "ЕКОНОМІЧНА ЕКСПЕРТИЗА",
     description: "В рамках проведення економічної експертизи експерти аналізують фінансово-економічну діяльність підприємств, перевіряють достовірність проведених господарських операцій, які знайшли відображення в документах про економічну діяльність підприємств, фінансово-кредитні операції, бухгалтерський облік та звітність.",
@@ -409,11 +408,10 @@ export const expertiseData: Record<string, ExpertiseData> = {
       }
     ]
   },
-
   "kompleksna-pozhezhna-ta-elektrotekhnichna-ekspertyza": {
     title: "КОМПЛЕКСНА ПОЖЕЖНА ТА ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Комплексна комісійна пожежно-технічна та електротехнічна експертиза встановлює причини та обставини виникнення пожежі та особливості її перебігу. Експертиза проводиться із залученням до роботи експертів кількох експертних спеціальностей, а також вузькопрофільних фахівців.",
-    backgroundImage: "pozezna.jpg",
+    backgroundImage: "kompleksna-pojejo-eletechnichna.png",
     categories: ["Пожежа", "Електротехніка"],
     content: `
       <p><b>В рамках проведення пожежної та електротехнічної експертизи експерти НІСЕ встановлять:</p></b>
@@ -453,11 +451,10 @@ export const expertiseData: Record<string, ExpertiseData> = {
       }
     ]
   },
-
   "avtotekhnichna-ekspertyza": {
     title: "АВТОТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Автотехнічна експертиза проводиться з метою дослідження обставин та причин дорожньо-транспортних пригод",
-    backgroundImage: "avtotehnichna.jpg",
+    backgroundImage: "avtotechnichna.png",
     categories: ["Авто", "Транспорт"],
     content: `
       <p><b>Ключові напрямки автотехнічної експертизи:</p></b>
@@ -493,11 +490,10 @@ export const expertiseData: Record<string, ExpertiseData> = {
       }
     ]
   },
-
   "avtotovaroznavcha-ekspertyza": {
     title: "АВТОТОВАРОЗНАВЧА ЕКСПЕРТИЗА",
     description: "Автотоварознавча експертиза проводиться з метою визначення ринкової вартості колісних транспортних засобів, їх складових, а також розміру вартості матеріальних збитків унаслідок пошкодження траспортного засобу, його вузлів та деталей.",
-    backgroundImage: "avtotovaroznavcha.webp",
+    backgroundImage: "avtotovaroznavcha.png",
     categories: ["Авто", "Оцінка"],
     content: `
       <p>Головні завдання автотоварознавчої експертизи – визначення ринкової вартості колісних транспортних засобів в рамках судових справ, а також визначення розміру вартості матеріальних збитків, заподіяних власнику транспортного засобу в результаті дорожньо-транспортних пригод та інших аварій.</p>
@@ -532,7 +528,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "trasolohichna-ekspertyza": {
     title: "ТРАСОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Трасологічна експертиза вивчає сліди, слідоутворювальні поверхні, установлення властивостей та станів об'єктів, а також установлення механізму слідоутворення тощо.",
-    backgroundImage: "trasologichna.gif",
+    backgroundImage: "trasologichna.png",
     categories: ["Криміналістика", "Сліди", "ДТП"],
     content: `
     <p>Трасологічна експертиза може призначатися:</p>
@@ -614,7 +610,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "ekolohichna-ekspertyza": {
     title: "ЕКОЛОГІЧНА ЕКСПЕРТИЗА",
     description: "Екологічна експертиза — це дослідження, аналіз і оцінка результатів господарської діяльності, яка може впливати або впливає на стан навколишнього природного середовища або здоров'я людей.",
-    backgroundImage: "ekologichna.jpg",
+    backgroundImage: "ekologichna.png",
     categories: ["Екологія", "Довкілля"],
     content: `
     <p><b>В рамках проведення екологічної експертизи експерти НІСЕ:</p></b>
@@ -718,7 +714,7 @@ export const expertiseData: Record<string, ExpertiseData> = {
   "kompiuterno-tekhnichna-ekspertyza": {
     title: "КОМП'ЮТЕРНО-ТЕХНІЧНА ЕКСПЕРТИЗА",
     description: "Комп'ютерно-технічна експертиза досліджує характеристики цифрового обладнання і програмного забезпечення.",
-    backgroundImage: "komp-tehnichna.jpg",
+    backgroundImage: "komputerno-tehnichna.png",
     categories: ["Комп'ютери", "Цифрова техніка"],
     content: `
     <h3 class="text-xl font-semibold mt-4 mb-2"><b>В рамках комп'ютерної експертизи експерти НІСЕ:</b></h3>
