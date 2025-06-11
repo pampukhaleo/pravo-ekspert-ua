@@ -29,12 +29,7 @@ const ScrollToTop = () => {
 
 const queryClient = new QueryClient();
 
-import { usePerformanceOptimization } from "./hooks/usePerformanceOptimization";
-
 const App = () => {
-  // Используем хук для оптимизации производительности
-  usePerformanceOptimization();
-  
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
