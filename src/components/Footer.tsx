@@ -138,14 +138,14 @@ const Footer: React.FC = () => {
             <p className="text-gray-500 text-sm">
               &copy; {new Date().getFullYear()} НЕЗАЛЕЖНИЙ ІНСТИТУТ СУДОВИХ ЕКСПЕРТИЗ. Всі права захищені.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy-policy" className="text-gray-500 text-sm hover:text-gray-400">
-                Політика конфіденційності
-              </Link>
-              <Link to="/terms" className="text-gray-500 text-sm hover:text-gray-400">
-                Умови використання
-              </Link>
-            </div>
+            {/*<div className="flex space-x-6 mt-4 md:mt-0">*/}
+            {/*  <Link to="/privacy-policy" className="text-gray-500 text-sm hover:text-gray-400">*/}
+            {/*    Політика конфіденційності*/}
+            {/*  </Link>*/}
+            {/*  <Link to="/terms" className="text-gray-500 text-sm hover:text-gray-400">*/}
+            {/*    Умови використання*/}
+            {/*  </Link>*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>
