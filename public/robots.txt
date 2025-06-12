@@ -1,5 +1,3 @@
-
 User-agent: *
 Allow: /
-
 Sitemap: https://expertise.com.ua/sitemap.xml
