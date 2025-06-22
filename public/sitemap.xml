@@ -41,174 +41,131 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <url>
-    <loc>https://expertise.com.ua/novini</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
 
   <!-- Individual expertise pages -->
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/budivelno-tehnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/budivelno-tekhnichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/otsinnochna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/otsinnochna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/zemelna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/zemelna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/komputerno-tehnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/komputerno-tekhnichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/trasologichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/trasologichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/avtotechnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/avtotekhnichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/tovaroznavcha</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/tovaroznavcha-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/pocherkoznavcha</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/pocherkoznavcha-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/psyhologichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/psykholohichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/ekonomichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/ekonomichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/elektrotehnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/elektrotekhnichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/ekologichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/ekolohichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/semantyko-tekstualna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/semantyko-tekstualna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/naukovo-pravova</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/naukovo-pravova-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/mystectvo</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/mystetstvo-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/intvlasnist</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/intelektualna-vlasnist-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/avtotovaroznavcha</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/avtotovaroznavcha-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://expertise.com.ua/ekspertyzy/kompleksna-pojejo-eletechnichna</loc>
+    <loc>https://expertise.com.ua/ekspertyzy/kompleksna-pozhezhno-elektrotekhnichna-ekspertyza</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-
-  <!-- News articles -->
-  <url>
-    <loc>https://expertise.com.ua/novini/novi-standarty-budivelno-tehnichnyh-ekspertyz</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://expertise.com.ua/novini/nise-rozshyruie-poslugy-ocinochnyh-ekspertyz</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://expertise.com.ua/novini/richnyj-zvit-nise-2024</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://expertise.com.ua/novini/novi-eksperty-v-komandy-nise</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://expertise.com.ua/novini/mizhnarodna-akredytaciya-komputerno-tehnichnyh-ekspertyz</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>
