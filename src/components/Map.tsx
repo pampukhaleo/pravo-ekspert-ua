@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 // Default location for "вул. Левка Лук'яненка, 21, корпус 3, офіс 7"

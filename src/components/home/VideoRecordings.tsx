@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Youtube } from 'lucide-react';
@@ -7,27 +6,27 @@ import { Youtube } from 'lucide-react';
 const videoRecordings = [
   {
     id: 1,
+    title: 'Вебінар на тему: «Особливості проведення товарознавчої експертизи щодо визначення вартості товарів»',
+    thumbnailUrl: 'https://img.youtube.com/vi/HtC3b0nJQfc/maxresdefault.jpg',
+    videoUrl: 'https://youtube.com/live/HtC3b0nJQfc',
+    duration: '1:04:46',
+    date: '17.06.2025'
+  },
+  {
+    id: 2,
+    title: 'Відкритий ефір у форматі питання–відповідь з Геннадієм Геннадійовичем Пампухою',
+    thumbnailUrl: 'https://img.youtube.com/vi/eqzygdHoV14/maxresdefault.jpg',
+    videoUrl: 'https://youtube.com/live/eqzygdHoV14',
+    duration: '1:06:11',
+    date: '12.06.2025'
+  },
+  {
+    id: 3,
     title: 'Вебінар: Психологічна експертиза у спорах між батьками щодо виховання та місця проживання дитини',
     thumbnailUrl: 'https://img.youtube.com/vi/wb8XchP9Iz8/maxresdefault.jpg',
     videoUrl: 'https://youtube.com/live/wb8XchP9Iz8',
     duration: '1:17:54',
     date: '20.05.2025'
-  },
-  {
-    id: 2,
-    title: 'Вебінар: Cемантико-текстуальна експертиза писемного мовлення.',
-    thumbnailUrl: 'https://img.youtube.com/vi/YeVV3lGKiDA/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/live/YeVV3lGKiDA?si=NDBQdxjIRs9OfHfg',
-    duration: '1:16:37',
-    date: '15.04.2025'
-  },
-  {
-    id: 3,
-    title: 'Вебінар: Судово-психологічна експертиза у справах щодо відшкодування моральної шкоди',
-    thumbnailUrl: 'https://img.youtube.com/vi/lX8lu41SQKY/maxresdefault.jpg',
-    videoUrl: 'https://youtube.com/live/lX8lu41SQKY',
-    duration: '1:12:02',
-    date: '01.04.2025'
   },
 ];
 

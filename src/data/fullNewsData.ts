@@ -1,4 +1,3 @@
-
 import { newsItems } from './newsData';
 
 // Extend our news data with full content

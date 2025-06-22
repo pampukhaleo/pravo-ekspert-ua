@@ -1,4 +1,3 @@
-
 interface OrganizationData {
   "@context": string;
   "@type": string;

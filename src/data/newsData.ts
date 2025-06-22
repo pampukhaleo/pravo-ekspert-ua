@@ -1,4 +1,3 @@
-
 // Sample news data - in a real app, this would come from an API
 export const newsItems = [
   {
