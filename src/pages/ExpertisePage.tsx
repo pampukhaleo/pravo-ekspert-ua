@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useLocation, Navigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -28,18 +29,8 @@ const ExpertisePage = () => {
     }
   }, [location]);
   
-  // Резервні дані на випадок, якщо slug не збігається з жодною експертизою
-  const defaultData = {
-    title: "Експертиза",
-    description: "Детальна інформація про експертизу",
-    backgroundImage: "/placeholder.svg",
-    content: "<p>Інформація про даний вид експертизи.</p>",
-    directions: [],
-    faqs: []
-  };
-  
   // Перевірка, чи це посилання на основну експертизу чи на напрямок
-  let expertise = defaultData;
+  let expertise = null;
   let selectedDirection = null;
   let parentExpertiseSlug = null;
 
@@ -59,6 +50,11 @@ const ExpertisePage = () => {
         break;
       }
     }
+  }
+
+  // Якщо експертиза не знайдена, перенаправляємо на список експертиз
+  if (!expertise) {
+    return <Navigate to="/ekspertyzy" replace />;
   }
   
   // Отримуємо правильне фонове зображення, враховуючи як експертизу, так і напрямок
