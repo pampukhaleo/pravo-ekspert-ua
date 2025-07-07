@@ -30,7 +30,7 @@ const PartnersSection: React.FC = () => {
 
         <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
           { partners.map((partner) => (
-            <img src={ partner.img } alt={ partner.name }/>
+            <img key={partner.id} src={ partner.img } alt={ partner.name }/>
           )) }
         </div>
       </div>
