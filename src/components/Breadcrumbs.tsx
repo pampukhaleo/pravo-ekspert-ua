@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home, ChevronRight } from 'lucide-react';
@@ -38,7 +39,7 @@ const Breadcrumbs = ({ items, className = "" }: BreadcrumbsProps) => {
             </BreadcrumbItem>
             
             {items.map((item, index) => (
-              <React.Fragment key={index}>
+              <div key={index}>
                 <BreadcrumbSeparator>
                   <ChevronRight className="h-4 w-4" />
                 </BreadcrumbSeparator>
@@ -59,7 +60,7 @@ const Breadcrumbs = ({ items, className = "" }: BreadcrumbsProps) => {
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-              </React.Fragment>
+              </div>
             ))}
           </BreadcrumbList>
         </Breadcrumb>
