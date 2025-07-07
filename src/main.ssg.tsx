@@ -37,7 +37,8 @@ export const createApp = ViteSSG(
   App,
   ({ router, routes: viteRoutes, isClient, initialState }) => {
     // Configure SSG options here if needed
-    console.log('SSG initialization', { isClient, routes: viteRoutes?.length || 0 });
+    const routesCount = viteRoutes ? viteRoutes.length : 0;
+    console.log('SSG initialization', { isClient, routes: routesCount });
   }
 )
 
