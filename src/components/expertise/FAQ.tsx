@@ -36,10 +36,13 @@ const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
   return (
     <section className="py-10 bg-gray-50">
       {/* Додаємо FAQ Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify(faqStructuredData)}
-      </script>
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={ {
+          __html: JSON.stringify(faqStructuredData)
+        } }
+      />
+
       <div className="container-custom">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">НАЙЧАСТІШЕ ЗАДАВАНІ ПИТАННЯ</h2>
         

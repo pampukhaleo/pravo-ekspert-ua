@@ -1,38 +1,12 @@
-export const expertiseImages: Record<string, string> = {
+const modules = import.meta.glob('./*.{png,jpg,jpeg,svg}', {
+  eager: true,   // сразу собрать в одном чанке
+  as: 'url',     // вернуть не модуль, а строку-URL
+})
 
-  "avtotechnichna.png": new URL("./avtotechnichna.png", import.meta.url).href,
-  "avtotovaroznavcha.png": new URL("./avtotovaroznavcha.png", import.meta.url).href,
-  "backgroundnise.jpg": new URL("./backgroundnise.jpg", import.meta.url).href,
-  "budivelno-tehnichna.png": new URL("./budivelno-tehnichna.png", import.meta.url).href,
-  "dominos.png": new URL("./dominos.png", import.meta.url).href,
-  "dtek.png": new URL("./dtek.png", import.meta.url).href,
-  "ekologichna.png": new URL("./ekologichna.png", import.meta.url).href,
-  "ekonomichna.jpg": new URL("./ekonomichna.jpg", import.meta.url).href,
-  "elektrotehnichna.jpg": new URL("./elektrotehnichna.jpg", import.meta.url).href,
-  "epicentr.png": new URL("./epicentr.png", import.meta.url).href,
-  "favicon.ico": new URL("./favicon.ico", import.meta.url).href,
-  "hersonoblenergo.png": new URL("./hersonoblenergo.png", import.meta.url).href,
-  "intvlasnist.jpg": new URL("./intvlasnist.jpg", import.meta.url).href,
-  "kompleksna-pojejo-eletechnichna.png": new URL("./kompleksna-pojejo-eletechnichna.png", import.meta.url).href,
-  "komputerno-tehnichna.png": new URL("./komputerno-tehnichna.png", import.meta.url).href,
-  "kyivoblenergo.png": new URL("./kyivoblenergo.png", import.meta.url).href,
-  "logonise.png": new URL("./logonise.png", import.meta.url).href,
-  "mau.png": new URL("./mau.png", import.meta.url).href,
-  "metro.png": new URL("./metro.png", import.meta.url).href,
-  "mystectvo.jpg": new URL("./mystectvo.jpg", import.meta.url).href,
-  "naukovo-pravova.jpg": new URL("./naukovo-pravova.jpg", import.meta.url).href,
-  "placeholder.svg": new URL("./placeholder.svg", import.meta.url).href,
-  "pocherkoznavcha.jpg": new URL("./pocherkoznavcha.jpg", import.meta.url).href,
-  "poltavaoblenergo.png": new URL("./poltavaoblenergo.png", import.meta.url).href,
-  "privat.png": new URL("./privat.png", import.meta.url).href,
-  "psyhologichna.jpg": new URL("./psyhologichna.jpg", import.meta.url).href,
-  "redbull.png": new URL("./redbull.png", import.meta.url).href,
-  "semantyko-tekstualna.jpg": new URL("./semantyko-tekstualna.jpg", import.meta.url).href,
-  "tovaroznavcha.jpg": new URL("./tovaroznavcha.jpg", import.meta.url).href,
-  "trasologichna.png": new URL("./trasologichna.png", import.meta.url).href,
-  "ukrtelekom.png": new URL("./ukrtelekom.png", import.meta.url).href,
-  "uzniyport.png": new URL("./uzniyport.png", import.meta.url).href,
-  "zakarpattyaoblenergo.png": new URL("./zakarpattyaoblenergo.png", import.meta.url).href,
-  "zemelno-technichna.png": new URL("./zemelno-technichna.png", import.meta.url).href,
-  "zytomyrenergo.png": new URL("./zytomyrenergo.png", import.meta.url).href,
-};
+export const expertiseImages: Record<string, string> = {}
+
+for (const path in modules) {
+  // path будет вроде './avtotechnichna.png'
+  const fileName = path.replace(/^\.\//, '') // 'avtotechnichna.png'
+  expertiseImages[fileName] = modules[path] as string
+}
