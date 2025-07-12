@@ -1,92 +1,74 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// CORS headers for browser requests
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
-
-// Function to escape special characters for Telegram Markdown
-function escapeMarkdown(text: string | undefined | null): string {
-  if (!text) return '';
-  return text.toString().replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
-}
-
-serve(async (req) => {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type"
+};
+serve(async (req)=>{
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+  if (req.method === "OPTIONS") {
+    return new Response(null, {
+      headers: corsHeaders
+    });
   }
-
   try {
-    const { name, email, phone, expertise, message, companyName } = await req.json();
-    
-    const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
-    const chatId = Deno.env.get('TELEGRAM_CHAT_ID');
-    
-    if (!botToken || !chatId) {
-      throw new Error('Telegram credentials not configured');
+    // Get the Telegram bot token and chat ID from environment variables
+    const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
+    const TELEGRAM_CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID");
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+      throw new Error("Missing Telegram configuration");
     }
-
-    // Use dynamic company name or fallback to NISE
-    const company = companyName || 'NISE';
-
-    // Format message for Telegram (escape special characters)
+    // Parse the request body to get form data
+    const formData = await req.json();
+    const { name, email, subject, message, phone, companyName } = formData;
+    const site = companyName || "Unknown site";
+    // Format message for Telegram
     const telegramMessage = `
-🏢 *Нова заявка з сайту ${escapeMarkdown(company)}*
-
-👤 *Ім'я:* ${escapeMarkdown(name)}
-📧 *Email:* ${escapeMarkdown(email)}
-📞 *Телефон:* ${escapeMarkdown(phone)}
-🔍 *Тип експертизи:* ${escapeMarkdown(expertise)}
-
-💬 *Повідомлення:*
-${escapeMarkdown(message)}
-
-⏰ *Час подачі:* ${escapeMarkdown(new Date().toLocaleString('uk-UA'))}
+📨 Нове повідомлення з сайту: ${site}
+      
+👤 Ім'я: ${name}
+✉️ Email: ${email}
+📞 Телефон: ${phone}
+📝 Тема: ${subject}
+📄 Повідомлення: ${message}
     `;
-
-    // Send message to Telegram
-    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    const response = await fetch(telegramUrl, {
-      method: 'POST',
+    // Send to Telegram
+    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        chat_id: chatId,
+        chat_id: TELEGRAM_CHAT_ID,
         text: telegramMessage,
-        parse_mode: 'Markdown',
-      }),
+        parse_mode: "HTML"
+      })
     });
-
     if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Telegram API error:', errorData);
-      throw new Error('Failed to send message to Telegram');
+      const errorData = await response.json();
+      console.error("Telegram API error:", errorData);
+      throw new Error(`Failed to send message to Telegram: ${response.statusText}`);
     }
-
-    console.log('Message sent successfully to Telegram');
-
-    return new Response(
-      JSON.stringify({ success: true, message: 'Message sent successfully' }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      }
-    );
-
+    // Return success response
+    return new Response(JSON.stringify({
+      success: true
+    }), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json"
+      },
+      status: 200
+    });
   } catch (error) {
-    console.error('Error in contact-form function:', error);
-    
-    return new Response(
-      JSON.stringify({ 
-        error: error.message || 'Internal server error',
-        success: false 
-      }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500,
-      }
-    );
+    console.error("Error processing contact form:", error);
+    return new Response(JSON.stringify({
+      error: error.message
+    }), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json"
+      },
+      status: 500
+    });
   }
 });

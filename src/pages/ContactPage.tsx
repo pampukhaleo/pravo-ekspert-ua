@@ -18,7 +18,7 @@ const ContactPage = () => {
     email: '',
     phone: '',
     message: '',
-    expertise: 'Не обрано'
+    subject: ''
   });
   
   const combinedStructuredData = [
@@ -64,7 +64,7 @@ const ContactPage = () => {
         email: '',
         phone: '',
         message: '',
-        expertise: 'Не обрано'
+        subject: ''
       });
     } catch (error) {
       console.error('Error sending message:', error);
@@ -158,93 +158,92 @@ const ContactPage = () => {
             
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Форма зворотного зв'язку</h2>
-              
-              <form onSubmit={handleSubmit}>
+
+              <form onSubmit={ handleSubmit }>
+                <input type="hidden" name="companyName" value="NISE"/>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Ім'я *</label>
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
+                    value={ formData.name }
+                    onChange={ handleChange }
+                    placeholder="Повне ім'я"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
                   />
                 </div>
-                
+
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email *</label>
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={ formData.email }
+                    onChange={ handleChange }
+                    placeholder='Email адреса'
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
                   />
                 </div>
-                
+
                 <div className="mb-4">
                   <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Телефон *</label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    value={ formData.phone }
+                    onChange={ handleChange }
+                    placeholder="Ваш номер телефону?"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
                   />
                 </div>
-                
+
                 <div className="mb-4">
-                  <label htmlFor="expertise" className="block text-gray-700 font-medium mb-2">Тип експертизи</label>
-                  <select
-                    id="expertise"
-                    name="expertise"
-                    value={formData.expertise}
-                    onChange={handleChange}
+                  <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Тема</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={ formData.subject }
+                    onChange={ handleChange }
+                    placeholder="Як ми можемо допомогти?"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                  >
-                    <option value="Не обрано">Оберіть тип експертизи</option>
-                    <option value="Будівельно-технічна">Будівельно-технічна</option>
-                    <option value="Оціночна">Оціночна</option>
-                    <option value="Земельна">Земельна</option>
-                    <option value="Почеркознавча">Почеркознавча</option>
-                    <option value="Економічна">Економічна</option>
-                    <option value="Інша">Інша</option>
-                  </select>
+                  />
                 </div>
-                
+
                 <div className="mb-6">
                   <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Повідомлення *</label>
                   <textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
+                    value={ formData.message }
+                    onChange={ handleChange }
+                    placeholder="Ваше повідомлення..."
                     required
-                    rows={5}
+                    rows={ 5 }
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
                   ></textarea>
                 </div>
-                
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={ isSubmitting }
                   className="w-full bg-brand-blue hover:bg-brand-light text-white font-medium py-3 px-6 rounded-md transition-colors duration-300 disabled:opacity-50"
                 >
-                  {isSubmitting ? 'Надсилання...' : 'Надіслати'}
+                  { isSubmitting ? 'Надсилання...' : 'Надіслати' }
                 </button>
               </form>
             </div>
           </div>
         </div>
       </main>
-      
-      <Footer />
+
+      <Footer/>
     </div>
   );
 };
