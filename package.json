@@ -7,12 +7,12 @@
   "scripts": {
     "dev": "vite-react-ssg dev",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "npm run build && vite preview",
     "predeploy": "npm run build",
     "clean": "rm -rf dist",
     "build": "vite-react-ssg build",
     "postbuild": "node scripts/organize-dist.js",
-    "deploy": "npm run clean && npm run build && gh-pages -d dist"
+    "deploy": "npm run clean && npm run build && cp dist/index.html dist/404.html && gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

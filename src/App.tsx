@@ -10,8 +10,7 @@ const { HelmetProvider } = HelmetPkg
 
 import Index from './pages/Index'
 import ExpertisesListPage from './pages/ExpertisesListPage'
-// ExpertisePage will be lazy-loaded for SSG
-// export { default as ExpertisePage } from './pages/ExpertisePage'
+import { Component as ExpertisePage, getStaticPaths as getExpertiseStaticPaths } from './pages/ExpertisePage'
 import PricingPage from './pages/PricingPage'
 import ContactPage from './pages/ContactPage'
 import AboutPage from './pages/AboutPage'
@@ -20,12 +19,10 @@ import NewsArticlePage from './pages/NewsArticlePage'
 import ServicePage from './pages/ServicePage'
 import NotFound from './pages/NotFound'
 
-// ScrollToTop component to ensure pages start at the top
+// ScrollToTop component to reset scroll on navigation
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation()
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+  useEffect(() => window.scrollTo(0, 0), [pathname])
   return null
 }
 
@@ -47,44 +44,27 @@ const RootLayout: React.FC = () => (
   </QueryClientProvider>
 )
 
-const expertiseSlugs = [
-  'budivelno-tekhnichna-ekspertyza',
-  'zemelno-tekhnichna-ekspertyza',
-  'elektrotekhnichna-ekspertyza',
-  'ekonomichna-ekspertyza',
-  'kompleksna-pozhezhna-ta-elektrotekhnichna-ekspertyza',
-  'avtotekhnichna-ekspertyza',
-  'avtotovaroznavcha-ekspertyza',
-  'trasolohichna-ekspertyza',
-  'ekolohichna-ekspertyza',
-  'tovaroznavcha-ekspertyza',
-  'kompiuterno-tekhnichna-ekspertyza',
-  'psykholohichna-ekspertyza',
-  'semantyko-tekstualna-ekspertyza',
-  'pocherkoznavcha-ekspertyza',
-  'ekspertyza-intelektualnoi-vlasnosti',
-  'mystetvoznavcha-ekspertyza',
-  'naukovo-pravova-ekspertyza',
-]
-
 export const routes: RouteRecord[] = [
   {
     path: '/',
-    element: <RootLayout />,
+    Component: RootLayout,
+    entry: 'src/App.tsx',
     children: [
-      { index: true, Component: Index },
-      { path: 'ekspertyzy', Component: ExpertisesListPage },
+      { index: true, Component: Index, entry: 'src/pages/Index.tsx' },
+      { path: 'ekspertyzy', Component: ExpertisesListPage, entry: 'src/pages/ExpertisesListPage.tsx' },
       {
         path: 'ekspertyzy/:slug',
-        lazy: () => import('./pages/ExpertisePage'),
+        Component: ExpertisePage,
+        getStaticPaths: getExpertiseStaticPaths,
+        entry: 'src/pages/ExpertisePage.tsx',
       },
-      { path: 'posluhy/:slug', Component: ServicePage },
-      { path: 'tsiny', Component: PricingPage },
-      { path: 'kontakty', Component: ContactPage },
-      { path: 'pro-nas', Component: AboutPage },
-      { path: 'novini', Component: NewsPage },
-      { path: 'novini/:slug', Component: NewsArticlePage },
-      { path: '*', Component: NotFound },
+      { path: 'posluhy/:slug', Component: ServicePage, entry: 'src/pages/ServicePage.tsx' },
+      { path: 'tsiny', Component: PricingPage, entry: 'src/pages/PricingPage.tsx' },
+      { path: 'kontakty', Component: ContactPage, entry: 'src/pages/ContactPage.tsx' },
+      { path: 'pro-nas', Component: AboutPage, entry: 'src/pages/AboutPage.tsx' },
+      { path: 'novini', Component: NewsPage, entry: 'src/pages/NewsPage.tsx' },
+      { path: 'novini/:slug', Component: NewsArticlePage, entry: 'src/pages/NewsArticlePage.tsx' },
+      { path: '*', Component: NotFound, entry: 'src/pages/NotFound.tsx' },
     ],
   },
 ]
