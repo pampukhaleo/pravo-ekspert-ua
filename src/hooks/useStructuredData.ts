@@ -286,6 +286,18 @@ interface EventData {
   };
 }
 
+interface SiteNavigationData {
+  '@context': string;
+  '@type': string;
+  name: string;
+  url: string;
+  hasPart: Array<{
+    '@type': string;
+    name: string;
+    url: string;
+  }>;
+}
+
 export const useStructuredData = () => {
   const getOrganizationData = (): OrganizationData => ({
     "@context": "https://schema.org",
@@ -664,6 +676,49 @@ export const useStructuredData = () => {
     }))
   });
 
+  const getSiteNavigationData = (): SiteNavigationData => {
+    const baseUrl = 'https://expertise.com.ua';
+    
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'SiteNavigationElement',
+      name: 'Головна навігація',
+      url: baseUrl,
+      hasPart: [
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Головна',
+          url: baseUrl
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Експертизи',
+          url: `${baseUrl}/ekspertyzy`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Про нас',
+          url: `${baseUrl}/pro-nas`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Контакти',
+          url: `${baseUrl}/kontakty`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Ціни',
+          url: `${baseUrl}/tsiny`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          name: 'Новини',
+          url: `${baseUrl}/novini`
+        }
+      ]
+    };
+  };
+
   return {
     getOrganizationData,
     getServiceData,
@@ -677,6 +732,7 @@ export const useStructuredData = () => {
     getContactPointData,
     getEventData,
     getWebSiteData,
-    getItemListData
+    getItemListData,
+    getSiteNavigationData
   };
 };

@@ -76,7 +76,8 @@ const staticRoutes = [
 
 // Generate XML content
 let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 `
 
 // Add static routes
@@ -93,13 +94,17 @@ staticRoutes.forEach(route => {
 // Add expertise routes
 const expertiseData = parseTypeScriptExport(expertiseDataPath, 'expertiseData')
 if (expertiseData) {
-  // Add main expertise categories
+  // Add main expertise categories with images
   expertiseData.keys.forEach(key => {
     sitemapXML += `  <url>
     <loc>${baseUrl}/ekspertyzy/${key}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>${baseUrl}/${key}.png</image:loc>
+      <image:title>${key.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} експертиза</image:title>
+    </image:image>
   </url>
 `
   })
@@ -116,10 +121,11 @@ if (expertiseData) {
   })
 }
 
-// Add news routes
+// Add news routes with dynamic lastmod
 const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
 if (newsSlugs) {
   newsSlugs.forEach(slug => {
+    // For news, we could parse publication date but using current date as fallback
     sitemapXML += `  <url>
     <loc>${baseUrl}/novini/${slug}</loc>
     <lastmod>${currentDate}</lastmod>

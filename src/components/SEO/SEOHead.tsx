@@ -7,6 +7,9 @@ interface SEOHeadProps {
   description?: string
   keywords?: string
   image?: string
+  imageAlt?: string
+  imageWidth?: number
+  imageHeight?: number
   url?: string
   type?: 'website' | 'article'
   structuredData?: object | object[]
@@ -22,6 +25,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
                                              keywords =
                                                "судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, експертний висновок, Київ",
                                              image = "https://expertise.com.ua/logonise.png",
+                                             imageAlt = "НІСЕ логотип",
+                                             imageWidth,
+                                             imageHeight,
                                              url = "https://expertise.com.ua",
                                              type = "website",
                                              structuredData,
@@ -53,6 +59,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:image" content={absoluteImage} />
+      <meta property="og:image:alt" content={imageAlt} />
+      {imageWidth && <meta property="og:image:width" content={imageWidth.toString()} />}
+      {imageHeight && <meta property="og:image:height" content={imageHeight.toString()} />}
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content="НІСЕ" />
       <meta property="og:locale" content={ogLocale} />
@@ -62,6 +71,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={absoluteImage} />
+      <meta name="twitter:image:alt" content={imageAlt} />
       <meta name="twitter:site" content={twitterSite} />
 
       {/* Canonical URL */}

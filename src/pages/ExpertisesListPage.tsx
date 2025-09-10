@@ -9,9 +9,11 @@ import { expertiseData } from '../data/expertiseData';
 import { Search, Filter, ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
+import OptimizedImage from '@/components/OptimizedImage'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 const ExpertisesListPage = () => {
-  const { getWebPageData, getItemListData } = useStructuredData();
+  const { getWebPageData, getItemListData, getSiteNavigationData, getFAQData } = useStructuredData();
   
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
@@ -42,6 +44,8 @@ const ExpertisesListPage = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const siteNavigationData = getSiteNavigationData();
+
   const webPageData = getWebPageData(
     "Судові експертизи | НІСЕ",
     "Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз.",
@@ -69,19 +73,58 @@ const ExpertisesListPage = () => {
         description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
         keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
         url="https://expertise.com.ua/ekspertyzy"
-        structuredData={[webPageData, itemListData]}
+        structuredData={[webPageData, itemListData, siteNavigationData]}
       />
       
       <Navbar />
       
-      <main className="flex-grow pt-32 pb-16">
+      <div className="pt-32 pb-8">
         <div className="container-custom">
+          <Breadcrumbs
+            items={[
+              { label: "Експертизи", href: "/ekspertyzy", isCurrentPage: true }
+            ]}
+          />
+        </div>
+      </div>
+      
+      <main className="flex-grow pb-16">
+        <div className="container-custom">
+          {/* SEO Content Block */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 shadow-sm">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Судові експертизи в Україні - Повний каталог послуг НІСЕ
+              </h1>
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p className="text-xl leading-relaxed mb-4">
+                  Незалежний Інститут Судових Експертиз (НІСЕ) пропонує повний спектр експертних послуг для судових та позасудових цілей. 
+                  Наші кваліфіковані експерти проводять дослідження у різних галузях знань з дотриманням усіх процесуальних вимог.
+                </p>
+                <p className="mb-4">
+                  Ми виконуємо експертизи за призначенням суду, на замовлення сторін процесу та приватних осіб. 
+                  Всі наші експертні висновки мають юридичну силу та визнаються українськими та міжнародними судами.
+                </p>
+                <div className="bg-white rounded-lg p-6 mt-6 shadow-sm">
+                  <h2 className="text-xl font-semibold mb-3 text-gray-900">Чому обирають НІСЕ:</h2>
+                  <ul className="space-y-2 text-gray-600">
+                    <li>✓ Понад 10 років досвіду у сфері судових експертиз</li>
+                    <li>✓ Атестовані експерти з вищою освітою та спеціалізацією</li>
+                    <li>✓ Сучасне обладнання та методики досліджень</li>
+                    <li>✓ Швидкі терміни виконання без компромісів у якості</li>
+                    <li>✓ Детальні та обґрунтовані експертні висновки</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Експертизи
-            </h1>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Каталог експертиз
+            </h2>
             <p className="text-lg text-gray-700">
-              Ми надаємо широкий спектр експертних послуг у різних галузях. Оберіть потрібну вам експертизу з переліку нижче.
+              Оберіть потрібну експертизу з переліку нижче або скористайтеся пошуком і фільтрами для швидкого знаходження.
             </p>
           </div>
 
@@ -174,13 +217,13 @@ const ExpertisesListPage = () => {
                 >
                   <div className="h-40 bg-blue-50 flex items-center justify-center p-0 overflow-hidden">
                     {expertise.backgroundImage ? (
-                      <img 
+                      <OptimizedImage 
                         src={expertise.backgroundImage}
-                        alt={expertise.title} 
+                        alt={`${expertise.title} експертиза`} 
                         className="w-full h-full object-cover"
                         loading="lazy"
-                        width="400"
-                        height="160"
+                        width={400}
+                        height={160}
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-r from-blue-100 to-blue-50" />
@@ -214,13 +257,13 @@ const ExpertisesListPage = () => {
                     <AccordionTrigger className="px-4 py-4 hover:no-underline">
                       <div className="flex items-center gap-3 text-left">
                         {expertise.backgroundImage ? (
-                          <img 
+                          <OptimizedImage 
                             src={expertise.backgroundImage}
-                            alt={expertise.title}
+                            alt={`${expertise.title} експертиза`}
                             className="w-10 h-10 object-cover rounded-md flex-shrink-0"
                             loading="lazy"
-                            width="40"
-                            height="40"
+                            width={40}
+                            height={40}
                           />
                         ) : (
                           <div className="w-10 h-10 bg-blue-100 rounded-md flex-shrink-0" />
