@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 import { Card, CardContent } from "../components/ui/card";
 import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
@@ -18,14 +20,41 @@ const stats = [
 ];
 
 const AboutPage = () => {
+  const { getBreadcrumbData, getWebPageData, getOrganizationData } = useStructuredData();
+  
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
     slug,
     ...data
   }));
+
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Про нас", url: "https://expertise.com.ua/pro-nas" }
+  ]);
+
+  const webPageData = getWebPageData(
+    "Про нас | НІСЕ",
+    "Незалежний Інститут Судових Експертиз - професійні судові експертизи з 2007 року. Атестовані експерти, високий рівень якості.",
+    "https://expertise.com.ua/pro-nas",
+    [
+      { name: "Головна", url: "https://expertise.com.ua" },
+      { name: "Про нас", url: "https://expertise.com.ua/pro-nas" }
+    ]
+  );
+
+  const organizationData = getOrganizationData();
+  const combinedStructuredData = [breadcrumbData, webPageData, organizationData];
   
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="Про нас | НІСЕ"
+        description="Незалежний Інститут Судових Експертиз - професійні судові експертизи з 2007 року. Атестовані експерти, понад 20 видів експертиз, індивідуальний підхід."
+        keywords="про НІСЕ, Незалежний Інститут Судових Експертиз, судова експертиза, атестовані експерти, досвід експертизи"
+        url="https://expertise.com.ua/pro-nas"
+        structuredData={combinedStructuredData}
+      />
       <Navbar />
       
       <main className="flex-grow pt-32 pb-16">

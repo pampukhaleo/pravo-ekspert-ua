@@ -9,6 +9,7 @@ import NewsNotFound from '../components/news/NewsNotFound';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 import { allNewsWithContent } from '../data/fullNewsData';
+import { newsItems } from '../data/newsData';
 
 const NewsArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -80,5 +81,18 @@ const NewsArticlePage = () => {
     </div>
   );
 };
+
+// Named export for vite-react-ssg  
+export function Component() {
+  return <NewsArticlePage />;
+}
+
+// Generate static paths for all news articles
+export function getStaticPaths(): string[] {
+  return newsItems.map(item => `novini/${item.slug}`);
+}
+
+// Entry point for CSS import
+export const entry = 'src/pages/NewsArticlePage.tsx';
 
 export default NewsArticlePage;

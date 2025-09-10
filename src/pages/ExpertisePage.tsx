@@ -19,7 +19,7 @@ export function Component() {
   const { slug } = useParams<{ slug: string }>()
   const location = useLocation()
   const [activeTab, setActiveTab] = useState('overview')
-  const { getProfessionalServiceData, getBreadcrumbData, getProductData } = useStructuredData()
+  const { getProfessionalServiceData, getBreadcrumbData, getProductData, getFAQData } = useStructuredData()
 
   useEffect(() => {
     if (location.search.includes('from=directions')) {
@@ -97,6 +97,7 @@ export function Component() {
           { name: pageTitle, url: `https://expertise.com.ua/ekspertyzy/${slug}` },
         ])
     ]),
+    ...(expertise.faqs && expertise.faqs.length > 0 ? [getFAQData(expertise.faqs)] : [])
   ]
 
   return (

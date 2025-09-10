@@ -1,17 +1,68 @@
 import fs from 'fs'
 import path from 'path'
 
-// Import data files to generate dynamic sitemap
-const expertiseData = JSON.parse(fs.readFileSync('src/data/expertiseData.ts', 'utf8'))
-  .replace('export const expertiseData = ', '')
-  .replace(/;$/, '')
-
-const newsData = JSON.parse(fs.readFileSync('src/data/newsData.ts', 'utf8'))
-  .replace('export const newsData = ', '')
-  .replace(/;$/, '')
+// Import data directly from TypeScript files
+const expertiseDataPath = 'src/data/expertiseData.ts'
+const newsDataPath = 'src/data/newsData.ts'
 
 const baseUrl = 'https://expertise.com.ua'
 const currentDate = new Date().toISOString().split('T')[0]
+
+// Parse TypeScript export
+function parseTypeScriptExport(filePath, exportName) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8')
+    // Find the export statement
+    const exportRegex = new RegExp(`export\\s+const\\s+${exportName}\\s*=\\s*([\\s\\S]*?)(?=\\nexport|\\n\\n|$)`)
+    const match = content.match(exportRegex)
+    
+    if (!match) {
+      console.log(`Could not find export ${exportName} in ${filePath}`)
+      return null
+    }
+
+    let exportData = match[1].trim()
+    // Remove semicolon at the end
+    exportData = exportData.replace(/;$/, '')
+    
+    // For expertiseData, convert object to array format for sitemap
+    if (exportName === 'expertiseData') {
+      // This is an object, we need to extract keys and nested directions
+      const keys = []
+      const keyRegex = /(\w+):\s*{/g
+      let keyMatch
+      while ((keyMatch = keyRegex.exec(exportData)) !== null) {
+        keys.push(keyMatch[1])
+      }
+      
+      // Also extract direction slugs
+      const directionSlugs = []
+      const directionRegex = /slug:\s*['"]([\w-]+)['"]/g
+      let directionMatch
+      while ((directionMatch = directionRegex.exec(exportData)) !== null) {
+        directionSlugs.push(directionMatch[1])
+      }
+      
+      return { keys, directionSlugs }
+    }
+    
+    // For newsItems, extract slugs
+    if (exportName === 'newsItems') {
+      const slugs = []
+      const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
+      let slugMatch
+      while ((slugMatch = slugRegex.exec(exportData)) !== null) {
+        slugs.push(slugMatch[1])
+      }
+      return slugs
+    }
+
+    return null
+  } catch (error) {
+    console.log(`Error parsing ${filePath}:`, error.message)
+    return null
+  }
+}
 
 // Static routes
 const staticRoutes = [
@@ -39,41 +90,44 @@ staticRoutes.forEach(route => {
 `
 })
 
-// Add expertise routes (if data exists)
-try {
-  const expertise = JSON.parse(expertiseData)
-  expertise.forEach(item => {
-    if (item.slug) {
-      sitemapXML += `  <url>
-    <loc>${baseUrl}/ekspertyzy/${item.slug}</loc>
+// Add expertise routes
+const expertiseData = parseTypeScriptExport(expertiseDataPath, 'expertiseData')
+if (expertiseData) {
+  // Add main expertise categories
+  expertiseData.keys.forEach(key => {
+    sitemapXML += `  <url>
+    <loc>${baseUrl}/ekspertyzy/${key}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 `
-    }
   })
-} catch (e) {
-  console.log('Could not parse expertise data, skipping dynamic expertise URLs')
+  
+  // Add expertise direction pages
+  expertiseData.directionSlugs.forEach(slug => {
+    sitemapXML += `  <url>
+    <loc>${baseUrl}/ekspertyzy/${slug}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`
+  })
 }
 
-// Add news routes (if data exists)
-try {
-  const news = JSON.parse(newsData)
-  news.forEach(item => {
-    if (item.slug) {
-      const articleDate = item.date || currentDate
-      sitemapXML += `  <url>
-    <loc>${baseUrl}/novini/${item.slug}</loc>
-    <lastmod>${articleDate}</lastmod>
+// Add news routes
+const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
+if (newsSlugs) {
+  newsSlugs.forEach(slug => {
+    sitemapXML += `  <url>
+    <loc>${baseUrl}/novini/${slug}</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 `
-    }
   })
-} catch (e) {
-  console.log('Could not parse news data, skipping dynamic news URLs')
 }
 
 sitemapXML += '</urlset>'
@@ -86,3 +140,4 @@ if (!fs.existsSync(distDir)) {
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXML)
 console.log('Generated dynamic sitemap.xml in', distDir)
+console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.keys?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, and ${newsSlugs?.length || 0} news articles`)

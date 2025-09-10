@@ -43,8 +43,8 @@ const ExpertisesListPage = () => {
   });
 
   const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://nise.com.ua" },
-    { name: "Експертизи", url: "https://nise.com.ua/ekspertyzy" }
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Експертизи", url: "https://expertise.com.ua/ekspertyzy" }
   ]);
 
   return (
@@ -53,7 +53,7 @@ const ExpertisesListPage = () => {
         title="Судові експертизи | НІСЕ"
         description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
         keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
-        url="https://nise.com.ua/ekspertyzy"
+        url="https://expertise.com.ua/ekspertyzy"
         structuredData={breadcrumbData}
       />
       

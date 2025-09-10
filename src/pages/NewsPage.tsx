@@ -68,6 +68,9 @@ const NewsPage = () => {
                     src={news.imageUrl} 
                     alt={news.title}
                     className="w-full h-full object-cover"
+                    loading="lazy" 
+                    width="400"
+                    height="240"
                   />
                 </div>
                 <div className="md:w-2/3 p-6">

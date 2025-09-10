@@ -538,7 +538,7 @@ export const useStructuredData = () => {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
       url: "https://expertise.com.ua",
-      telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+      telephone: ["+380445813090", "+380503601682", "+380675555222"],
       email: "info@nise.com.ua"
     },
     serviceType: "Судова експертиза",
@@ -549,7 +549,7 @@ export const useStructuredData = () => {
     "@context": "https://schema.org",
     "@type": "ContactPoint",
     contactType: "customer service",
-    telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+    telephone: ["+380445813090", "+380503601682", "+380675555222"],
     email: "info@nise.com.ua",
     availableLanguage: ["Ukrainian", "Russian"],
     hoursAvailable: {

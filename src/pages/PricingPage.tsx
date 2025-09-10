@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ConsultationButton from '../components/ConsultationButton';
+import SEOHead from '../components/SEO/SEOHead';
+import { useStructuredData } from '../hooks/useStructuredData';
 import { 
   Accordion, 
   AccordionContent, 
@@ -222,8 +224,33 @@ const pricingData = [
 ];
 
 const PricingPage = () => {
+  const { getBreadcrumbData, getWebPageData } = useStructuredData();
+  
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Ціни", url: "https://expertise.com.ua/tsiny" }
+  ]);
+
+  const webPageData = getWebPageData(
+    "Ціни на експертизи | НІСЕ",
+    "Вартість судових експертиз від Незалежного Інституту Судових Експертиз. Прозоре ціноутворення, якісні експертні послуги за доступними цінами.",
+    "https://expertise.com.ua/tsiny",
+    [
+      { name: "Головна", url: "https://expertise.com.ua" },
+      { name: "Ціни", url: "https://expertise.com.ua/tsiny" }
+    ]
+  );
+
+  const combinedStructuredData = [breadcrumbData, webPageData];
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="Ціни на експертизи | НІСЕ"
+        description="Вартість судових експертиз від Незалежного Інституту Судових Експертиз. Земельно-технічна від 15 000 грн, будівельно-технічна від 15 000 грн, екологічна від 40 000 грн."
+        keywords="ціни експертиза, вартість судової експертизи, НІСЕ ціни, експертні послуги ціни"
+        url="https://expertise.com.ua/tsiny"
+        structuredData={combinedStructuredData}
+      />
       <Navbar />
       
       <main className="flex-grow pt-32 pb-16">
