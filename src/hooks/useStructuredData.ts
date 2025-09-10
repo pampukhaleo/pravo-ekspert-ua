@@ -21,9 +21,9 @@ interface OrganizationData {
   sameAs: string[];
   aggregateRating?: {
     "@type": string;
-    ratingValue: string;
-    bestRating: string;
-    ratingCount: string;
+    ratingValue: number;
+    bestRating: number | string;
+    ratingCount: number;
   };
 }
 
@@ -154,8 +154,8 @@ interface LocalBusinessData {
   priceRange: string;
   aggregateRating?: {
     "@type": string;
-    ratingValue: string;
-    reviewCount: string;
+    ratingValue: number;
+    reviewCount: number;
   };
 }
 
@@ -313,9 +313,9 @@ export const useStructuredData = () => {
     ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      ratingCount: "127"
+      ratingValue: 4.8,
+      bestRating: 5,
+      ratingCount: 127
     }
   });
 
@@ -432,8 +432,8 @@ export const useStructuredData = () => {
     priceRange: "$$",
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "127"
+      ratingValue: 4.8,
+      reviewCount: 127
     }
   });
 
@@ -645,6 +645,25 @@ export const useStructuredData = () => {
     ]
   });
 
+  const getItemListData = (
+    listName: string,
+    items: Array<{ name: string; description: string; url: string; image?: string }>
+  ) => ({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: listName,
+    description: `Перелік ${listName.toLowerCase()}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      description: item.description,
+      url: item.url,
+      image: item.image
+    }))
+  });
+
   return {
     getOrganizationData,
     getServiceData,
@@ -657,6 +676,7 @@ export const useStructuredData = () => {
     getProductData,
     getContactPointData,
     getEventData,
-    getWebSiteData
+    getWebSiteData,
+    getItemListData
   };
 };

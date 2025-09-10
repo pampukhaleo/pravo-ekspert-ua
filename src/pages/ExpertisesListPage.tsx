@@ -11,7 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../componen
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 
 const ExpertisesListPage = () => {
-  const { getWebPageData } = useStructuredData();
+  const { getWebPageData, getItemListData } = useStructuredData();
   
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
@@ -52,6 +52,16 @@ const ExpertisesListPage = () => {
     ]
   );
 
+  const itemListData = getItemListData(
+    "Судові експертизи НІСЕ",
+    expertiseList.map(expertise => ({
+      name: expertise.title,
+      description: expertise.description,
+      url: `https://expertise.com.ua/ekspertyzy/${expertise.slug}`,
+      image: expertise.backgroundImage ? `https://expertise.com.ua${expertise.backgroundImage}` : undefined
+    }))
+  );
+
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
@@ -59,7 +69,7 @@ const ExpertisesListPage = () => {
         description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
         keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
         url="https://expertise.com.ua/ekspertyzy"
-        structuredData={[webPageData]}
+        structuredData={[webPageData, itemListData]}
       />
       
       <Navbar />
@@ -168,6 +178,9 @@ const ExpertisesListPage = () => {
                         src={expertise.backgroundImage}
                         alt={expertise.title} 
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        width="400"
+                        height="160"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-r from-blue-100 to-blue-50" />
@@ -204,7 +217,10 @@ const ExpertisesListPage = () => {
                           <img 
                             src={expertise.backgroundImage}
                             alt={expertise.title}
-                            className="w-10 h-10 object-cover rounded-md flex-shrink-0" 
+                            className="w-10 h-10 object-cover rounded-md flex-shrink-0"
+                            loading="lazy"
+                            width="40"
+                            height="40"
                           />
                         ) : (
                           <div className="w-10 h-10 bg-blue-100 rounded-md flex-shrink-0" />
