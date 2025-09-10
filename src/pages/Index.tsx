@@ -13,7 +13,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 import { getNextEvent } from '../components/home/events/eventsData';
 
 const Index = () => {
-  const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData, getEventData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData, getEventData, getSiteNavigationData } = useStructuredData();
   
   // Get next event for structured data
   const nextEvent = getNextEvent();
@@ -23,6 +23,7 @@ const Index = () => {
     getWebSiteData(),
     getOrganizationData(),
     getLocalBusinessData(),
+    getSiteNavigationData(),
     getWebPageData(
       "Незалежний Інститут Судових Експертиз (НІСЕ)",
       "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України. Будівельно-технічні, оціночні, земельні та інші види експертиз.",

@@ -9,7 +9,7 @@ import { useStructuredData } from '../hooks/useStructuredData';
 import { newsItems } from '../data/newsData';
 
 const NewsPage = () => {
-  const { getBreadcrumbData, getWebPageData } = useStructuredData();
+  const { getBreadcrumbData, getWebPageData, getSiteNavigationData } = useStructuredData();
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -52,7 +52,7 @@ const NewsPage = () => {
     }))
   };
 
-  const combinedStructuredData = [webPageData, itemListData];
+  const combinedStructuredData = [webPageData, itemListData, getSiteNavigationData()];
 
   const breadcrumbItems = [
     { label: "Новини", isCurrentPage: true }

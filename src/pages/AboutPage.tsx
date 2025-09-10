@@ -20,7 +20,7 @@ const stats = [
 ];
 
 const AboutPage = () => {
-  const { getBreadcrumbData, getWebPageData, getOrganizationData } = useStructuredData();
+  const { getBreadcrumbData, getWebPageData, getOrganizationData, getSiteNavigationData } = useStructuredData();
   
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
@@ -39,7 +39,7 @@ const AboutPage = () => {
   );
 
   const organizationData = getOrganizationData();
-  const combinedStructuredData = [webPageData, organizationData];
+  const combinedStructuredData = [webPageData, organizationData, getSiteNavigationData()];
   
   return (
     <div className="min-h-screen flex flex-col">

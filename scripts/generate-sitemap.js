@@ -4,6 +4,7 @@ import path from 'path'
 // Import data directly from TypeScript files
 const expertiseDataPath = 'src/data/expertiseData.ts'
 const newsDataPath = 'src/data/newsData.ts'
+const servicesDataPath = 'src/components/home/ServicesSection.tsx'
 
 const baseUrl = 'https://expertise.com.ua'
 const currentDate = new Date().toISOString().split('T')[0]
@@ -48,6 +49,17 @@ function parseTypeScriptExport(filePath, exportName) {
     
     // For newsItems, extract slugs
     if (exportName === 'newsItems') {
+      const slugs = []
+      const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
+      let slugMatch
+      while ((slugMatch = slugRegex.exec(exportData)) !== null) {
+        slugs.push(slugMatch[1])
+      }
+      return slugs
+    }
+    
+    // For services, extract slugs
+    if (exportName === 'services') {
       const slugs = []
       const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
       let slugMatch
@@ -121,6 +133,20 @@ if (expertiseData) {
   })
 }
 
+// Add service routes
+const serviceSlugs = parseTypeScriptExport(servicesDataPath, 'services')
+if (serviceSlugs) {
+  serviceSlugs.forEach(slug => {
+    sitemapXML += `  <url>
+    <loc>${baseUrl}/posluhy/${slug}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`
+  })
+}
+
 // Add news routes with dynamic lastmod
 const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
 if (newsSlugs) {
@@ -146,4 +172,4 @@ if (!fs.existsSync(distDir)) {
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXML)
 console.log('Generated dynamic sitemap.xml in', distDir)
-console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.keys?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, and ${newsSlugs?.length || 0} news articles`)
+console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.keys?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, ${serviceSlugs?.length || 0} service pages, and ${newsSlugs?.length || 0} news articles`)

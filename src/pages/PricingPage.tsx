@@ -224,7 +224,7 @@ const pricingData = [
 ];
 
 const PricingPage = () => {
-  const { getBreadcrumbData, getWebPageData } = useStructuredData();
+  const { getBreadcrumbData, getWebPageData, getSiteNavigationData } = useStructuredData();
   
   const webPageData = getWebPageData(
     "Ціни на експертизи | НІСЕ",
@@ -236,7 +236,7 @@ const PricingPage = () => {
     ]
   );
 
-  const combinedStructuredData = [webPageData];
+  const combinedStructuredData = [webPageData, getSiteNavigationData()];
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
