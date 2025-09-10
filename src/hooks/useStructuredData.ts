@@ -303,7 +303,7 @@ export const useStructuredData = () => {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+      telephone: ["+380445813090", "+380503601682", "+380675555222"],
       email: "info@nise.com.ua",
       contactType: "customer service"
     },
@@ -362,7 +362,7 @@ export const useStructuredData = () => {
         postalCode: "04207",
         addressCountry: "UA"
       },
-      telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+      telephone: ["+380445813090", "+380503601682", "+380675555222"],
       email: "info@nise.com.ua"
     },
     serviceType: "Судова експертиза",
@@ -411,7 +411,7 @@ export const useStructuredData = () => {
     description: "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України.",
     url: "https://expertise.com.ua",
     logo: "https://expertise.com.ua/logonise.png",
-    telephone: ["(044) 581 30 90", "(050) 360 16 82", "(067) 5555 222"],
+    telephone: ["+380445813090", "+380503601682", "+380675555222"],
     email: "info@nise.com.ua",
     address: {
       "@type": "PostalAddress",
@@ -618,6 +618,33 @@ export const useStructuredData = () => {
     }
   });
 
+  const getWebSiteData = () => ({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
+    alternateName: "НІСЕ",
+    url: "https://expertise.com.ua",
+    description: "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України.",
+    publisher: {
+      "@type": "Organization",
+      name: "НІСЕ",
+      url: "https://expertise.com.ua",
+      logo: "https://expertise.com.ua/logonise.png"
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://expertise.com.ua/ekspertyzy?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
+    sameAs: [
+      "https://www.facebook.com/nise.com.ua",
+      "https://www.linkedin.com/company/nise-com-ua"
+    ]
+  });
+
   return {
     getOrganizationData,
     getServiceData,
@@ -629,6 +656,7 @@ export const useStructuredData = () => {
     getWebPageData,
     getProductData,
     getContactPointData,
-    getEventData
+    getEventData,
+    getWebSiteData
   };
 };

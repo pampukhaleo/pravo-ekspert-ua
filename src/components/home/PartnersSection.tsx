@@ -29,9 +29,17 @@ const PartnersSection: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-          { partners.map((partner) => (
-            <img key={partner.id} src={ partner.img } alt={ partner.name }/>
-          )) }
+          {partners.map((partner) => (
+            <img 
+              key={partner.id} 
+              src={partner.img} 
+              alt={`Партнер ${partner.name}`}
+              loading="lazy"
+              width="120"
+              height="80"
+              className="h-12 md:h-16 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+            />
+          ))}
         </div>
       </div>
     </section>

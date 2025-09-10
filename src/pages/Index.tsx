@@ -12,10 +12,11 @@ import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 
 const Index = () => {
-  const { getOrganizationData, getLocalBusinessData, getWebPageData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData } = useStructuredData();
   
   // Комбинируем несколько типов structured data
   const combinedStructuredData = [
+    getWebSiteData(),
     getOrganizationData(),
     getLocalBusinessData(),
     getWebPageData(

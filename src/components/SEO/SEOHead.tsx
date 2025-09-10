@@ -10,19 +10,25 @@ interface SEOHeadProps {
   url?: string
   type?: 'website' | 'article'
   structuredData?: object | object[]
+  robots?: string
+  ogLocale?: string
+  twitterSite?: string
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-                                           title = "НІСЕ - Незалежний Інститут Судових Експертиз",
-                                           description =
-                                             "Експертиза є не лише належним доказом у судовому провадженні, але і засобом мирного врегулювання спірних питань!",
-                                           keywords =
-                                             "судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, експертний висновок, Київ",
-                                           image = "https://expertise.com.ua/logonise.png",
-                                           url = "https://expertise.com.ua",
-                                           type = "website",
-                                           structuredData,
-                                         }) => {
+                                            title = "НІСЕ - Незалежний Інститут Судових Експертиз",
+                                            description =
+                                              "Експертиза є не лише належним доказом у судовому провадженні, але і засобом мирного врегулювання спірних питань!",
+                                            keywords =
+                                              "судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, експертний висновок, Київ",
+                                            image = "https://expertise.com.ua/logonise.png",
+                                            url = "https://expertise.com.ua",
+                                            type = "website",
+                                            structuredData,
+                                            robots,
+                                            ogLocale = "uk_UA",
+                                            twitterSite = "@nise_ua",
+                                          }) => {
   const fullTitle = title.includes("НІСЕ") ? title : `${title} | НІСЕ`
   // normalize to array for JSON-LD
   const ldArray = structuredData
@@ -37,6 +43,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta name="author" content="НІСЕ" />
+      {robots && <meta name="robots" content={robots} />}
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
@@ -45,12 +52,14 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:image" content={image} />
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content="НІСЕ" />
+      <meta property="og:locale" content={ogLocale} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+      <meta name="twitter:site" content={twitterSite} />
 
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
