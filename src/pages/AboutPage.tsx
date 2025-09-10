@@ -28,11 +28,6 @@ const AboutPage = () => {
     ...data
   }));
 
-  const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://expertise.com.ua" },
-    { name: "Про нас", url: "https://expertise.com.ua/pro-nas" }
-  ]);
-
   const webPageData = getWebPageData(
     "Про нас | НІСЕ",
     "Незалежний Інститут Судових Експертиз - професійні судові експертизи з 2007 року. Атестовані експерти, високий рівень якості.",
@@ -44,7 +39,7 @@ const AboutPage = () => {
   );
 
   const organizationData = getOrganizationData();
-  const combinedStructuredData = [breadcrumbData, webPageData, organizationData];
+  const combinedStructuredData = [webPageData, organizationData];
   
   return (
     <div className="min-h-screen flex flex-col">

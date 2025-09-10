@@ -107,6 +107,7 @@ export function Component() {
         description={`${pageDescription} - професійна експертиза від Незалежного Інституту Судових Експертиз`}
         keywords={`${pageTitle.toLowerCase()}, судова експертиза, НІСЕ, експертний висновок, ${pageTitle.toLowerCase()} експертиза`}
         url={`https://expertise.com.ua/ekspertyzy/${slug}`}
+        image={backgroundImage ? `https://expertise.com.ua${backgroundImage}` : undefined}
         structuredData={structuredData}
       />
       <Navbar />

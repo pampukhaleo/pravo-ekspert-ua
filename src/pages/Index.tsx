@@ -10,9 +10,13 @@ import VideoRecordings from '../components/home/VideoRecordings';
 import FaqSection from '../components/home/FaqSection';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
+import { getNextEvent } from '../components/home/events/eventsData';
 
 const Index = () => {
-  const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData, getEventData } = useStructuredData();
+  
+  // Get next event for structured data
+  const nextEvent = getNextEvent();
   
   // Комбинируем несколько типов structured data
   const combinedStructuredData = [
@@ -24,7 +28,16 @@ const Index = () => {
       "Професійні судові експертизи всіх видів. Атестовані експерти Мін'юсту України. Будівельно-технічні, оціночні, земельні та інші види експертиз.",
       "https://expertise.com.ua",
       [{ name: "Головна", url: "https://expertise.com.ua" }]
-    )
+    ),
+    ...(nextEvent ? [getEventData(
+      nextEvent.title,
+      nextEvent.description,
+      nextEvent.date.toISOString(),
+      undefined,
+      true,
+      nextEvent.price,
+      nextEvent.link
+    )] : [])
   ];
 
   // Ensure we start at the top of the page

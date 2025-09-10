@@ -29,7 +29,7 @@ function parseTypeScriptExport(filePath, exportName) {
     if (exportName === 'expertiseData') {
       // This is an object, we need to extract keys and nested directions
       const keys = []
-      const keyRegex = /(\w+):\s*{/g
+      const keyRegex = /["']([^"']+)["']\s*:\s*{/g
       let keyMatch
       while ((keyMatch = keyRegex.exec(exportData)) !== null) {
         keys.push(keyMatch[1])

@@ -226,11 +226,6 @@ const pricingData = [
 const PricingPage = () => {
   const { getBreadcrumbData, getWebPageData } = useStructuredData();
   
-  const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://expertise.com.ua" },
-    { name: "Ціни", url: "https://expertise.com.ua/tsiny" }
-  ]);
-
   const webPageData = getWebPageData(
     "Ціни на експертизи | НІСЕ",
     "Вартість судових експертиз від Незалежного Інституту Судових Експертиз. Прозоре ціноутворення, якісні експертні послуги за доступними цінами.",
@@ -241,7 +236,7 @@ const PricingPage = () => {
     ]
   );
 
-  const combinedStructuredData = [breadcrumbData, webPageData];
+  const combinedStructuredData = [webPageData];
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead

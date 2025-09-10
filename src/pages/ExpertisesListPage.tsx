@@ -11,7 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../componen
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 
 const ExpertisesListPage = () => {
-  const { getBreadcrumbData } = useStructuredData();
+  const { getWebPageData } = useStructuredData();
   
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
@@ -42,10 +42,15 @@ const ExpertisesListPage = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://expertise.com.ua" },
-    { name: "Експертизи", url: "https://expertise.com.ua/ekspertyzy" }
-  ]);
+  const webPageData = getWebPageData(
+    "Судові експертизи | НІСЕ",
+    "Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз.",
+    "https://expertise.com.ua/ekspertyzy",
+    [
+      { name: "Головна", url: "https://expertise.com.ua" },
+      { name: "Експертизи", url: "https://expertise.com.ua/ekspertyzy" }
+    ]
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -54,7 +59,7 @@ const ExpertisesListPage = () => {
         description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
         keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
         url="https://expertise.com.ua/ekspertyzy"
-        structuredData={breadcrumbData}
+        structuredData={[webPageData]}
       />
       
       <Navbar />

@@ -16,11 +16,6 @@ const NewsPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const breadcrumbData = getBreadcrumbData([
-    { name: "Головна", url: "https://expertise.com.ua" },
-    { name: "Новини", url: "https://expertise.com.ua/novini" }
-  ]);
-
   const webPageData = getWebPageData(
     "Новини та події | НІСЕ",
     "Останні новини та події Незалежного Інституту Судових Експертиз. Читайте про розвиток галузі судової експертизи в Україні.",
@@ -31,7 +26,33 @@ const NewsPage = () => {
     ]
   );
 
-  const combinedStructuredData = [breadcrumbData, webPageData];
+  // Add ItemList structured data for news articles
+  const itemListData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Новини НІСЕ",
+    description: "Останні новини та події Незалежного Інституту Судових Експертиз",
+    numberOfItems: newsItems.length,
+    itemListElement: newsItems.map((news, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "NewsArticle",
+        headline: news.title,
+        description: news.excerpt,
+        datePublished: news.date,
+        url: `https://expertise.com.ua/novini/${news.slug}`,
+        image: news.imageUrl,
+        author: {
+          "@type": "Organization",
+          name: "НІСЕ",
+          url: "https://expertise.com.ua"
+        }
+      }
+    }))
+  };
+
+  const combinedStructuredData = [webPageData, itemListData];
 
   const breadcrumbItems = [
     { label: "Новини", isCurrentPage: true }
