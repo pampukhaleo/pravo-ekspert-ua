@@ -47,9 +47,12 @@ const ExpertiseCarousel = () => {
                     <Card className="h-full hover:shadow-lg transition-shadow duration-300 group">
                       <CardHeader className="p-0">
                         <div className="aspect-[4/3] relative overflow-hidden rounded-t-lg">
-                          <img 
+                           <img 
                             src={expertise.image} 
-                            alt={expertise.title}
+                            alt={`${expertise.title} - професійна судова експертиза в НІСЕ`}
+                            loading="lazy"
+                            width="400"
+                            height="300"
                             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>

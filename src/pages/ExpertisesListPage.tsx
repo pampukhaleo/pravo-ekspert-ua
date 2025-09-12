@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../componen
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 import OptimizedImage from '@/components/OptimizedImage'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import FAQPageSEO from '../components/SEO/FAQPageSEO'
 
 const ExpertisesListPage = () => {
   const { getWebPageData, getItemListData, getSiteNavigationData, getFAQData } = useStructuredData();
@@ -326,28 +327,46 @@ const ExpertisesListPage = () => {
             </div>
            )}
 
-          {/* FAQ Section */}
-          <div className="mb-16 bg-gray-50 rounded-xl p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Часті питання про експертизи</h2>
-            <div className="max-w-4xl mx-auto space-y-4">
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold mb-2 text-gray-900">Скільки коштує судова експертиза?</h3>
-                <p className="text-gray-600">Вартість експертизи залежить від виду, складності та обсягу робіт. Ознайомтеся з актуальними цінами на <a href="/tsiny" className="text-blue-600 hover:underline">сторінці цін</a> або зв'яжіться з нами для індивідуального розрахунку.</p>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold mb-2 text-gray-900">Як довго проводиться експертиза?</h3>
-                <p className="text-gray-600">Терміни проведення експертизи залежать від її виду та складності. Зазвичай це від 5 до 30 робочих днів. Точні терміни уточнюйте при замовленні.</p>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold mb-2 text-gray-900">Чи приймаються експертні висновки НІСЕ в суді?</h3>
-                <p className="text-gray-600">Так, наші експертні висновки мають повну юридичну силу та приймаються українськими судами. Всі наші експерти атестовані Міністерством юстиції України.</p>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold mb-2 text-gray-900">Чи можна замовити експертизу без рішення суду?</h3>
-                <p className="text-gray-600">Так, ми проводимо незалежні експертні дослідження як за призначенням суду, так і на замовлення приватних осіб і організацій.</p>
-              </div>
-            </div>
-          </div>
+           {/* FAQ Section with structured data */}
+           <div className="mb-16 bg-gray-50 rounded-xl p-8">
+             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Часті питання про експертизи</h2>
+             <FAQPageSEO faqs={[
+               {
+                 question: "Скільки коштує судова експертиза?",
+                 answer: "Вартість експертизи залежить від виду, складності та обсягу робіт. Ознайомтеся з актуальними цінами на сторінці цін або зв'яжіться з нами для індивідуального розрахунку."
+               },
+               {
+                 question: "Як довго проводиться експертиза?",
+                 answer: "Терміни проведення експертизи залежать від її виду та складності. Зазвичай це від 5 до 30 робочих днів. Точні терміни уточнюйте при замовленні."
+               },
+               {
+                 question: "Чи приймаються експертні висновки НІСЕ в суді?",
+                 answer: "Так, наші експертні висновки мають повну юридичну силу та приймаються українськими судами. Всі наші експерти атестовані Міністерством юстиції України."
+               },
+               {
+                 question: "Чи можна замовити експертизу без рішення суду?",
+                 answer: "Так, ми проводимо незалежні експертні дослідження як за призначенням суду, так і на замовлення приватних осіб і організацій."
+               }
+             ]} />
+             <div className="max-w-4xl mx-auto space-y-4">
+               <div className="bg-white rounded-lg p-6 shadow-sm">
+                 <h3 className="font-semibold mb-2 text-gray-900">Скільки коштує судова експертиза?</h3>
+                 <p className="text-gray-600">Вартість експертизи залежить від виду, складності та обсягу робіт. Ознайомтеся з актуальними цінами на <a href="/tsiny" className="text-blue-600 hover:underline">сторінці цін</a> або зв'яжіться з нами для індивідуального розрахунку.</p>
+               </div>
+               <div className="bg-white rounded-lg p-6 shadow-sm">
+                 <h3 className="font-semibold mb-2 text-gray-900">Як довго проводиться експертиза?</h3>
+                 <p className="text-gray-600">Терміни проведення експертизи залежать від її виду та складності. Зазвичай це від 5 до 30 робочих днів. Точні терміни уточнюйте при замовленні.</p>
+               </div>
+               <div className="bg-white rounded-lg p-6 shadow-sm">
+                 <h3 className="font-semibold mb-2 text-gray-900">Чи приймаються експертні висновки НІСЕ в суді?</h3>
+                 <p className="text-gray-600">Так, наші експертні висновки мають повну юридичну силу та приймаються українськими судами. Всі наші експерти атестовані Міністерством юстиції України.</p>
+               </div>
+               <div className="bg-white rounded-lg p-6 shadow-sm">
+                 <h3 className="font-semibold mb-2 text-gray-900">Чи можна замовити експертизу без рішення суду?</h3>
+                 <p className="text-gray-600">Так, ми проводимо незалежні експертні дослідження як за призначенням суду, так і на замовлення приватних осіб і організацій.</p>
+               </div>
+             </div>
+           </div>
            
            <div className="mt-16 bg-gray-50 rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Не знаєте, яка експертиза вам потрібна?</h2>

@@ -33,7 +33,7 @@ const PartnersSection: React.FC = () => {
             <img 
               key={partner.id} 
               src={partner.img} 
-              alt={`Партнер ${partner.name}`}
+              alt={`Логотип партнера ${partner.name} - довіряють експертизі НІСЕ`}
               loading="lazy"
               width="120"
               height="80"

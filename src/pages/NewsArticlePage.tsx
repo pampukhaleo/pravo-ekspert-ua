@@ -47,15 +47,23 @@ const NewsArticlePage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {article && (
-        <SEOHead
-          title={`${article.title} | НІСЕ`}
-          description={article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, '')}
-          keywords="новини НІСЕ, судова експертиза, Незалежний Інститут Судових Експертиз"
-          url={`https://expertise.com.ua/novini/${slug}`}
-          type="article"
-          image={article.imageUrl}
-          structuredData={articleStructuredData}
-        />
+        <>
+          <SEOHead
+            title={`${article.title} | НІСЕ`}
+            description={article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, '')}
+            keywords="новини НІСЕ, судова експертиза, Незалежний Інститут Судових Експертиз"
+            url={`https://expertise.com.ua/novini/${slug}`}
+            type="article"
+            image={article.imageUrl}
+            structuredData={articleStructuredData}
+          />
+          {/* Article-specific meta tags */}
+          <meta property="article:published_time" content={new Date(article.date).toISOString()} />
+          <meta property="article:author" content="НІСЕ" />
+          <meta property="article:section" content="Новини судової експертизи" />
+          <meta property="article:tag" content="судова експертиза" />
+          <meta property="article:tag" content="НІСЕ" />
+        </>
       )}
       
       <Navbar />

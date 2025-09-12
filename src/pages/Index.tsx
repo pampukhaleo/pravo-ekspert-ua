@@ -11,6 +11,7 @@ import FaqSection from '../components/home/FaqSection';
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
 import { getNextEvent } from '../components/home/events/eventsData';
+import PreloadResources from '../components/SEO/preloadResources';
 
 const Index = () => {
   const { getOrganizationData, getLocalBusinessData, getWebPageData, getWebSiteData, getEventData, getSiteNavigationData } = useStructuredData();
@@ -54,6 +55,10 @@ const Index = () => {
         keywords="судова експертиза, незалежна експертиза, будівельно-технічна експертиза, оціночна експертиза, НІСЕ, експертний висновок, Київ"
         url="https://expertise.com.ua"
         structuredData={combinedStructuredData}
+      />
+      <PreloadResources 
+        images={["/logonise.png"]}
+        fonts={[]}
       />
       
       <Navbar />

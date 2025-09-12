@@ -52,7 +52,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta name="author" content="НІСЕ" />
-      {robots && <meta name="robots" content={robots} />}
+      <meta name="generator" content="Lovable" />
+      <meta name="robots" content={robots || "index, follow"} />
+      <meta name="google-site-verification" content="your-verification-code" />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
@@ -60,8 +62,10 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:type" content={type} />
       <meta property="og:image" content={absoluteImage} />
       <meta property="og:image:alt" content={imageAlt} />
-      {imageWidth && <meta property="og:image:width" content={imageWidth.toString()} />}
-      {imageHeight && <meta property="og:image:height" content={imageHeight.toString()} />}
+      <meta property="og:image:width" content={imageWidth?.toString() || "1200"} />
+      <meta property="og:image:height" content={imageHeight?.toString() || "630"} />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:secure_url" content={absoluteImage} />
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content="НІСЕ" />
       <meta property="og:locale" content={ogLocale} />
