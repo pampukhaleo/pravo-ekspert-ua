@@ -1,9 +1,62 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+
 // CORS headers for browser requests
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type"
 };
+
+// Validation patterns
+const NAME_REGEX = /^[А-ЩЬЮЯҐЄІЇа-щьюяґєії'\s-]{2,100}$/u;
+const PHONE_REGEX = /^(\+?38)?0\d{9}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Validation function
+function validateFormData(data: any): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  
+  // Check honeypot field
+  if (data.website && data.website.trim() !== '') {
+    console.log('🚨 Honeypot triggered - bot detected');
+    return { valid: false, errors: ['Invalid submission'] };
+  }
+  
+  // Check submission time (minimum 3 seconds)
+  if (data._submitTime && data._submitTime < 3000) {
+    console.log('🚨 Form submitted too quickly:', data._submitTime, 'ms');
+    return { valid: false, errors: ['Submission too fast'] };
+  }
+  
+  // Validate name
+  if (!data.name || !NAME_REGEX.test(data.name)) {
+    errors.push("Invalid name format");
+  }
+  
+  // Validate email
+  if (!data.email || !EMAIL_REGEX.test(data.email) || data.email.length > 255) {
+    errors.push("Invalid email format");
+  }
+  
+  // Validate phone
+  if (!data.phone || !PHONE_REGEX.test(data.phone)) {
+    errors.push("Invalid phone format");
+  }
+  
+  // Validate subject
+  if (!data.subject || data.subject.trim().length < 3 || data.subject.length > 200) {
+    errors.push("Invalid subject");
+  }
+  
+  // Validate message
+  if (!data.message || data.message.trim().length < 10 || data.message.length > 2000) {
+    errors.push("Invalid message");
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
 serve(async (req)=>{
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -18,10 +71,30 @@ serve(async (req)=>{
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       throw new Error("Missing Telegram configuration");
     }
+    
     // Parse the request body to get form data
     const formData = await req.json();
+    
+    // Validate form data
+    const validation = validateFormData(formData);
+    if (!validation.valid) {
+      console.error('❌ Validation failed:', validation.errors);
+      return new Response(
+        JSON.stringify({ 
+          error: "Validation failed",
+          details: validation.errors 
+        }), 
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 400
+        }
+      );
+    }
+    
     const { name, email, subject, message, phone, companyName } = formData;
     const site = companyName || "Unknown site";
+    
+    console.log('✅ Valid submission received from:', site);
     // Format message for Telegram
     const telegramMessage = `
 📨 Нове повідомлення з сайту: ${site}
