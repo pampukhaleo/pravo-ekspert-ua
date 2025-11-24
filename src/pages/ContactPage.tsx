@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -8,17 +8,31 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from '../components/SEO/SEOHead';
 import { useStructuredData } from '../hooks/useStructuredData';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactFormSchema, type ContactFormData } from '../lib/contactValidation';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const ContactPage = () => {
   const { toast } = useToast();
   const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData, getSiteNavigationData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    subject: ''
+  const formLoadTime = useRef<number>(Date.now());
+  
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+      website: '', // Honeypot field
+      companyName: 'NISE',
+      _submitTime: 0,
+    },
   });
   
   const combinedStructuredData = [
@@ -32,21 +46,21 @@ const ContactPage = () => {
     ])
   ];
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-  
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     
     try {
+      // Calculate time since form load
+      const submitTime = Date.now() - formLoadTime.current;
+      
+      // Add submit time to data
+      const submissionData = {
+        ...data,
+        _submitTime: submitTime,
+      };
+      
       const { error } = await supabase.functions.invoke('contact-form', {
-        body: {
-          ...formData,
-          companyName: 'NISE'
-        }
+        body: submissionData
       });
 
       if (error) {
@@ -60,13 +74,8 @@ const ContactPage = () => {
         duration: 5000,
       });
       
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        subject: ''
-      });
+      form.reset();
+      formLoadTime.current = Date.now(); // Reset timer
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -160,85 +169,107 @@ const ContactPage = () => {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Форма зворотного зв'язку</h2>
 
-              <form onSubmit={ handleSubmit }>
-                <input type="hidden" name="companyName" value="NISE"/>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Ім'я *</label>
-                  <input
-                    type="text"
-                    id="name"
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  {/* Honeypot field - hidden from users but visible to bots */}
+                  <div style={{ position: 'absolute', left: '-9999px' }}>
+                    <FormField
+                      control={form.control}
+                      name="website"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Website</FormLabel>
+                          <FormControl>
+                            <Input {...field} tabIndex={-1} autoComplete="off" />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
                     name="name"
-                    value={ formData.name }
-                    onChange={ handleChange }
-                    placeholder="Повне ім'я"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ім'я *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Повне ім'я" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email *</label>
-                  <input
-                    type="email"
-                    id="email"
+                  <FormField
+                    control={form.control}
                     name="email"
-                    value={ formData.email }
-                    onChange={ handleChange }
-                    placeholder='Email адреса'
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email *</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Email адреса" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="mb-4">
-                  <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Телефон *</label>
-                  <input
-                    type="tel"
-                    id="phone"
+                  <FormField
+                    control={form.control}
                     name="phone"
-                    value={ formData.phone }
-                    onChange={ handleChange }
-                    placeholder="Ваш номер телефону?"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Телефон *</FormLabel>
+                        <FormControl>
+                          <Input type="tel" placeholder="+380XXXXXXXXX або 0XXXXXXXXX" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="mb-4">
-                  <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Тема</label>
-                  <input
-                    type="text"
-                    id="subject"
+                  <FormField
+                    control={form.control}
                     name="subject"
-                    value={ formData.subject }
-                    onChange={ handleChange }
-                    placeholder="Як ми можемо допомогти?"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Тема *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Як ми можемо допомогти?" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Повідомлення *</label>
-                  <textarea
-                    id="message"
+                  <FormField
+                    control={form.control}
                     name="message"
-                    value={ formData.message }
-                    onChange={ handleChange }
-                    placeholder="Ваше повідомлення..."
-                    required
-                    rows={ 5 }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                  ></textarea>
-                </div>
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Повідомлення *</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Ваше повідомлення..."
+                            rows={5}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <button
-                  type="submit"
-                  disabled={ isSubmitting }
-                  className="w-full bg-brand-blue hover:bg-brand-light text-white font-medium py-3 px-6 rounded-md transition-colors duration-300 disabled:opacity-50"
-                >
-                  { isSubmitting ? 'Надсилання...' : 'Надіслати' }
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-brand-blue hover:bg-brand-light text-white font-medium py-3 px-6 rounded-md transition-colors duration-300 disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'Надсилання...' : 'Надіслати'}
+                  </button>
+                </form>
+              </Form>
             </div>
           </div>
         </div>
