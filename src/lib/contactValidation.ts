@@ -6,8 +6,8 @@ export const contactFormSchema = z.object({
     .trim()
     .min(2, { message: "Ім'я повинно містити мінімум 2 символи" })
     .max(100, { message: "Ім'я занадто довге" })
-    .regex(/^[А-ЩЬЮЯҐЄІЇа-щьюяґєії'\s-]+$/u, { 
-      message: "Ім'я може містити лише українські літери, пробіли та дефіси" 
+    .regex(/^[A-Za-zА-ЯЁа-яёҐЄІЇґєії'\s-]+$/u, { 
+      message: "Ім'я може містити лише літери, пробіли та дефіси" 
     }),
   email: z.string()
     .trim()
@@ -28,7 +28,6 @@ export const contactFormSchema = z.object({
     .max(2000, { message: "Повідомлення занадто довге" }),
   website: z.string().max(0, { message: "Invalid submission" }), // Honeypot field
   companyName: z.string().optional(),
-  _submitTime: z.number().min(3000, { message: "Submission too fast" }), // Minimum 3 seconds
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;

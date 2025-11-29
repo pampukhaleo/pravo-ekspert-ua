@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 // Validation patterns
-const NAME_REGEX = /^[А-ЩЬЮЯҐЄІЇа-щьюяґєії'\s-]{2,100}$/u;
+const NAME_REGEX = /^[A-Za-zА-ЯЁа-яёҐЄІЇґєії'\s-]{2,100}$/u;
 const PHONE_REGEX = /^(\+?38)?0\d{9}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

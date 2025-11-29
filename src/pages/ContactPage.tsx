@@ -31,7 +31,6 @@ const ContactPage = () => {
       message: '',
       website: '', // Honeypot field
       companyName: 'NISE',
-      _submitTime: 0,
     },
   });
   
