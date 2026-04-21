@@ -67,6 +67,7 @@ export type Database = {
       leads: {
         Row: {
           address: string
+          city: string | null
           created_at: string
           description: string | null
           email: string | null
@@ -76,12 +77,14 @@ export type Database = {
           preferred_date: string | null
           preferred_time: string | null
           price: number | null
-          service: string
+          service: string | null
+          source: string | null
           status: Database["public"]["Enums"]["lead_status"]
           updated_at: string
         }
         Insert: {
           address: string
+          city?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
@@ -91,12 +94,14 @@ export type Database = {
           preferred_date?: string | null
           preferred_time?: string | null
           price?: number | null
-          service: string
+          service?: string | null
+          source?: string | null
           status?: Database["public"]["Enums"]["lead_status"]
           updated_at?: string
         }
         Update: {
           address?: string
+          city?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
@@ -106,7 +111,8 @@ export type Database = {
           preferred_date?: string | null
           preferred_time?: string | null
           price?: number | null
-          service?: string
+          service?: string | null
+          source?: string | null
           status?: Database["public"]["Enums"]["lead_status"]
           updated_at?: string
         }
