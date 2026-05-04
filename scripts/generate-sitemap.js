@@ -9,66 +9,59 @@ const servicesDataPath = 'src/components/home/ServicesSection.tsx'
 const baseUrl = 'https://expertise.com.ua'
 const currentDate = new Date().toISOString().split('T')[0]
 
+function xmlEscape(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 // Parse TypeScript export
 function parseTypeScriptExport(filePath, exportName) {
   try {
     const content = fs.readFileSync(filePath, 'utf8')
-    // Find the export statement
     const exportRegex = new RegExp(`export\\s+const\\s+${exportName}\\s*=\\s*([\\s\\S]*?)(?=\\nexport|\\n\\n|$)`)
     const match = content.match(exportRegex)
-    
     if (!match) {
       console.log(`Could not find export ${exportName} in ${filePath}`)
       return null
     }
+    let exportData = match[1].trim().replace(/;$/, '')
 
-    let exportData = match[1].trim()
-    // Remove semicolon at the end
-    exportData = exportData.replace(/;$/, '')
-    
-    // For expertiseData, convert object to array format for sitemap
     if (exportName === 'expertiseData') {
-      // This is an object, we need to extract keys and nested directions
-      const keys = []
-      const keyRegex = /["']([^"']+)["']\s*:\s*{/g
-      let keyMatch
-      while ((keyMatch = keyRegex.exec(exportData)) !== null) {
-        keys.push(keyMatch[1])
+      const categories = []
+      const catRegex = /["']([\w-]+)["']\s*:\s*\{[\s\S]*?title:\s*["']([^"']+)["'][\s\S]*?backgroundImage:\s*expertiseImages\[["']([^"']+)["']\]/g
+      let m
+      while ((m = catRegex.exec(exportData)) !== null) {
+        categories.push({ slug: m[1], title: m[2], imageFile: m[3] })
       }
-      
-      // Also extract direction slugs
-      const directionSlugs = []
-      const directionRegex = /slug:\s*['"]([\w-]+)['"]/g
-      let directionMatch
-      while ((directionMatch = directionRegex.exec(exportData)) !== null) {
-        directionSlugs.push(directionMatch[1])
-      }
-      
-      return { keys, directionSlugs }
+      const allSlugs = []
+      const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
+      let sm
+      while ((sm = slugRegex.exec(exportData)) !== null) allSlugs.push(sm[1])
+      const catSet = new Set(categories.map(c => c.slug))
+      const directionSlugs = allSlugs.filter(s => !catSet.has(s))
+      return { categories, directionSlugs }
     }
-    
-    // For newsItems, extract slugs
+
     if (exportName === 'newsItems') {
-      // Extract { date, slug } pairs by scanning each object literal
       const items = []
-      const itemRegex = /date:\s*['"]([\d.]+)['"][\s\S]*?slug:\s*['"]([\w-]+)['"]/g
-      let itemMatch
-      while ((itemMatch = itemRegex.exec(exportData)) !== null) {
-        const [day, month, year] = itemMatch[1].split('.')
+      const itemRegex = /title:\s*['"]([^'"]+)['"][\s\S]*?date:\s*['"]([\d.]+)['"][\s\S]*?imageUrl:\s*['"]([^'"]+)['"][\s\S]*?slug:\s*['"]([\w-]+)['"]/g
+      let m
+      while ((m = itemRegex.exec(exportData)) !== null) {
+        const [day, month, year] = m[2].split('.')
         const iso = year && month && day ? `${year}-${month}-${day}` : currentDate
-        items.push({ slug: itemMatch[2], lastmod: iso })
+        items.push({ title: m[1], lastmod: iso, imageUrl: m[3], slug: m[4] })
       }
       return items
     }
-    
-    // For services, extract slugs
+
     if (exportName === 'services') {
       const slugs = []
       const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
-      let slugMatch
-      while ((slugMatch = slugRegex.exec(exportData)) !== null) {
-        slugs.push(slugMatch[1])
-      }
+      let m
+      while ((m = slugRegex.exec(exportData)) !== null) slugs.push(m[1])
       return slugs
     }
 
@@ -79,7 +72,20 @@ function parseTypeScriptExport(filePath, exportName) {
   }
 }
 
-// Static routes
+// Map expertise image filename -> public URL path (best-effort).
+function buildExpertiseImageMap() {
+  const map = {}
+  try {
+    const assetsDir = path.resolve(process.cwd(), 'src/assets')
+    for (const f of fs.readdirSync(assetsDir)) {
+      if (/\.(png|jpe?g|svg|webp)$/i.test(f)) map[f] = `/assets/${f}`
+    }
+  } catch (e) {
+    console.log('Could not read src/assets:', e.message)
+  }
+  return map
+}
+
 const staticRoutes = [
   { url: '/', priority: '1.0', changefreq: 'weekly' },
   { url: '/ekspertyzy', priority: '0.9', changefreq: 'weekly' },
@@ -89,13 +95,11 @@ const staticRoutes = [
   { url: '/novini', priority: '0.8', changefreq: 'daily' }
 ]
 
-// Generate XML content
 let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 `
 
-// Add static routes
 staticRoutes.forEach(route => {
   sitemapXML += `  <url>
     <loc>${baseUrl}${route.url}</loc>
@@ -106,21 +110,27 @@ staticRoutes.forEach(route => {
 `
 })
 
-// Add expertise routes
 const expertiseData = parseTypeScriptExport(expertiseDataPath, 'expertiseData')
+const expertiseImageMap = buildExpertiseImageMap()
 if (expertiseData) {
-  // Add main expertise categories with images
-  expertiseData.keys.forEach(key => {
+  expertiseData.categories.forEach(cat => {
+    const imgPath = expertiseImageMap[cat.imageFile]
+    const imageBlock = imgPath
+      ? `    <image:image>
+      <image:loc>${baseUrl}${imgPath}</image:loc>
+      <image:title>${xmlEscape(cat.title)}</image:title>
+    </image:image>
+`
+      : ''
     sitemapXML += `  <url>
-    <loc>${baseUrl}/ekspertyzy/${key}</loc>
+    <loc>${baseUrl}/ekspertyzy/${cat.slug}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
+${imageBlock}  </url>
 `
   })
-  
-  // Add expertise direction pages
+
   expertiseData.directionSlugs.forEach(slug => {
     sitemapXML += `  <url>
     <loc>${baseUrl}/ekspertyzy/${slug}</loc>
@@ -132,7 +142,6 @@ if (expertiseData) {
   })
 }
 
-// Add service routes
 const serviceSlugs = parseTypeScriptExport(servicesDataPath, 'services')
 if (serviceSlugs) {
   serviceSlugs.forEach(slug => {
@@ -146,28 +155,32 @@ if (serviceSlugs) {
   })
 }
 
-// Add news routes with dynamic lastmod
 const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
 if (newsSlugs) {
   newsSlugs.forEach(item => {
+    const absImg = item.imageUrl?.startsWith('http') ? item.imageUrl : `${baseUrl}${item.imageUrl}`
+    const imageBlock = item.imageUrl
+      ? `    <image:image>
+      <image:loc>${absImg}</image:loc>
+      <image:title>${xmlEscape(item.title)}</image:title>
+    </image:image>
+`
+      : ''
     sitemapXML += `  <url>
     <loc>${baseUrl}/novini/${item.slug}</loc>
     <lastmod>${item.lastmod}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
-  </url>
+${imageBlock}  </url>
 `
   })
 }
 
 sitemapXML += '</urlset>'
 
-// Write to dist folder
 const distDir = path.resolve(process.cwd(), 'dist')
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true })
-}
+if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXML)
 console.log('Generated dynamic sitemap.xml in', distDir)
-console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.keys?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, ${serviceSlugs?.length || 0} service pages, and ${newsSlugs?.length || 0} news articles`)
+console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.categories?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, ${serviceSlugs?.length || 0} service pages, and ${newsSlugs?.length || 0} news articles`)
