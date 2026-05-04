@@ -1,57 +1,58 @@
-## Що відбувається
+## PR 2 — Поглиблений SEO (продовження після очистки GitHub Pages)
 
-Сайт переїхав з GitHub Pages на Lovable hosting (`expertise.com.ua` як custom domain). У репозиторії досі лежать файли та скрипти заточені під gh-pages. Деякі з них **активно шкодять SEO** на новому хостингу.
+Мета: щоб Google краще розумів структуру сайту (хлібні крихти як rich-results) і індексував картинки експертиз/новин.
 
-## Що видалити / змінити
+### 1. Підключити `BreadcrumbSEO` до сторінок
+Зараз компонент `src/components/SEO/BreadcrumbSEO.tsx` існує, але **ніде не використовується** (rg підтвердив — 0 імпортів). Додати JSON-LD `BreadcrumbList` на сторінках, де вже є візуальні `<Breadcrumbs>`:
 
-### 1. `package.json`
-- Прибрати поле `"homepage": "https://expertise.com.ua"` — потрібне було лише для gh-pages.
-- Видалити скрипт `"deploy"` (використовує `gh-pages`).
-- Видалити скрипт `"predeploy"`.
-- Прибрати `gh-pages` з `devDependencies`.
+- `src/pages/ExpertisePage.tsx` — Головна → Експертизи → {назва}
+- `src/pages/ExpertisesListPage.tsx` — Головна → Експертизи
+- `src/pages/ServicePage.tsx` — Головна → Послуги → {назва}
+- `src/pages/NewsPage.tsx` — Головна → Новини
+- `src/pages/NewsArticlePage.tsx` — Головна → Новини → {заголовок}
+- `src/pages/AboutPage.tsx`, `ContactPage.tsx`, `PricingPage.tsx` — відповідні крихти
 
-### 2. `scripts/deploy.sh`
-Видалити повністю — це bash-скрипт для деплою на GitHub Pages. Lovable деплоїть автоматично через кнопку Publish.
+Передавати абсолютні URL (`https://expertise.com.ua/...`), як того вимагає schema.org.
 
-### 3. `CNAME`
-Видалити. Це файл для GitHub Pages, щоб прив'язати домен. На Lovable домен прив'язується через Project Settings → Domains (вже зроблено, бо `expertise.com.ua` працює).
+### 2. `scripts/generate-sitemap.js` — додати `<image:image>`
+Розширити генерацію sitemap, щоб для категорій експертиз і новин додавати теги картинок:
 
-### 4. `public/404.html` — **критично для SEO**
-Видалити. Причини:
-- Це fallback для gh-pages SPA-роутингу (`cp dist/index.html dist/404.html` у скрипті deploy).
-- Lovable має вбудований SPA fallback — окремий 404.html не потрібен.
-- Поточний `public/404.html` містить **застарілі дубльовані** `<title>` і `<meta description>` (ті самі, що ми щойно почистили з `index.html` у PR 1). Якщо його не видалити, Google може індексувати його як дубль головної.
-- Він НЕ повертає HTTP 404 — тобто будь-який неіснуючий URL індексується як копія головної.
+```xml
+<url>
+  <loc>https://expertise.com.ua/ekspertyzy/budivelno-tekhnichna-ekspertyza</loc>
+  <image:image>
+    <image:loc>https://expertise.com.ua/...png</image:loc>
+    <image:title>Будівельно-технічна експертиза</image:title>
+  </image:image>
+</url>
+```
 
-### 5. `scripts/organize-dist.js` — **залишаємо**
-Цей скрипт перетворює `about.html` → `about/index.html`. Він був потрібен для gh-pages, але **також корисний на Lovable** — кожен SSG-маршрут отримує власну директорію з `index.html`, що дає чисті URL без `.html`. Залишаємо.
+- Для **експертиз**: парсити `backgroundImage` + `title` з `expertiseData.ts` (треба резолвити `expertiseImages["..."]` → шлях у `public/`; якщо складно — взяти з мапи в `src/assets/expertiseImages.ts`).
+- Для **новин**: парсити `imageUrl` + `title` з `newsData.ts` (вже є as-is, шляхи відносні `/lovable-uploads/...` → префіксувати `baseUrl`).
 
-### 6. `scripts/generate-sitemap.js` — **залишаємо** (вже виправлено в PR 1)
-Працює через `postbuild`. Lovable запускає `npm run build` при публікації, тому sitemap буде генеруватись автоматично.
+xmlns `image` уже оголошено в sitemap.
 
-### 7. NotFound сторінка (React) — додати `noindex`
-Оскільки тепер немає окремого 404.html і SPA-роут `*` рендерить `NotFound.tsx`, додати в нього `<SEOHead noindex />` (через meta robots) — щоб Google не індексував "м'які 404".
+### 3. Виправити URL експертиз у sitemap
+Зараз `parseTypeScriptExport` додає **і ключі категорій, і `directionSlugs`** як `/ekspertyzy/{slug}` — але directions насправді живуть всередині категорії і не мають окремих сторінок такого URL. Перевірю роутинг (`App.tsx`) і:
+- якщо `/ekspertyzy/:directionSlug` НЕ існує як окремий маршрут → прибрати блок `directionSlugs` з sitemap (він плодить 404/дублі).
+- якщо існує — залишити.
 
-Перевірю компонент `src/pages/NotFound.tsx` і `SEOHead` props у момент імплементації; якщо `SEOHead` не підтримує `noindex` — додам цей prop (одна стрічка `<meta name="robots" content="noindex, nofollow">`).
+### 4. Дрібниці
+- `index.html`: перевірити, чи стоїть `<link rel="icon">` і `<link rel="apple-touch-icon">` (для favicon в результатах пошуку).
+- `robots.txt`: переконатись, що `Sitemap: https://expertise.com.ua/sitemap.xml` присутній.
+- `NotFound.tsx`: підтвердити, що `SEOHead` отримує `robots="noindex, nofollow"` (вже є — просто перевірка).
 
-### 8. `README-SEO-IMPLEMENTATION.md`
-Перевірити та прибрати згадки gh-pages / `npm run deploy`, замінити на "Publish через Lovable".
+### Що НЕ чіпаємо
+- Жодних змін в дизайні/контенті.
+- `SEOHead`, `MetaImages` — вже добре налаштовані.
+- Структура маршрутів.
 
-## Чого НЕ чіпаємо
+### Технічні нотатки
+- `BreadcrumbSEO` рендериться через `react-helmet-async` всередині сторінки (не в layout), щоб JSON-LD був унікальним для кожного маршруту під час SSG.
+- `expertiseImages` — TS-об'єкт; для парсингу в Node-скрипті простіше відкрити `src/assets/expertiseImages.ts` regexp-ом і побудувати мапу `name → public path`.
 
-- `index.html` (вже почищений у PR 1)
-- SSG конфігурація (`vite-react-ssg`) — працює і там, і там
-- `robots.txt`, `sitemap.xml` — коректні
-- Структура маршрутів, SEOHead, JSON-LD
-
-## Як перевірити після деплою
-
-1. Натиснути **Publish → Update** у Lovable.
-2. Відкрити `https://expertise.com.ua/sitemap.xml` — має повернути 200 з XML.
-3. Відкрити `https://expertise.com.ua/неіснуюча-сторінка` — у `view-source:` має бути `<meta name="robots" content="noindex, nofollow">`.
-4. View source головної — `<title>` і `<meta description>` мають бути унікальні (з `SEOHead`, не fallback з `index.html`).
-5. Submit оновлений sitemap в Google Search Console + "Request indexing" головної.
-
-## Відкат
-
-Усі зміни — видалення легаси-файлів та редагування `package.json` / README. Якщо щось зламається — Lovable History (clock-icon) поверне попередню версію одним кліком.
+### Перевірка після деплою
+1. `view-source:` сторінки експертизи → шукати `"@type":"BreadcrumbList"`.
+2. Google Rich Results Test (https://search.google.com/test/rich-results) → ввести URL → має показати "Breadcrumbs detected".
+3. `https://expertise.com.ua/sitemap.xml` → відкрити, переконатись що під деякими `<url>` є `<image:image>`.
+4. У GSC → Pages → подивитись, чи зменшилась кількість "Discovered – currently not indexed".
