@@ -236,7 +236,11 @@ const PricingPage = () => {
     ]
   );
 
-  const combinedStructuredData = [webPageData, getSiteNavigationData()];
+  const pricingBreadcrumb = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Ціни", url: "https://expertise.com.ua/tsiny" }
+  ]);
+  const combinedStructuredData = [webPageData, getSiteNavigationData(), pricingBreadcrumb];
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
