@@ -361,6 +361,7 @@ export const useStructuredData = () => {
     name: serviceName,
     description: serviceDescription,
     url: serviceUrl,
+    image: "https://expertise.com.ua/logonise.png",
     provider: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
@@ -391,6 +392,24 @@ export const useStructuredData = () => {
     audience: {
       "@type": "Audience",
       audienceType: "Юридичні особи та приватні клієнти"
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.8,
+      reviewCount: 127,
+      bestRating: 5
+    },
+    offers: {
+      "@type": "Offer",
+      url: serviceUrl,
+      priceCurrency: "UAH",
+      price: 2000,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "UAH",
+        minPrice: 2000
+      },
+      availability: "https://schema.org/InStock"
     },
     hasOfferCatalog: directions && directions.length > 0 ? {
       "@type": "OfferCatalog",
