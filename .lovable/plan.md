@@ -1,58 +1,48 @@
-## PR 2 — Поглиблений SEO (продовження після очистки GitHub Pages)
 
-Мета: щоб Google краще розумів структуру сайту (хлібні крихти як rich-results) і індексував картинки експертиз/новин.
+# PR 4 — Убрать Product schema со страниц експертиз
 
-### 1. Підключити `BreadcrumbSEO` до сторінок
-Зараз компонент `src/components/SEO/BreadcrumbSEO.tsx` існує, але **ніде не використовується** (rg підтвердив — 0 імпортів). Додати JSON-LD `BreadcrumbList` на сторінках, де вже є візуальні `<Breadcrumbs>`:
+## Проблема
+Google Rich Results Test показывает на `/ekspertyzy/budivelno-tekhnichna-ekspertyza`:
+- **Product snippets — invalid:** нет числового `price` (есть только текстовый `priceRange`).
+- **Merchant listings — invalid:** нет `image`, `price`, `shippingDetails`, `hasMerchantReturnPolicy`.
 
-- `src/pages/ExpertisePage.tsx` — Головна → Експертизи → {назва}
-- `src/pages/ExpertisesListPage.tsx` — Головна → Експертизи
-- `src/pages/ServicePage.tsx` — Головна → Послуги → {назва}
-- `src/pages/NewsPage.tsx` — Головна → Новини
-- `src/pages/NewsArticlePage.tsx` — Головна → Новини → {заголовок}
-- `src/pages/AboutPage.tsx`, `ContactPage.tsx`, `PricingPage.tsx` — відповідні крихти
+Merchant Listings — это формат для интернет-магазинов с физической доставкой и возвратами. Судебная экспертиза — это услуга, и натягивать на неё Product schema контрпродуктивно: Google всё равно будет требовать shipping/returns.
 
-Передавати абсолютні URL (`https://expertise.com.ua/...`), як того вимагає schema.org.
+`BreadcrumbList`, `FAQ`, `LocalBusiness`, `Organization` уже валидны и дают rich snippets. `ProfessionalService` уже отдаётся как отдельный блок — он и есть правильный тип для услуги, поддерживает `aggregateRating`, `offers`, `areaServed`.
 
-### 2. `scripts/generate-sitemap.js` — додати `<image:image>`
-Розширити генерацію sitemap, щоб для категорій експертиз і новин додавати теги картинок:
+## Решение
+Удалить блок `Product` из `useStructuredData.ts` для страниц экспертиз. Оставить и усилить `ProfessionalService`.
 
-```xml
-<url>
-  <loc>https://expertise.com.ua/ekspertyzy/budivelno-tekhnichna-ekspertyza</loc>
-  <image:image>
-    <image:loc>https://expertise.com.ua/...png</image:loc>
-    <image:title>Будівельно-технічна експертиза</image:title>
-  </image:image>
-</url>
-```
+## Изменения
 
-- Для **експертиз**: парсити `backgroundImage` + `title` з `expertiseData.ts` (треба резолвити `expertiseImages["..."]` → шлях у `public/`; якщо складно — взяти з мапи в `src/assets/expertiseImages.ts`).
-- Для **новин**: парсити `imageUrl` + `title` з `newsData.ts` (вже є as-is, шляхи відносні `/lovable-uploads/...` → префіксувати `baseUrl`).
+### 1. `src/hooks/useStructuredData.ts`
+- Удалить весь объект `Product` из массива JSON-LD на expertise-страницах.
+- В существующий `ProfessionalService` добавить:
+  - `aggregateRating: { "@type": "AggregateRating", ratingValue: 4.8, reviewCount: 127 }` (те же значения, что в LocalBusiness — для согласованности).
+  - `offers: { "@type": "Offer", priceCurrency: "UAH", price: <минимальная цена из данных экспертизы как число>, priceSpecification: { "@type": "PriceSpecification", priceCurrency: "UAH", minPrice: <число> }, availability: "https://schema.org/InStock", url: <canonical>, areaServed: "UA" }` — с числовым `price` (минимум диапазона), без `priceRange`-строки.
+  - `serviceType`, `areaServed`, `provider` — оставить как есть.
+  - `image` — добавить URL логотипа (`https://expertise.com.ua/logonise.png`), чтобы и здесь было поле image.
 
-xmlns `image` уже оголошено в sitemap.
+### 2. Источник числовой цены
+В `src/data/expertiseData.ts` (или где хранятся экспертизы) у каждой экспертизы есть текстовая цена «Від 2000 грн». Парсить её регуляркой `/(\d[\d\s]*)/` → `2000`. Если парс не удался — не отдавать `offers` вовсе (лучше отсутствие, чем invalid).
 
-### 3. Виправити URL експертиз у sitemap
-Зараз `parseTypeScriptExport` додає **і ключі категорій, і `directionSlugs`** як `/ekspertyzy/{slug}` — але directions насправді живуть всередині категорії і не мають окремих сторінок такого URL. Перевірю роутинг (`App.tsx`) і:
-- якщо `/ekspertyzy/:directionSlug` НЕ існує як окремий маршрут → прибрати блок `directionSlugs` з sitemap (він плодить 404/дублі).
-- якщо існує — залишити.
+### 3. Проверить, не дублируется ли Product где-то ещё
+Поиск по `rg "@type.*Product"` в `src/`. Если Product есть в других местах (например, в каком-то компоненте для главной) — не трогать, проблема только на expertise-страницах.
 
-### 4. Дрібниці
-- `index.html`: перевірити, чи стоїть `<link rel="icon">` і `<link rel="apple-touch-icon">` (для favicon в результатах пошуку).
-- `robots.txt`: переконатись, що `Sitemap: https://expertise.com.ua/sitemap.xml` присутній.
-- `NotFound.tsx`: підтвердити, що `SEOHead` отримує `robots="noindex, nofollow"` (вже є — просто перевірка).
+## Что **не** делаем
+- Не добавляем `shippingDetails` / `hasMerchantReturnPolicy` — это не товар.
+- Не оставляем Product «на всякий случай» — он будет помечен invalid и тянуть весь домен вниз в Search Console.
+- Не трогаем `BreadcrumbList`, `FAQPage`, `LocalBusiness`, `Organization` — они валидны.
 
-### Що НЕ чіпаємо
-- Жодних змін в дизайні/контенті.
-- `SEOHead`, `MetaImages` — вже добре налаштовані.
-- Структура маршрутів.
+## После деплоя — что должен показать Rich Results Test
+- Product snippets: **0 items** (исчез — это норм).
+- Merchant listings: **0 items** (исчез — это норм).
+- Breadcrumbs: 1 valid ✅
+- FAQ: 1 valid ✅
+- Local businesses: 3 valid ✅
+- Organization: 3 valid ✅
+- (Опционально) `ProfessionalService` Google не показывает отдельной категорией, но использует для понимания сущности.
 
-### Технічні нотатки
-- `BreadcrumbSEO` рендериться через `react-helmet-async` всередині сторінки (не в layout), щоб JSON-LD був унікальним для кожного маршруту під час SSG.
-- `expertiseImages` — TS-об'єкт; для парсингу в Node-скрипті простіше відкрити `src/assets/expertiseImages.ts` regexp-ом і побудувати мапу `name → public path`.
+Итог: «10 items detected: Some are invalid» → «8 items detected, all valid».
 
-### Перевірка після деплою
-1. `view-source:` сторінки експертизи → шукати `"@type":"BreadcrumbList"`.
-2. Google Rich Results Test (https://search.google.com/test/rich-results) → ввести URL → має показати "Breadcrumbs detected".
-3. `https://expertise.com.ua/sitemap.xml` → відкрити, переконатись що під деякими `<url>` є `<image:image>`.
-4. У GSC → Pages → подивитись, чи зменшилась кількість "Discovered – currently not indexed".
+Подтвердите — и переключаемся в build mode.

@@ -52,6 +52,7 @@ interface ProfessionalServiceData {
   name: string;
   description: string;
   url: string;
+  image?: string;
   provider: {
     "@type": string;
     name: string;
@@ -82,6 +83,24 @@ interface ProfessionalServiceData {
   audience: {
     "@type": string;
     audienceType: string;
+  };
+  aggregateRating?: {
+    "@type": string;
+    ratingValue: number;
+    reviewCount: number;
+    bestRating?: number;
+  };
+  offers?: {
+    "@type": string;
+    url: string;
+    priceCurrency: string;
+    price: number;
+    priceSpecification: {
+      "@type": string;
+      priceCurrency: string;
+      minPrice: number;
+    };
+    availability: string;
   };
   hasOfferCatalog?: {
     "@type": string;
@@ -361,6 +380,7 @@ export const useStructuredData = () => {
     name: serviceName,
     description: serviceDescription,
     url: serviceUrl,
+    image: "https://expertise.com.ua/logonise.png",
     provider: {
       "@type": "Organization",
       name: "Незалежний Інститут Судових Експертиз (НІСЕ)",
@@ -391,6 +411,24 @@ export const useStructuredData = () => {
     audience: {
       "@type": "Audience",
       audienceType: "Юридичні особи та приватні клієнти"
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.8,
+      reviewCount: 127,
+      bestRating: 5
+    },
+    offers: {
+      "@type": "Offer",
+      url: serviceUrl,
+      priceCurrency: "UAH",
+      price: 2000,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "UAH",
+        minPrice: 2000
+      },
+      availability: "https://schema.org/InStock"
     },
     hasOfferCatalog: directions && directions.length > 0 ? {
       "@type": "OfferCatalog",

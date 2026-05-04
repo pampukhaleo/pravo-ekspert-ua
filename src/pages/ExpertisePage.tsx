@@ -19,7 +19,7 @@ export function Component() {
   const { slug } = useParams<{ slug: string }>()
   const location = useLocation()
   const [activeTab, setActiveTab] = useState('overview')
-  const { getProfessionalServiceData, getBreadcrumbData, getProductData, getFAQData } = useStructuredData()
+  const { getProfessionalServiceData, getBreadcrumbData, getFAQData } = useStructuredData()
 
   useEffect(() => {
     if (location.search.includes('from=directions')) {
@@ -101,12 +101,6 @@ export function Component() {
       pageDescription,
       `https://expertise.com.ua/ekspertyzy/${slug}`,
       expertise.directions
-    ),
-    getProductData(
-      pageTitle,
-      pageDescription,
-      'Судові експертизи',
-      'Від 2000 грн'
     ),
     getBreadcrumbData([
       { name: 'Головна', url: 'https://expertise.com.ua' },
