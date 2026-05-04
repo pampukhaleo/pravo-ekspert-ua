@@ -24,10 +24,9 @@ const BreadcrumbSEO: React.FC<BreadcrumbSEOProps> = ({ items }) => {
 
   return (
     <Head>
-      <script 
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData, null, 0) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbStructuredData)}
+      </script>
     </Head>
   )
 }

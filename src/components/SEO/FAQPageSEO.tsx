@@ -26,10 +26,9 @@ const FAQPageSEO: React.FC<FAQPageSEOProps> = ({ faqs }) => {
 
   return (
     <Head>
-      <script 
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData, null, 0) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(faqStructuredData)}
+      </script>
     </Head>
   )
 }
