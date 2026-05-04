@@ -73,16 +73,26 @@ function parseTypeScriptExport(filePath, exportName) {
   }
 }
 
-// Map expertise image filename -> public URL path (best-effort).
+// Map expertise source filename -> hashed Vite output path under /assets/.
+// Vite emits files like `budivelno-tehnichna-XXXX.png` in dist/assets/.
 function buildExpertiseImageMap() {
   const map = {}
   try {
-    const assetsDir = path.resolve(process.cwd(), 'src/assets')
-    for (const f of fs.readdirSync(assetsDir)) {
-      if (/\.(png|jpe?g|svg|webp)$/i.test(f)) map[f] = `/assets/${f}`
+    const distAssets = path.resolve(process.cwd(), 'dist/assets')
+    if (!fs.existsSync(distAssets)) return map
+    const built = fs.readdirSync(distAssets)
+    const srcAssets = path.resolve(process.cwd(), 'src/assets')
+    if (!fs.existsSync(srcAssets)) return map
+    for (const f of fs.readdirSync(srcAssets)) {
+      if (!/\.(png|jpe?g|svg|webp)$/i.test(f)) continue
+      const base = f.replace(/\.[^.]+$/, '')
+      const ext = f.match(/\.[^.]+$/)?.[0] ?? ''
+      // Vite pattern: <base>-<hash><ext>
+      const hashed = built.find(x => x.startsWith(base + '-') && x.endsWith(ext))
+      if (hashed) map[f] = `/assets/${hashed}`
     }
   } catch (e) {
-    console.log('Could not read src/assets:', e.message)
+    console.log('Could not read dist/assets:', e.message)
   }
   return map
 }
