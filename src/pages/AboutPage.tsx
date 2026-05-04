@@ -39,7 +39,11 @@ const AboutPage = () => {
   );
 
   const organizationData = getOrganizationData();
-  const combinedStructuredData = [webPageData, organizationData, getSiteNavigationData()];
+  const aboutBreadcrumb = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Про нас", url: "https://expertise.com.ua/pro-nas" }
+  ]);
+  const combinedStructuredData = [webPageData, organizationData, getSiteNavigationData(), aboutBreadcrumb];
   
   return (
     <div className="min-h-screen flex flex-col">
