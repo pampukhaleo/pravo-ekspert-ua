@@ -54,7 +54,6 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="author" content="НІСЕ" />
       <meta name="generator" content="Lovable" />
       <meta name="robots" content={robots || "index, follow"} />
-      <meta name="google-site-verification" content="your-verification-code" />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
