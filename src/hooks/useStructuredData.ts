@@ -449,6 +449,15 @@ export const useStructuredData = () => {
     }
   });
 
+  // Convert DD.MM.YYYY to ISO 8601 (YYYY-MM-DD). Pass-through if already ISO.
+  const toISODate = (date: string): string => {
+    if (!date) return date;
+    const m = date.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    if (m) return `${m[3]}-${m[2]}-${m[1]}`;
+    const d = new Date(date);
+    return isNaN(d.getTime()) ? date : d.toISOString().split('T')[0];
+  };
+
   const getArticleData = (
     title: string,
     description: string,
@@ -461,8 +470,8 @@ export const useStructuredData = () => {
     "@type": "NewsArticle",
     headline: title,
     description: description,
-    datePublished: datePublished,
-    dateModified: datePublished,
+    datePublished: toISODate(datePublished),
+    dateModified: toISODate(datePublished),
     author: {
       "@type": "Organization",
       name: "НІСЕ",
