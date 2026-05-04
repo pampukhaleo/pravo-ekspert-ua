@@ -5,8 +5,6 @@ import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import * as HelmetPkg from 'react-helmet-async'
-const { HelmetProvider } = HelmetPkg
 
 import Index from './pages/Index'
 import ExpertisesListPage from './pages/ExpertisesListPage'
@@ -14,8 +12,6 @@ import { Component as ExpertisePage, getStaticPaths as getExpertiseStaticPaths }
 import PricingPage from './pages/PricingPage'
 import ContactPage from './pages/ContactPage'
 import AboutPage from './pages/AboutPage'
-import NewsPage from './pages/NewsPage'
-import NewsArticlePage from './pages/NewsArticlePage'
 import ServicePage from './pages/ServicePage'
 import NotFound from './pages/NotFound'
 
@@ -33,14 +29,12 @@ const queryClient = new QueryClient()
  */
 const RootLayout: React.FC = () => (
   <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <ScrollToTop />
-        <Outlet />
-      </TooltipProvider>
-    </HelmetProvider>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <ScrollToTop />
+      <Outlet />
+    </TooltipProvider>
   </QueryClientProvider>
 )
 
@@ -62,8 +56,6 @@ export const routes: RouteRecord[] = [
       { path: 'tsiny', Component: PricingPage, entry: 'src/pages/PricingPage.tsx' },
       { path: 'kontakty', Component: ContactPage, entry: 'src/pages/ContactPage.tsx' },
       { path: 'pro-nas', Component: AboutPage, entry: 'src/pages/AboutPage.tsx' },
-      { path: 'novini', Component: NewsPage, entry: 'src/pages/NewsPage.tsx' },
-      { path: 'novini/:slug', Component: NewsArticlePage, entry: 'src/pages/NewsArticlePage.tsx' },
       { path: '*', Component: NotFound, entry: 'src/pages/NotFound.tsx' },
     ],
   },

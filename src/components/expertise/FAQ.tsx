@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useStructuredData } from '../../hooks/useStructuredData';
 
 interface FAQItem {
   id: number;
@@ -18,31 +17,13 @@ interface FAQProps {
 }
 
 const FAQ: React.FC<FAQProps> = ({ faqs = [] }) => {
-  const { getFAQData } = useStructuredData();
-  
   // Якщо немає питань, не відображаємо розділ
   if (!faqs || faqs.length === 0) {
     return null;
   }
 
-  // Генеруємо структуровані дані для FAQ
-  const faqStructuredData = getFAQData(
-    faqs.map(faq => ({
-      question: faq.question,
-      answer: faq.answer
-    }))
-  );
-  
   return (
     <section className="py-10 bg-gray-50">
-      {/* Додаємо FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={ {
-          __html: JSON.stringify(faqStructuredData)
-        } }
-      />
-
       <div className="container-custom">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">НАЙЧАСТІШЕ ЗАДАВАНІ ПИТАННЯ</h2>
         

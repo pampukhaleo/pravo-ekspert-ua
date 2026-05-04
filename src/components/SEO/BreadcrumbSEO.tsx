@@ -1,6 +1,5 @@
 import React from 'react'
-import * as HelmetPkg from 'react-helmet-async'
-const { Helmet } = HelmetPkg
+import { Head } from 'vite-react-ssg'
 
 interface BreadcrumbItem {
   name: string
@@ -24,12 +23,11 @@ const BreadcrumbSEO: React.FC<BreadcrumbSEOProps> = ({ items }) => {
   }
 
   return (
-    <Helmet>
-      <script 
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData, null, 0) }}
-      />
-    </Helmet>
+    <Head>
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbStructuredData)}
+      </script>
+    </Head>
   )
 }
 

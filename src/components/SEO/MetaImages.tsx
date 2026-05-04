@@ -1,6 +1,5 @@
 import React from 'react'
-import * as HelmetPkg from 'react-helmet-async'
-const { Helmet } = HelmetPkg
+import { Head } from 'vite-react-ssg'
 
 interface MetaImagesProps {
   image?: string
@@ -23,7 +22,7 @@ const MetaImages: React.FC<MetaImagesProps> = ({
   const absoluteImage = image?.startsWith('http') ? image : `https://expertise.com.ua${image}`
 
   return (
-    <Helmet>
+    <Head>
       {/* Enhanced Open Graph */}
       <meta property="og:image" content={absoluteImage} />
       <meta property="og:image:alt" content={imageAlt} />
@@ -46,7 +45,7 @@ const MetaImages: React.FC<MetaImagesProps> = ({
       
       {/* WhatsApp sharing */}
       <meta property="og:image:secure_url" content={absoluteImage} />
-    </Helmet>
+    </Head>
   )
 }
 

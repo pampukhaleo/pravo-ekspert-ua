@@ -1,6 +1,5 @@
 import React from 'react'
-import * as HelmetPkg from 'react-helmet-async'
-const { Helmet } = HelmetPkg
+import { Head } from 'vite-react-ssg'
 
 interface SEOHeadProps {
   title?: string
@@ -47,7 +46,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     : null
 
   return (
-    <Helmet>
+    <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -80,15 +79,13 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
 
-      {/* Structured Data (JSON-LD) */}
+      {/* Structured Data (JSON-LD) — pass JSON as children so Helmet serializes it */}
       {ldArray && (
-        <script
-          type="application/ld+json"
-          // inject raw JSON to avoid HTML-escaping mismatches
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldArray) }}
-        />
+        <script type="application/ld+json">
+          {JSON.stringify(ldArray)}
+        </script>
       )}
-    </Helmet>
+    </Head>
   )
 }
 
