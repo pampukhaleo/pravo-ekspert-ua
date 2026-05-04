@@ -68,9 +68,9 @@ const ServicePage: React.FC = () => {
     { name: serviceContent?.title || "Послуга", url: `https://expertise.com.ua/posluhy/${slug}` }
   ]);
 
-  const serviceStructuredData = serviceContent ? 
-    getServiceData(serviceContent.title, serviceContent.content.join(' ')) : 
-    breadcrumbData;
+  const serviceStructuredData = serviceContent
+    ? [getServiceData(serviceContent.title, serviceContent.content.join(' ')), breadcrumbData]
+    : [breadcrumbData];
   
   if (!serviceContent) {
     return null;
