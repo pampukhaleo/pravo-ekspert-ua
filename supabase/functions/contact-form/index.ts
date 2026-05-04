@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.9";
 
 // CORS headers for browser requests
 const corsHeaders = {
@@ -95,6 +96,27 @@ serve(async (req)=>{
     const site = companyName || "Unknown site";
     
     console.log('✅ Valid submission received from:', site);
+
+    // Save lead to database (using service role to bypass RLS)
+    try {
+      const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+      const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+      if (SUPABASE_URL && SERVICE_ROLE) {
+        const admin = createClient(SUPABASE_URL, SERVICE_ROLE);
+        const { error: dbError } = await admin.from("leads").insert({
+          name,
+          email: email || null,
+          phone,
+          address: subject, // form has no address; use subject as required field placeholder
+          description: message,
+          source: site,
+        });
+        if (dbError) console.error("DB insert error:", dbError);
+      }
+    } catch (e) {
+      console.error("Lead save failed:", e);
+    }
+
     // Format message for Telegram
     const telegramMessage = `
 📨 Нове повідомлення з сайту: ${site}
@@ -135,7 +157,7 @@ serve(async (req)=>{
   } catch (error) {
     console.error("Error processing contact form:", error);
     return new Response(JSON.stringify({
-      error: error.message
+      error: "Internal server error"
     }), {
       headers: {
         ...corsHeaders,
