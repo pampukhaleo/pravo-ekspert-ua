@@ -113,10 +113,6 @@ if (expertiseData) {
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>${baseUrl}/src/assets/${key}.png</image:loc>
-      <image:title>${key.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} експертиза</image:title>
-    </image:image>
   </url>
 `
   })
