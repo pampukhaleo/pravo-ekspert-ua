@@ -1,6 +1,5 @@
 import React from 'react'
-import * as HelmetPkg from 'react-helmet-async'
-const { Helmet } = HelmetPkg
+import { Head } from 'vite-react-ssg'
 
 interface FAQItem {
   question: string
@@ -26,12 +25,12 @@ const FAQPageSEO: React.FC<FAQPageSEOProps> = ({ faqs }) => {
   }
 
   return (
-    <Helmet>
+    <Head>
       <script 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData, null, 0) }}
       />
-    </Helmet>
+    </Head>
   )
 }
 

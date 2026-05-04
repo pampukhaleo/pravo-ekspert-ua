@@ -1,6 +1,5 @@
 import React from 'react'
-import * as HelmetPkg from 'react-helmet-async'
-const { Helmet } = HelmetPkg
+import { Head } from 'vite-react-ssg'
 
 interface SEOHeadProps {
   title?: string
@@ -47,7 +46,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     : null
 
   return (
-    <Helmet>
+    <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -88,7 +87,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ldArray) }}
         />
       )}
-    </Helmet>
+    </Head>
   )
 }
 
