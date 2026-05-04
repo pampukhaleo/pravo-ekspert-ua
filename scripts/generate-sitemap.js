@@ -21,7 +21,8 @@ function xmlEscape(s) {
 function parseTypeScriptExport(filePath, exportName) {
   try {
     const content = fs.readFileSync(filePath, 'utf8')
-    const exportRegex = new RegExp(`export\\s+const\\s+${exportName}\\s*=\\s*([\\s\\S]*?)(?=\\nexport|\\n\\n|$)`)
+    // Allow optional TS type annotation between name and `=`
+    const exportRegex = new RegExp(`(?:export\\s+)?const\\s+${exportName}\\b[^=]*=\\s*([\\s\\S]*?)(?=\\n(?:export|const)\\b|$)`)
     const match = content.match(exportRegex)
     if (!match) {
       console.log(`Could not find export ${exportName} in ${filePath}`)
