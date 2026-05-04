@@ -52,6 +52,7 @@ interface ProfessionalServiceData {
   name: string;
   description: string;
   url: string;
+  image?: string;
   provider: {
     "@type": string;
     name: string;
@@ -82,6 +83,24 @@ interface ProfessionalServiceData {
   audience: {
     "@type": string;
     audienceType: string;
+  };
+  aggregateRating?: {
+    "@type": string;
+    ratingValue: number;
+    reviewCount: number;
+    bestRating?: number;
+  };
+  offers?: {
+    "@type": string;
+    url: string;
+    priceCurrency: string;
+    price: number;
+    priceSpecification: {
+      "@type": string;
+      priceCurrency: string;
+      minPrice: number;
+    };
+    availability: string;
   };
   hasOfferCatalog?: {
     "@type": string;
