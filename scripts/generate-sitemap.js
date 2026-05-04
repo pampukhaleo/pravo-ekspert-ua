@@ -49,13 +49,16 @@ function parseTypeScriptExport(filePath, exportName) {
     
     // For newsItems, extract slugs
     if (exportName === 'newsItems') {
-      const slugs = []
-      const slugRegex = /slug:\s*['"]([\w-]+)['"]/g
-      let slugMatch
-      while ((slugMatch = slugRegex.exec(exportData)) !== null) {
-        slugs.push(slugMatch[1])
+      // Extract { date, slug } pairs by scanning each object literal
+      const items = []
+      const itemRegex = /date:\s*['"]([\d.]+)['"][\s\S]*?slug:\s*['"]([\w-]+)['"]/g
+      let itemMatch
+      while ((itemMatch = itemRegex.exec(exportData)) !== null) {
+        const [day, month, year] = itemMatch[1].split('.')
+        const iso = year && month && day ? `${year}-${month}-${day}` : currentDate
+        items.push({ slug: itemMatch[2], lastmod: iso })
       }
-      return slugs
+      return items
     }
     
     // For services, extract slugs
@@ -146,11 +149,10 @@ if (serviceSlugs) {
 // Add news routes with dynamic lastmod
 const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
 if (newsSlugs) {
-  newsSlugs.forEach(slug => {
-    // For news, we could parse publication date but using current date as fallback
+  newsSlugs.forEach(item => {
     sitemapXML += `  <url>
-    <loc>${baseUrl}/novini/${slug}</loc>
-    <lastmod>${currentDate}</lastmod>
+    <loc>${baseUrl}/novini/${item.slug}</loc>
+    <lastmod>${item.lastmod}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
