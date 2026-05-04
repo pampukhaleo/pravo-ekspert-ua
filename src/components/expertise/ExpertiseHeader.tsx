@@ -19,13 +19,17 @@ const ExpertiseHeader: React.FC<ExpertiseHeaderProps> = ({
 
   return (
     <section 
-      className="relative pt-40 pb-20 md:pt-48 md:pb-28"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imagePath})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}
+      className="relative pt-40 pb-20 md:pt-48 md:pb-28 overflow-hidden bg-gray-900"
     >
+      <img
+        src={imagePath}
+        alt={`Ілюстрація: ${title} — професійна послуга НІСЕ`}
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+      />
+      <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
       <div className="container-custom relative z-10">
         <div className="max-w-3xl">
           <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-6">

@@ -38,8 +38,10 @@ const NewsArticleHeader: React.FC<NewsArticleHeaderProps> = ({ title, date, imag
         <div className="mb-8">
           <img 
             src={imageUrl} 
-            alt={title}
+            alt={`Ілюстрація до новини: ${title}`}
             className="w-full h-auto rounded-lg shadow-md"
+            loading="eager"
+            decoding="async"
           />
         </div>
       </div>

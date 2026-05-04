@@ -91,7 +91,7 @@ const NewsPage = () => {
                 <div className="md:w-1/3 h-60 md:h-auto">
                   <img 
                     src={news.imageUrl} 
-                    alt={news.title}
+                    alt={`Ілюстрація до новини: ${news.title}`}
                     className="w-full h-full object-cover"
                     loading="lazy" 
                     width="400"
