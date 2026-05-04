@@ -63,6 +63,29 @@ export function Component() {
   const pageTitle = selectedDirection ? selectedDirection.title : expertise.title
   const pageDescription = selectedDirection ? selectedDirection.description : expertise.description
 
+  // Build SEO-optimized meta description (≤160 chars) with parent context for directions
+  const truncate = (s: string, n = 158) => {
+    const clean = s.replace(/\s+/g, ' ').trim()
+    return clean.length <= n ? clean : clean.slice(0, n - 1).replace(/\s+\S*$/, '') + '…'
+  }
+  const seoTitle = selectedDirection
+    ? `${selectedDirection.title} — ${expertise.title} | НІСЕ`
+    : `${expertise.title} | НІСЕ`
+  const seoDescription = truncate(
+    selectedDirection
+      ? `${selectedDirection.description} Послуга в межах напряму «${expertise.title}» від НІСЕ — атестовані експерти Мін'юсту України, Київ.`
+      : `${pageDescription} Професійна ${expertise.title.toLowerCase()} від НІСЕ — атестовані експерти Мін'юсту, висновок для суду.`
+  )
+  const seoKeywords = selectedDirection
+    ? `${selectedDirection.title.toLowerCase()}, ${expertise.title.toLowerCase()}, судова експертиза, НІСЕ, експертний висновок, Київ`
+    : `${expertise.title.toLowerCase()}, ${(expertise.categories || []).join(', ').toLowerCase()}, судова експертиза, НІСЕ, експертний висновок, Київ`
+
+  // Related expertises for internal linking (exclude current)
+  const relatedExpertises = Object.entries(expertiseData)
+    .filter(([key]) => key !== (parentExpertiseSlug || slug))
+    .slice(0, 4)
+    .map(([key, exp]) => ({ slug: key, title: exp.title, description: exp.description }))
+
   const breadcrumbItems = selectedDirection && parentExpertiseSlug ? [
     { label: 'Експертизи', href: '/ekspertyzy' },
     { label: expertise.title, href: `/ekspertyzy/${parentExpertiseSlug}` },
@@ -103,11 +126,12 @@ export function Component() {
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead
-        title={`${pageTitle} | НІСЕ`}
-        description={`${pageDescription} - професійна експертиза від Незалежного Інституту Судових Експертиз`}
-        keywords={`${pageTitle.toLowerCase()}, судова експертиза, НІСЕ, експертний висновок, ${pageTitle.toLowerCase()} експертиза`}
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
         url={`https://expertise.com.ua/ekspertyzy/${slug}`}
         image={backgroundImage ? `https://expertise.com.ua${backgroundImage}` : undefined}
+        imageAlt={`${pageTitle} — НІСЕ`}
         structuredData={structuredData}
       />
       <Navbar />
@@ -144,6 +168,23 @@ export function Component() {
           {activeTab==='overview'&&!selectedDirection&&expertise.directions.length>0&&(<div className="mt-10"><KeyDirections directions={expertise.directions}/></div>)}
         </div>
         <WhyUs />
+        <section className="py-12 bg-gray-50">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Інші види експертиз</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {relatedExpertises.map(rel => (
+                <a
+                  key={rel.slug}
+                  href={`/ekspertyzy/${rel.slug}`}
+                  className="block p-5 bg-white rounded-lg border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all"
+                >
+                  <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{rel.title}</h3>
+                  <p className="text-sm text-gray-600 line-clamp-3">{rel.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
         <section className="py-16 bg-brand-blue text-white text-center"><div className="container-custom"><h2 className="text-3xl font-bold mb-6">Потрібна консультація експерта?</h2><p className="text-xl mb-8 max-w-2xl mx-auto">Наші спеціалісти допоможуть вам обрати оптимальне рішення для вашої ситуації</p><ConsultationButton className="bg-white !text-black hover:bg-gray-100"/></div></section>
       </main>
       <Footer />
