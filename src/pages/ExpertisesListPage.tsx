@@ -14,7 +14,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import FAQPageSEO from '../components/SEO/FAQPageSEO'
 
 const ExpertisesListPage = () => {
-  const { getWebPageData, getItemListData, getSiteNavigationData, getFAQData } = useStructuredData();
+  const { getWebPageData, getItemListData, getSiteNavigationData, getFAQData, getBreadcrumbData } = useStructuredData();
   
   // Convert expertiseData object to array and add slug
   const expertiseList = Object.entries(expertiseData).map(([slug, data]) => ({
@@ -76,6 +76,11 @@ const ExpertisesListPage = () => {
     ]
   );
 
+  const breadcrumbData = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Експертизи", url: "https://expertise.com.ua/ekspertyzy" }
+  ]);
+
   const itemListData = getItemListData(
     "Судові експертизи НІСЕ",
     expertiseList.map(expertise => ({
@@ -93,7 +98,7 @@ const ExpertisesListPage = () => {
         description="Повний перелік судових експертиз від Незалежного Інституту Судових Експертиз. Будівельно-технічна, оціночна, земельна та інші види експертиз."
         keywords="судові експертизи, будівельно-технічна експертиза, оціночна експертиза, земельна експертиза, НІСЕ, список експертиз"
         url="https://expertise.com.ua/ekspertyzy"
-        structuredData={[webPageData, itemListData, siteNavigationData, faqData]}
+        structuredData={[webPageData, itemListData, siteNavigationData, faqData, breadcrumbData]}
       />
       
       <Navbar />
