@@ -52,7 +52,11 @@ const NewsPage = () => {
     }))
   };
 
-  const combinedStructuredData = [webPageData, itemListData, getSiteNavigationData()];
+  const newsBreadcrumb = getBreadcrumbData([
+    { name: "Головна", url: "https://expertise.com.ua" },
+    { name: "Новини", url: "https://expertise.com.ua/novini" }
+  ]);
+  const combinedStructuredData = [webPageData, itemListData, getSiteNavigationData(), newsBreadcrumb];
 
   const breadcrumbItems = [
     { label: "Новини", isCurrentPage: true }
