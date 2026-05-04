@@ -3,7 +3,6 @@ import path from 'path'
 
 // Import data directly from TypeScript files
 const expertiseDataPath = 'src/data/expertiseData.ts'
-const newsDataPath = 'src/data/newsData.ts'
 const servicesDataPath = 'src/components/home/ServicesSection.tsx'
 
 const baseUrl = 'https://expertise.com.ua'
@@ -44,18 +43,6 @@ function parseTypeScriptExport(filePath, exportName) {
       const catSet = new Set(categories.map(c => c.slug))
       const directionSlugs = allSlugs.filter(s => !catSet.has(s))
       return { categories, directionSlugs }
-    }
-
-    if (exportName === 'newsItems') {
-      const items = []
-      const itemRegex = /title:\s*['"]([^'"]+)['"][\s\S]*?date:\s*['"]([\d.]+)['"][\s\S]*?imageUrl:\s*['"]([^'"]+)['"][\s\S]*?slug:\s*['"]([\w-]+)['"]/g
-      let m
-      while ((m = itemRegex.exec(exportData)) !== null) {
-        const [day, month, year] = m[2].split('.')
-        const iso = year && month && day ? `${year}-${month}-${day}` : currentDate
-        items.push({ title: m[1], lastmod: iso, imageUrl: m[3], slug: m[4] })
-      }
-      return items
     }
 
     if (exportName === 'services') {
@@ -103,7 +90,6 @@ const staticRoutes = [
   { url: '/kontakty', priority: '0.8', changefreq: 'monthly' },
   { url: '/pro-nas', priority: '0.7', changefreq: 'monthly' },
   { url: '/tsiny', priority: '0.8', changefreq: 'monthly' },
-  { url: '/novini', priority: '0.8', changefreq: 'daily' }
 ]
 
 let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
@@ -166,27 +152,6 @@ if (serviceSlugs) {
   })
 }
 
-const newsSlugs = parseTypeScriptExport(newsDataPath, 'newsItems')
-if (newsSlugs) {
-  newsSlugs.forEach(item => {
-    const absImg = item.imageUrl?.startsWith('http') ? item.imageUrl : `${baseUrl}${item.imageUrl}`
-    const imageBlock = item.imageUrl
-      ? `    <image:image>
-      <image:loc>${absImg}</image:loc>
-      <image:title>${xmlEscape(item.title)}</image:title>
-    </image:image>
-`
-      : ''
-    sitemapXML += `  <url>
-    <loc>${baseUrl}/novini/${item.slug}</loc>
-    <lastmod>${item.lastmod}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-${imageBlock}  </url>
-`
-  })
-}
-
 sitemapXML += '</urlset>'
 
 const distDir = path.resolve(process.cwd(), 'dist')
@@ -194,4 +159,4 @@ if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXML)
 console.log('Generated dynamic sitemap.xml in', distDir)
-console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.categories?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, ${serviceSlugs?.length || 0} service pages, and ${newsSlugs?.length || 0} news articles`)
+console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.categories?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, and ${serviceSlugs?.length || 0} service pages`)

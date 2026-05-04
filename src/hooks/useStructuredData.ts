@@ -718,11 +718,6 @@ export const useStructuredData = () => {
           '@type': 'SiteNavigationElement',
           name: 'Ціни',
           url: `${baseUrl}/tsiny`
-        },
-        {
-          '@type': 'SiteNavigationElement',
-          name: 'Новини',
-          url: `${baseUrl}/novini`
         }
       ]
     };
