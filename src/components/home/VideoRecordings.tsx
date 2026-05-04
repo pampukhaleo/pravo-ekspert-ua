@@ -1,34 +1,12 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Youtube } from 'lucide-react';
-
-// Sample video data - in a real app, this would come from an API
-const videoRecordings = [
-  {
-    id: 1,
-    title: 'Вебінар на тему: «Особливості проведення товарознавчої експертизи щодо визначення вартості товарів»',
-    thumbnailUrl: 'https://img.youtube.com/vi/HtC3b0nJQfc/maxresdefault.jpg',
-    videoUrl: 'https://youtube.com/live/HtC3b0nJQfc',
-    duration: '1:04:46',
-    date: '17.06.2025'
-  },
-  {
-    id: 2,
-    title: 'Відкритий ефір у форматі питання–відповідь з Геннадієм Геннадійовичем Пампухою',
-    thumbnailUrl: 'https://img.youtube.com/vi/eqzygdHoV14/maxresdefault.jpg',
-    videoUrl: 'https://youtube.com/live/eqzygdHoV14',
-    duration: '1:06:11',
-    date: '12.06.2025'
-  },
-  {
-    id: 3,
-    title: 'Вебінар: Психологічна експертиза у спорах між батьками щодо виховання та місця проживання дитини',
-    thumbnailUrl: 'https://img.youtube.com/vi/wb8XchP9Iz8/maxresdefault.jpg',
-    videoUrl: 'https://youtube.com/live/wb8XchP9Iz8',
-    duration: '1:17:54',
-    date: '20.05.2025'
-  },
-];
+import {
+  videoRecordings,
+  getThumbnailUrl,
+  getVideoUrl,
+  YOUTUBE_CHANNEL_URL,
+} from '@/data/videos';
 
 const VideoRecordings: React.FC = () => {
   return (
@@ -51,15 +29,25 @@ const VideoRecordings: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videoRecordings.map(video => (
-            <Card key={video.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              <a href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="block">
-                <div className="relative aspect-video">
-                  <img 
-                    src={video.thumbnailUrl} 
+            <Card key={video.id} className="group overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <a
+                href={getVideoUrl(video.youtubeId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Дивитись відео: ${video.title}`}
+                className="block"
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src={getThumbnailUrl(video.youtubeId)}
                     alt={video.title}
-                    className="w-full h-full object-cover"
+                    width={480}
+                    height={360}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors" aria-hidden="true">
                     <div className="h-16 w-16 bg-red-600 rounded-full flex items-center justify-center">
                       <svg className="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
@@ -72,7 +60,9 @@ const VideoRecordings: React.FC = () => {
                 </div>
                 <CardContent className="p-4">
                   <h3 className="text-lg font-medium mb-2">{video.title}</h3>
-                  <p className="text-gray-500 text-sm">{video.date}</p>
+                  <time dateTime={video.isoDate} className="text-gray-500 text-sm">
+                    {video.date}
+                  </time>
                 </CardContent>
               </a>
             </Card>
@@ -81,7 +71,7 @@ const VideoRecordings: React.FC = () => {
         
         <div className="mt-10 text-center">
           <a 
-            href="https://www.youtube.com/@%D0%9D%D0%B5%D0%B7%D0%B0%D0%BB%D0%B5%D0%B6%D0%BD%D0%B8%D0%B9%D0%86%D0%BD%D1%81%D1%82%D0%B8%D1%82%D1%83%D1%82%D0%A1%D1%83%D0%B4%D0%BE%D0%B2%D0%B8%D1%85%D0%95%D0%BA%D1%81%D0%BF%D0%B5/streams"
+            href={YOUTUBE_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-gray-900 font-medium hover:underline"
