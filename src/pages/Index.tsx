@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Hero from '../components/home/Hero';
 import ServicesSection from '../components/home/ServicesSection';
 import PartnersSection from '../components/home/PartnersSection';
+import ExpertiseCarousel from '../components/home/ExpertiseCarousel';
 import VideoRecordings from '../components/home/VideoRecordings';
 import FaqSection from '../components/home/FaqSection';
 import SEOHead from '../components/SEO/SEOHead';
