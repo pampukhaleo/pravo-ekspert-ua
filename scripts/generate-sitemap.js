@@ -90,6 +90,9 @@ const staticRoutes = [
   { url: '/kontakty', priority: '0.8', changefreq: 'monthly' },
   { url: '/pro-nas', priority: '0.7', changefreq: 'monthly' },
   { url: '/tsiny', priority: '0.8', changefreq: 'monthly' },
+  { url: '/posluhy/ekspertyza-za-ukhvaloiu-sudu', priority: '0.7', changefreq: 'monthly' },
+  { url: '/posluhy/ekspertne-doslidzhennia-za-zaiavoiu', priority: '0.7', changefreq: 'monthly' },
+  { url: '/posluhy/shcho-vkhodyt-u-vartist', priority: '0.7', changefreq: 'monthly' },
 ]
 
 let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
