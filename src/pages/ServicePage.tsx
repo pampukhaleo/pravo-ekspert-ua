@@ -84,7 +84,7 @@ const ServicePage: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead
         title={`${serviceContent.title} | НІСЕ`}
-        description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
+        description={serviceContent.description ?? `${serviceContent.title} — детальна інформація про послугу від Незалежного Інституту Судових Експертиз. Атестовані судові експерти, м. Київ.`}
         keywords={`${serviceContent.title.toLowerCase()}, НІСЕ, судова експертиза, послуги експертизи`}
         url={`https://expertise.com.ua/posluhy/${slug}`}
         structuredData={serviceStructuredData}
