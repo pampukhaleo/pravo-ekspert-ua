@@ -50,7 +50,7 @@ const KeyDirections: React.FC<KeyDirectionsProps> = ({ directions, currentSlug }
           {filteredDirections.map((direction, index) => (
             <Link
               key={index}
-              to={`/ekspertyzy/${direction.slug}?from=directions`}
+              to={`/ekspertyzy/${direction.slug}`}
               className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all flex flex-col h-full group"
             >
               <div className={`h-24 bg-gradient-to-r ${categoryColors[index % categoryColors.length]} flex items-center justify-center p-5`}>
