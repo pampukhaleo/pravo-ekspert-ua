@@ -1,43 +1,86 @@
-## Что показывают скриншоты Ahrefs
+## Что показывают скриншоты Ahrefs (warnings)
 
-**Проблема 1: «Canonical URL has no incoming internal links» — 20 страниц направлений**
+### 1. Title too long (10 страниц) — все направления экспертиз
+Пример: `ВИЗНАЧЕННЯ ЯКОСТІ ТА ОЦІНКА ВАРТОСТІ РЕМОНТНО-БУДІВЕЛЬНИХ РОБІТ — Будівельно-технічна експертиза | НІСЕ` (103 символа). Источник — `src/pages/ExpertisePage.tsx`:
+```ts
+const seoTitle = selectedDirection
+  ? `${selectedDirection.title} — ${expertise.title} | НІСЕ`  // <- слишком длинно
+  : `${expertise.title} | НІСЕ`
+```
+Конкатенация с родительской категорией пробивает лимит ~60 символов.
 
-Все 20 URL — это страницы направлений (`/ekspertyzy/ekspertyza-koshtorysu`, `/ekspertyzy/transportno-trasolohichna-ekspertyza`, и т.д.). Причина:
+### 2. Title too short (1) — `/pro-nas`
+`Про нас | НІСЕ` = 14 символов. Источник — `src/pages/AboutPage.tsx`. Нужен заголовок с ключевыми словами (50-60 символов).
 
-- Единственное место, откуда на них ведут внутренние ссылки — это компонент `KeyDirections` внутри страницы родительской экспертизы.
-- В `src/components/expertise/KeyDirections.tsx` строка 53: ссылка собирается как `to={`/ekspertyzy/${direction.slug}?from=directions`}`. Из-за query-параметра Ahrefs видит ссылку на `…?from=directions`, а canonical у самой страницы — чистый URL без параметра. Получается «inlinks: 0» к canonical.
-- Кроме того, `ExpertisesListPage` ссылается только на топ-уровень (родительские экспертизы), но не на их направления — то есть в sitemap направления есть, а индексация по ссылкам слабая.
+### 3. Meta description too short (1) — `/posluhy/shcho-vkhodyt-u-vartist`
+99 символов вместо рекомендованных 120-160. Источник — `src/pages/ServicePage.tsx`, описание шаблонное:
+```ts
+description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
+```
+Шаблон даёт короткие описания для всех трёх сервисов.
 
-**Проблема 2: «Non-canonical page in sitemap» — `/tsiny`**
+### 4. 3XX / 302 redirect (3 + 2) — `http://www.`, `http://`
+Это редиректы на уровне хостинга Lovable + custom domain (HTTP→HTTPS, www→non-www). В коде проекта мы их не контролируем — конфигурация делается на стороне DNS/хостинга. Можно только сообщить пользователю.
 
-Ahrefs показывает, что у страницы `https://expertise.com.ua/tsiny` canonical = `https://expertise.com.ua/` (корень), хотя в `PricingPage.tsx` явно установлен `url="https://expertise.com.ua/tsiny"` в `SEOHead`. Значит, либо в prod-сборке canonical действительно неправильный (нужно проверить отдеплоенный HTML), либо это устаревшие данные краула. После предыдущих правок (`SEOHead` уже корректно ставит `<link rel="canonical">`), вероятнее всего нужно просто перезапустить краул. Но я также проверю, что в свежей сборке `/tsiny/index.html` содержит правильный canonical.
+### 5. Slow page (65) — TTFB 3-15 сек
+Это тоже не правится в коде — страницы статические (vite-react-ssg), TTFB зависит от хостинга/CDN Lovable. Возможные причины: cold start, отсутствие CDN-кэша. Сообщить пользователю.
 
-## План
+### 6. (Из 2-го скриншота, нижняя часть) URL с `?from=directions`, Is indexable: No
+Это **уже устранено** в прошлом сообщении — `KeyDirections.tsx` теперь рендерит чистые URL без параметра. После повторного краула эти записи исчезнут.
 
-### 1. Убрать `?from=directions` из ссылок на направления
-**Файл:** `src/components/expertise/KeyDirections.tsx`
-- Заменить `to={\`/ekspertyzy/${direction.slug}?from=directions\`}` на `to={\`/ekspertyzy/${direction.slug}\`}`.
-- Это сразу даст canonical-страницам полноценные внутренние ссылки.
-- Эффект «открыть таб Огляд при переходе из направлений» останется визуально неважным — все направления и так открываются на табе Огляд по умолчанию (`defaultValue="overview"`). Логику в `ExpertisePage.tsx` (`useEffect` с проверкой `from=directions`) можно оставить — она безвредна без параметра.
+## План правок
 
-### 2. Добавить ссылки на направления на странице списка экспертиз
-**Файл:** `src/pages/ExpertisesListPage.tsx`
-- В каждой карточке экспертизы под основной ссылкой добавить компактный список ссылок на её направления (`expertise.directions`) — обычные `<Link to={\`/ekspertyzy/${d.slug}\`}>`.
-- Это даёт направлениям ещё один источник внутренних ссылок и улучшает SEO/usability.
+### Правка 1: укоротить title для страниц направлений
+**Файл:** `src/pages/ExpertisePage.tsx`
 
-### 3. Проверить canonical на `/tsiny` в свежей сборке
-**Действия (только проверка, без правок если всё ок):**
-- Запустить локальную сборку и убедиться, что `dist/tsiny/index.html` содержит `<link rel="canonical" href="https://expertise.com.ua/tsiny">`.
-- Если canonical правильный — проблема в устаревших данных Ahrefs, нужно просто перезапустить краул после деплоя.
-- Если неправильный — найти причину (возможно, конфликт с `MetaImages`/`preloadResources` или дубль `<link rel="canonical">` в `index.html`).
+Заменить:
+```ts
+const seoTitle = selectedDirection
+  ? `${selectedDirection.title} — ${expertise.title} | НІСЕ`
+  : `${expertise.title} | НІСЕ`
+```
+на:
+```ts
+const seoTitle = selectedDirection
+  ? `${selectedDirection.title} | НІСЕ`
+  : `${expertise.title} | НІСЕ`
+```
 
-### 4. (Опционально) Убрать `useEffect` с `from=directions` в `ExpertisePage.tsx`
-После п.1 параметр больше не используется — можно почистить мёртвый код. Делаю, если подтвердите.
+Контекст родительской экспертизы остаётся в `description`, `breadcrumbs` и H1 — для SEO достаточно. Все 10 длинных тайтлов уйдут под 60 символов.
 
-## Ожидаемый результат после деплоя и повторного краула
+### Правка 2: расширить title для `/pro-nas`
+**Файл:** `src/pages/AboutPage.tsx`
 
-- «Canonical URL has no incoming internal links»: 20 → 0.
-- «Non-canonical page in sitemap»: 1 → 0 (после перекраула).
-- Бонус: страницы направлений получают внутренние ссылки и из карточек на `/ekspertyzy`, что улучшит их ранжирование.
+Заменить `title="Про нас | НІСЕ"` на:
+```
+title="Про нас — Незалежний Інститут Судових Експертиз | НІСЕ"
+```
+(~57 символов, с ключевыми словами).
 
-Подтвердите план — и я внесу правки.
+То же самое для `webPageData(...)` первого аргумента.
+
+### Правка 3: индивидуальные мета-описания для услуг
+**Файл:** `src/pages/ServicePage.tsx`
+
+Расширить `ServiceContent`-интерфейс полем `description?: string` и задать описания 130-155 символов для каждой из 3 услуг:
+- `ekspertyza-za-ukhvaloiu-sudu` — про процедуру судебной экспертизы по ухвалі
+- `ekspertne-doslidzhennia-za-zaiavoiu` — про досудове експертне дослідження
+- `shcho-vkhodyt-u-vartist` — детально, что включено в стоимость
+
+В `<SEOHead>`: `description={serviceContent.description ?? <fallback>}`.
+
+### Правка 4 (без кода): 3XX redirects, slow page
+Объяснить пользователю в финальном сообщении:
+- 302/301 на http и www-версии — настройка домена на стороне Lovable. Если нужно убрать 302 → 301, обращаться в поддержку Lovable / проверить настройки кастомного домена.
+- Slow page — особенность хостинга (cold start). Можно проверить, что Lovable деплой использует CDN; в коде ускорять нечего (страницы уже SSG, картинки оптимизированы).
+
+## Ожидаемый результат
+
+- Title too long: 10 → 0
+- Title too short: 1 → 0
+- Meta description too short: 1 → 0
+- 3XX redirects: останется (хостинг)
+- Slow page: останется (хостинг)
+- Inlinks `?from=directions`: исчезнут после повторного краула
+
+Подтвердите план — реализую правки 1–3.

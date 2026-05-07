@@ -8,12 +8,14 @@ import { useStructuredData } from '../hooks/useStructuredData';
 
 interface ServiceContent {
   title: string;
+  description?: string;
   content: string[];
 }
 
 const services: Record<string, ServiceContent> = {
   "ekspertyza-za-ukhvaloiu-sudu": {
     title: "Експертиза за ухвалою суду",
+    description: "Судова експертиза за ухвалою суду від НІСЕ: вивчаємо матеріали справи, проводимо натурне обстеження та готуємо обґрунтований експертний висновок для суду.",
     content: [
       "Одержуємо та вивчаємо матеріали справи;",
       "Прораховуємо вартість робіт;",
@@ -24,6 +26,7 @@ const services: Record<string, ServiceContent> = {
   },
   "ekspertne-doslidzhennia-za-zaiavoiu": {
     title: "Експертне дослідження за заявою сторін",
+    description: "Досудове експертне дослідження за заявою сторін від НІСЕ: укладаємо договір, проводимо натурне обстеження об'єкта та надаємо письмовий експертний висновок замовнику.",
     content: [
       "Отримуємо заяву про проведення експертного дослідження та необхідні документи;",
       "Вивчаємо надані документи, прораховуємо вартість робіт та укладаємо договір на проведення експертного дослідження;",
@@ -33,6 +36,7 @@ const services: Record<string, ServiceContent> = {
   },
   "shcho-vkhodyt-u-vartist": {
     title: "Що входить у вартість",
+    description: "Що входить у вартість судової експертизи НІСЕ: аналіз документів, натурне обстеження, дослідження за методикою, підготовка та оформлення експертного висновку для замовника.",
     content: [
       "З'ясування експертного завдання;",
       "Аналіз та вивчення наданих на дослідження документів;",
@@ -80,7 +84,7 @@ const ServicePage: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       <SEOHead
         title={`${serviceContent.title} | НІСЕ`}
-        description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
+        description={serviceContent.description ?? `${serviceContent.title} — детальна інформація про послугу від Незалежного Інституту Судових Експертиз. Атестовані судові експерти, м. Київ.`}
         keywords={`${serviceContent.title.toLowerCase()}, НІСЕ, судова експертиза, послуги експертизи`}
         url={`https://expertise.com.ua/posluhy/${slug}`}
         structuredData={serviceStructuredData}
