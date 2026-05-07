@@ -322,6 +322,20 @@ const ExpertisesListPage = () => {
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4 pt-0">
                       <p className="text-gray-600 mb-4">{expertise.description}</p>
+                      {expertise.directions && expertise.directions.length > 0 && (
+                        <ul className="mb-4 space-y-1 text-sm">
+                          {expertise.directions.map((d) => (
+                            <li key={d.slug}>
+                              <Link
+                                to={`/ekspertyzy/${d.slug}`}
+                                className="text-gray-700 hover:text-brand-blue hover:underline"
+                              >
+                                › {d.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       <div className="flex justify-between items-center">
                         <Link 
                           to={`/ekspertyzy/${expertise.slug}`}
