@@ -235,12 +235,11 @@ const ExpertisesListPage = () => {
           {viewMode === 'grid' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredExpertises.map((expertise, index) => (
-                <Link 
+                <div
                   key={expertise.slug}
-                  to={`/ekspertyzy/${expertise.slug}`}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
                 >
-                  <div className="h-40 bg-blue-50 flex items-center justify-center p-0 overflow-hidden">
+                  <Link to={`/ekspertyzy/${expertise.slug}`} className="h-40 bg-blue-50 flex items-center justify-center p-0 overflow-hidden block">
                     {expertise.backgroundImage ? (
                       <OptimizedImage 
                         src={expertise.backgroundImage}
@@ -253,14 +252,32 @@ const ExpertisesListPage = () => {
                     ) : (
                       <div className="w-full h-full bg-gradient-to-r from-blue-100 to-blue-50" />
                     )}
-                  </div>
+                  </Link>
                   <div className="p-6 flex flex-col h-full">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">{expertise.title.toUpperCase()}</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                      <Link to={`/ekspertyzy/${expertise.slug}`} className="hover:text-brand-blue transition-colors">
+                        {expertise.title.toUpperCase()}
+                      </Link>
+                    </h2>
                     <p className="text-gray-600 line-clamp-4">{expertise.description}</p>
+                    {expertise.directions && expertise.directions.length > 0 && (
+                      <ul className="mt-4 space-y-1 text-sm">
+                        {expertise.directions.slice(0, 5).map((d) => (
+                          <li key={d.slug}>
+                            <Link
+                              to={`/ekspertyzy/${d.slug}`}
+                              className="text-gray-700 hover:text-brand-blue hover:underline line-clamp-1"
+                            >
+                              › {d.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     <div className="mt-auto pt-2 flex justify-between items-center">
-                      <span className="text-brand-blue font-medium flex items-center gap-1">
+                      <Link to={`/ekspertyzy/${expertise.slug}`} className="text-brand-blue font-medium flex items-center gap-1 hover:underline">
                         Детальніше <ChevronRight size={16} />
-                      </span>
+                      </Link>
                       {expertise.categories.length > 0 && (
                         <span className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-600">
                           {expertise.categories[0]}
@@ -268,7 +285,7 @@ const ExpertisesListPage = () => {
                       )}
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           )}
