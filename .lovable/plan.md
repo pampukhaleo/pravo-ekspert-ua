@@ -1,86 +1,52 @@
-## Что показывают скриншоты Ahrefs (warnings)
+## Что показывают скриншоты Ahrefs (Notice)
 
-### 1. Title too long (10 страниц) — все направления экспертиз
-Пример: `ВИЗНАЧЕННЯ ЯКОСТІ ТА ОЦІНКА ВАРТОСТІ РЕМОНТНО-БУДІВЕЛЬНИХ РОБІТ — Будівельно-технічна експертиза | НІСЕ` (103 символа). Источник — `src/pages/ExpertisePage.tsx`:
-```ts
-const seoTitle = selectedDirection
-  ? `${selectedDirection.title} — ${expertise.title} | НІСЕ`  // <- слишком длинно
-  : `${expertise.title} | НІСЕ`
-```
-Конкатенация с родительской категорией пробивает лимит ~60 символов.
+### 1. «Page has only one dofollow incoming internal link» (20 страниц с `?from=directions`)
+Это **остатки прошлого краула** — все URL с `?from=directions`. Мы уже убрали этот параметр в `KeyDirections.tsx` в прошлый раз. После повторного краула эти 20 уведомлений исчезнут сами. Действий в коде не нужно.
 
-### 2. Title too short (1) — `/pro-nas`
-`Про нас | НІСЕ` = 14 символов. Источник — `src/pages/AboutPage.tsx`. Нужен заголовок с ключевыми словами (50-60 символов).
+### 2. «Title too long» (10) — те же URL с `?from=directions`
+Тот же остаток. Title мы уже укоротили до `<Назва> | НІСЕ`. После повторного краула пропадёт.
 
-### 3. Meta description too short (1) — `/posluhy/shcho-vkhodyt-u-vartist`
-99 символов вместо рекомендованных 120-160. Источник — `src/pages/ServicePage.tsx`, описание шаблонное:
-```ts
-description={`${serviceContent.title} - детальна інформація про послугу від Незалежного Інституту Судових Експертиз`}
-```
-Шаблон даёт короткие описания для всех трёх сервисов.
+### 3. «Indexable page not in sitemap» (1) — `/posluhy/shcho-vkhodyt-u-vartist`
+Странно — в `scripts/generate-sitemap.js` парсится `services` из `src/components/home/ServicesSection.tsx`. Проверить нужно: содержит ли тот файл слаг `shcho-vkhodyt-u-vartist`. Если нет (или регэксп его не ловит) — добавить эти 3 слага напрямую в `staticRoutes` либо парсить `src/pages/ServicePage.tsx` (где определён объект `services`).
 
-### 4. 3XX / 302 redirect (3 + 2) — `http://www.`, `http://`
-Это редиректы на уровне хостинга Lovable + custom domain (HTTP→HTTPS, www→non-www). В коде проекта мы их не контролируем — конфигурация делается на стороне DNS/хостинга. Можно только сообщить пользователю.
+### 4. «HTTP to HTTPS redirect» (1) и «Redirect chain» (1)
+Это редиректы домена/хостинга:
+- `http://expertise.com.ua` → 301 → `https://expertise.com.ua` (это нормально, так и должно быть).
+- `http://www.expertise.com.ua` → 302 → `http://expertise.com.ua` → 301 → `https://expertise.com.ua` (это redirect chain длиной 2 — нежелательно).
 
-### 5. Slow page (65) — TTFB 3-15 сек
-Это тоже не правится в коде — страницы статические (vite-react-ssg), TTFB зависит от хостинга/CDN Lovable. Возможные причины: cold start, отсутствие CDN-кэша. Сообщить пользователю.
+Решение — настроить на стороне хостинга Lovable, чтобы `http://www.` сразу редиректил на `https://` без промежуточного хопа, и желательно 301 вместо 302. **В коде не правится** — обращаться в поддержку Lovable.
 
-### 6. (Из 2-го скриншота, нижняя часть) URL с `?from=directions`, Is indexable: No
-Это **уже устранено** в прошлом сообщении — `KeyDirections.tsx` теперь рендерит чистые URL без параметра. После повторного краула эти записи исчезнут.
+### 5. «Page and SERP titles do not match» (1) — главная
+Title на странице: `НІСЕ - Незалежний Інститут Судових Експертиз`. Title в SERP Google: `Незалежний Інститут Судових Експертиз: НІСЕ`. Google переписал title, потому что считает, что начинать с бренда «НІСЕ» (малоизвестный акроним) хуже, чем с полного названия. Решение — переписать title на главной так, чтобы он совпадал с SERP-версией:
+`Незалежний Інститут Судових Експертиз — НІСЕ` (60 символов).
 
 ## План правок
 
-### Правка 1: укоротить title для страниц направлений
-**Файл:** `src/pages/ExpertisePage.tsx`
+### Правка 1: добавить service-страницы в sitemap явно
+**Файл:** `scripts/generate-sitemap.js`
 
-Заменить:
-```ts
-const seoTitle = selectedDirection
-  ? `${selectedDirection.title} — ${expertise.title} | НІСЕ`
-  : `${expertise.title} | НІСЕ`
+Поскольку `services` определён в `src/pages/ServicePage.tsx` (а не в `ServicesSection.tsx`, как сейчас парсится), регэксп вероятно их не находит. Самое надёжное — захардкодить 3 service-слага в `staticRoutes`:
+```js
+{ url: '/posluhy/ekspertyza-za-ukhvaloiu-sudu', priority: '0.7', changefreq: 'monthly' },
+{ url: '/posluhy/ekspertne-doslidzhennia-za-zaiavoiu', priority: '0.7', changefreq: 'monthly' },
+{ url: '/posluhy/shcho-vkhodyt-u-vartist', priority: '0.7', changefreq: 'monthly' },
 ```
-на:
-```ts
-const seoTitle = selectedDirection
-  ? `${selectedDirection.title} | НІСЕ`
-  : `${expertise.title} | НІСЕ`
-```
+И убрать (или оставить как fallback) парсинг `services` из `ServicesSection.tsx`.
 
-Контекст родительской экспертизы остаётся в `description`, `breadcrumbs` и H1 — для SEO достаточно. Все 10 длинных тайтлов уйдут под 60 символов.
+### Правка 2: title главной страницы под SERP
+**Файлы:** `src/pages/Index.tsx`, `src/components/SEO/SEOHead.tsx`
 
-### Правка 2: расширить title для `/pro-nas`
-**Файл:** `src/pages/AboutPage.tsx`
+- В `Index.tsx` (строка 39): заменить `title="НІСЕ - Незалежний Інститут Судових Експертиз"` → `title="Незалежний Інститут Судових Експертиз — НІСЕ"`.
+- В `SEOHead.tsx` (default, строка 21): то же самое.
 
-Заменить `title="Про нас | НІСЕ"` на:
-```
-title="Про нас — Незалежний Інститут Судових Експертиз | НІСЕ"
-```
-(~57 символов, с ключевыми словами).
+### Что НЕ правим
+- 20 страниц «only one dofollow inlink» и 10 «title too long» (`?from=directions`) — устаревшие данные краула, исчезнут после повторного запуска Ahrefs.
+- HTTP→HTTPS redirect и redirect chain — настройка хостинга Lovable, в коде не правим.
 
-То же самое для `webPageData(...)` первого аргумента.
+## Ожидаемый результат после деплоя и повторного краула
+- «Indexable page not in sitemap»: 1 → 0.
+- «Page and SERP titles do not match»: 1 → 0 (после переиндексации Google).
+- 20 + 10 устаревших уведомлений с `?from=directions` исчезнут.
+- HTTP/redirect chain — останутся (хостинг).
 
-### Правка 3: индивидуальные мета-описания для услуг
-**Файл:** `src/pages/ServicePage.tsx`
-
-Расширить `ServiceContent`-интерфейс полем `description?: string` и задать описания 130-155 символов для каждой из 3 услуг:
-- `ekspertyza-za-ukhvaloiu-sudu` — про процедуру судебной экспертизы по ухвалі
-- `ekspertne-doslidzhennia-za-zaiavoiu` — про досудове експертне дослідження
-- `shcho-vkhodyt-u-vartist` — детально, что включено в стоимость
-
-В `<SEOHead>`: `description={serviceContent.description ?? <fallback>}`.
-
-### Правка 4 (без кода): 3XX redirects, slow page
-Объяснить пользователю в финальном сообщении:
-- 302/301 на http и www-версии — настройка домена на стороне Lovable. Если нужно убрать 302 → 301, обращаться в поддержку Lovable / проверить настройки кастомного домена.
-- Slow page — особенность хостинга (cold start). Можно проверить, что Lovable деплой использует CDN; в коде ускорять нечего (страницы уже SSG, картинки оптимизированы).
-
-## Ожидаемый результат
-
-- Title too long: 10 → 0
-- Title too short: 1 → 0
-- Meta description too short: 1 → 0
-- 3XX redirects: останется (хостинг)
-- Slow page: останется (хостинг)
-- Inlinks `?from=directions`: исчезнут после повторного краула
-
-Подтвердите план — реализую правки 1–3.
+Подтвердите план — реализую правки 1 и 2.
