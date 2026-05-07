@@ -1,48 +1,43 @@
+## Что показывают скриншоты Ahrefs
 
-# PR 4 — Убрать Product schema со страниц експертиз
+**Проблема 1: «Canonical URL has no incoming internal links» — 20 страниц направлений**
 
-## Проблема
-Google Rich Results Test показывает на `/ekspertyzy/budivelno-tekhnichna-ekspertyza`:
-- **Product snippets — invalid:** нет числового `price` (есть только текстовый `priceRange`).
-- **Merchant listings — invalid:** нет `image`, `price`, `shippingDetails`, `hasMerchantReturnPolicy`.
+Все 20 URL — это страницы направлений (`/ekspertyzy/ekspertyza-koshtorysu`, `/ekspertyzy/transportno-trasolohichna-ekspertyza`, и т.д.). Причина:
 
-Merchant Listings — это формат для интернет-магазинов с физической доставкой и возвратами. Судебная экспертиза — это услуга, и натягивать на неё Product schema контрпродуктивно: Google всё равно будет требовать shipping/returns.
+- Единственное место, откуда на них ведут внутренние ссылки — это компонент `KeyDirections` внутри страницы родительской экспертизы.
+- В `src/components/expertise/KeyDirections.tsx` строка 53: ссылка собирается как `to={`/ekspertyzy/${direction.slug}?from=directions`}`. Из-за query-параметра Ahrefs видит ссылку на `…?from=directions`, а canonical у самой страницы — чистый URL без параметра. Получается «inlinks: 0» к canonical.
+- Кроме того, `ExpertisesListPage` ссылается только на топ-уровень (родительские экспертизы), но не на их направления — то есть в sitemap направления есть, а индексация по ссылкам слабая.
 
-`BreadcrumbList`, `FAQ`, `LocalBusiness`, `Organization` уже валидны и дают rich snippets. `ProfessionalService` уже отдаётся как отдельный блок — он и есть правильный тип для услуги, поддерживает `aggregateRating`, `offers`, `areaServed`.
+**Проблема 2: «Non-canonical page in sitemap» — `/tsiny`**
 
-## Решение
-Удалить блок `Product` из `useStructuredData.ts` для страниц экспертиз. Оставить и усилить `ProfessionalService`.
+Ahrefs показывает, что у страницы `https://expertise.com.ua/tsiny` canonical = `https://expertise.com.ua/` (корень), хотя в `PricingPage.tsx` явно установлен `url="https://expertise.com.ua/tsiny"` в `SEOHead`. Значит, либо в prod-сборке canonical действительно неправильный (нужно проверить отдеплоенный HTML), либо это устаревшие данные краула. После предыдущих правок (`SEOHead` уже корректно ставит `<link rel="canonical">`), вероятнее всего нужно просто перезапустить краул. Но я также проверю, что в свежей сборке `/tsiny/index.html` содержит правильный canonical.
 
-## Изменения
+## План
 
-### 1. `src/hooks/useStructuredData.ts`
-- Удалить весь объект `Product` из массива JSON-LD на expertise-страницах.
-- В существующий `ProfessionalService` добавить:
-  - `aggregateRating: { "@type": "AggregateRating", ratingValue: 4.8, reviewCount: 127 }` (те же значения, что в LocalBusiness — для согласованности).
-  - `offers: { "@type": "Offer", priceCurrency: "UAH", price: <минимальная цена из данных экспертизы как число>, priceSpecification: { "@type": "PriceSpecification", priceCurrency: "UAH", minPrice: <число> }, availability: "https://schema.org/InStock", url: <canonical>, areaServed: "UA" }` — с числовым `price` (минимум диапазона), без `priceRange`-строки.
-  - `serviceType`, `areaServed`, `provider` — оставить как есть.
-  - `image` — добавить URL логотипа (`https://expertise.com.ua/logonise.png`), чтобы и здесь было поле image.
+### 1. Убрать `?from=directions` из ссылок на направления
+**Файл:** `src/components/expertise/KeyDirections.tsx`
+- Заменить `to={\`/ekspertyzy/${direction.slug}?from=directions\`}` на `to={\`/ekspertyzy/${direction.slug}\`}`.
+- Это сразу даст canonical-страницам полноценные внутренние ссылки.
+- Эффект «открыть таб Огляд при переходе из направлений» останется визуально неважным — все направления и так открываются на табе Огляд по умолчанию (`defaultValue="overview"`). Логику в `ExpertisePage.tsx` (`useEffect` с проверкой `from=directions`) можно оставить — она безвредна без параметра.
 
-### 2. Источник числовой цены
-В `src/data/expertiseData.ts` (или где хранятся экспертизы) у каждой экспертизы есть текстовая цена «Від 2000 грн». Парсить её регуляркой `/(\d[\d\s]*)/` → `2000`. Если парс не удался — не отдавать `offers` вовсе (лучше отсутствие, чем invalid).
+### 2. Добавить ссылки на направления на странице списка экспертиз
+**Файл:** `src/pages/ExpertisesListPage.tsx`
+- В каждой карточке экспертизы под основной ссылкой добавить компактный список ссылок на её направления (`expertise.directions`) — обычные `<Link to={\`/ekspertyzy/${d.slug}\`}>`.
+- Это даёт направлениям ещё один источник внутренних ссылок и улучшает SEO/usability.
 
-### 3. Проверить, не дублируется ли Product где-то ещё
-Поиск по `rg "@type.*Product"` в `src/`. Если Product есть в других местах (например, в каком-то компоненте для главной) — не трогать, проблема только на expertise-страницах.
+### 3. Проверить canonical на `/tsiny` в свежей сборке
+**Действия (только проверка, без правок если всё ок):**
+- Запустить локальную сборку и убедиться, что `dist/tsiny/index.html` содержит `<link rel="canonical" href="https://expertise.com.ua/tsiny">`.
+- Если canonical правильный — проблема в устаревших данных Ahrefs, нужно просто перезапустить краул после деплоя.
+- Если неправильный — найти причину (возможно, конфликт с `MetaImages`/`preloadResources` или дубль `<link rel="canonical">` в `index.html`).
 
-## Что **не** делаем
-- Не добавляем `shippingDetails` / `hasMerchantReturnPolicy` — это не товар.
-- Не оставляем Product «на всякий случай» — он будет помечен invalid и тянуть весь домен вниз в Search Console.
-- Не трогаем `BreadcrumbList`, `FAQPage`, `LocalBusiness`, `Organization` — они валидны.
+### 4. (Опционально) Убрать `useEffect` с `from=directions` в `ExpertisePage.tsx`
+После п.1 параметр больше не используется — можно почистить мёртвый код. Делаю, если подтвердите.
 
-## После деплоя — что должен показать Rich Results Test
-- Product snippets: **0 items** (исчез — это норм).
-- Merchant listings: **0 items** (исчез — это норм).
-- Breadcrumbs: 1 valid ✅
-- FAQ: 1 valid ✅
-- Local businesses: 3 valid ✅
-- Organization: 3 valid ✅
-- (Опционально) `ProfessionalService` Google не показывает отдельной категорией, но использует для понимания сущности.
+## Ожидаемый результат после деплоя и повторного краула
 
-Итог: «10 items detected: Some are invalid» → «8 items detected, all valid».
+- «Canonical URL has no incoming internal links»: 20 → 0.
+- «Non-canonical page in sitemap»: 1 → 0 (после перекраула).
+- Бонус: страницы направлений получают внутренние ссылки и из карточек на `/ekspertyzy`, что улучшит их ранжирование.
 
-Подтвердите — и переключаемся в build mode.
+Подтвердите план — и я внесу правки.
