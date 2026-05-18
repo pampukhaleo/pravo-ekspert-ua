@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mb-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Незалежний Інститут Судових Експертиз
+            Незалежний Інститут Судових Експертиз — Професійні судові експертизи в Україні
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed tracking-wide">

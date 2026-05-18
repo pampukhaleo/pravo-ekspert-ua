@@ -161,6 +161,7 @@ const ExpertisesListPage = () => {
                 <input
                   type="text"
                   placeholder="Пошук експертизи..."
+                  aria-label="Пошук експертизи"
                   className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-brand-blue"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -198,13 +199,19 @@ const ExpertisesListPage = () => {
                 </Collapsible>
                 
                 <div className="flex border border-gray-300 rounded-md overflow-hidden">
-                  <button 
+                  <button
+                    type="button"
+                    aria-label="Відображати сіткою"
+                    aria-pressed={viewMode === 'grid'}
                     className={`p-2 ${viewMode === 'grid' ? 'bg-brand-blue text-white' : 'bg-white text-gray-600'}`}
                     onClick={() => setViewMode('grid')}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /></svg>
                   </button>
-                  <button 
+                  <button
+                    type="button"
+                    aria-label="Відображати списком"
+                    aria-pressed={viewMode === 'list'}
                     className={`p-2 ${viewMode === 'list' ? 'bg-brand-blue text-white' : 'bg-white text-gray-600'}`}
                     onClick={() => setViewMode('list')}
                   >
