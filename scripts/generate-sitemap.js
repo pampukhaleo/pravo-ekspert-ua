@@ -162,4 +162,9 @@ if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXML)
 console.log('Generated dynamic sitemap.xml in', distDir)
+
+const publicDir = path.resolve(process.cwd(), 'public')
+if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true })
+fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXML)
+console.log('Generated dynamic sitemap.xml in', publicDir)
 console.log(`Generated ${staticRoutes.length} static routes, ${expertiseData?.categories?.length || 0} expertise categories, ${expertiseData?.directionSlugs?.length || 0} expertise directions, and ${serviceSlugs?.length || 0} service pages`)
