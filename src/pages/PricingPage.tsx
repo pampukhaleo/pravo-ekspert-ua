@@ -269,6 +269,9 @@ const PricingPage = () => {
           </div>
           
           <div className="max-w-4xl mx-auto mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">
+              Перелік експертиз та орієнтовні ціни
+            </h2>
             <Accordion type="single" collapsible className="space-y-4">
               {pricingData.map((expertise) => (
                 <AccordionItem 
