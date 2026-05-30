@@ -24,6 +24,10 @@ export function Component() {
   useEffect(() => {
     if (location.search.includes('from=directions')) {
       setActiveTab('overview')
+      // Strip legacy ?from=directions query param so Google sees one canonical URL
+      if (typeof window !== 'undefined') {
+        window.history.replaceState({}, '', location.pathname)
+      }
     }
   }, [location])
 
