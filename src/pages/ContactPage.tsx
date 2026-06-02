@@ -26,7 +26,7 @@ const ContactPage = () => {
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
+      phone: '+38',
       subject: '',
       message: '',
       website: '', // Honeypot field
@@ -221,7 +221,7 @@ const ContactPage = () => {
                       <FormItem>
                         <FormLabel>Телефон *</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="+380XXXXXXXXX або 0XXXXXXXXX" {...field} />
+                          <Input type="tel" placeholder="0XXXXXXXXX" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
