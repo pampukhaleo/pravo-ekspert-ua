@@ -221,7 +221,7 @@ const ContactPage = () => {
                       <FormItem>
                         <FormLabel>Телефон *</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="+380XXXXXXXXX або 0XXXXXXXXX" {...field} />
+                          <Input type="tel" placeholder="0XXXXXXXXX" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
