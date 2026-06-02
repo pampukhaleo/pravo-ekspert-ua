@@ -26,7 +26,7 @@ const ContactPage = () => {
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
+      phone: '+38',
       subject: '',
       message: '',
       website: '', // Honeypot field
