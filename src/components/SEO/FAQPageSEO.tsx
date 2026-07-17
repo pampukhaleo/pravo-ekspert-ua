@@ -1,5 +1,5 @@
 import React from 'react'
-import { Head } from 'vite-react-ssg'
+import { Helmet } from 'react-helmet-async'
 
 interface FAQItem {
   question: string
@@ -25,11 +25,12 @@ const FAQPageSEO: React.FC<FAQPageSEOProps> = ({ faqs }) => {
   }
 
   return (
-    <Head>
-      <script type="application/ld+json">
-        {JSON.stringify(faqStructuredData)}
-      </script>
-    </Head>
+    <Helmet>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
+    </Helmet>
   )
 }
 

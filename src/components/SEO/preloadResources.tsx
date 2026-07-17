@@ -1,5 +1,5 @@
 import React from 'react'
-import { Head } from 'vite-react-ssg'
+import { Helmet } from 'react-helmet-async'
 
 interface PreloadResourcesProps {
   fonts?: string[]
@@ -15,7 +15,7 @@ const PreloadResources: React.FC<PreloadResourcesProps> = ({
   images = []
 }) => {
   return (
-    <Head>
+    <Helmet>
       {/* Preload critical fonts */}
       {fonts.map((font, index) => (
         <link
@@ -63,7 +63,7 @@ const PreloadResources: React.FC<PreloadResourcesProps> = ({
       <link rel="dns-prefetch" href="//fonts.gstatic.com" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    </Head>
+    </Helmet>
   )
 }
 
