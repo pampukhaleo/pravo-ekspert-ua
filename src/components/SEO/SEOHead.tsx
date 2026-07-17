@@ -81,10 +81,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
 
       {/* Structured Data (JSON-LD) — pass JSON as children so Helmet serializes it */}
       {ldArray && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldArray) }}
-        />
+        <script type="application/ld+json">
+          {JSON.stringify(ldArray)}
+        </script>
       )}
     </Helmet>
   )
