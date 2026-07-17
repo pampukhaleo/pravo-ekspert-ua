@@ -1,5 +1,5 @@
 import React from 'react'
-import { Head } from 'vite-react-ssg'
+import { Helmet } from 'react-helmet-async'
 
 interface BreadcrumbItem {
   name: string
@@ -23,11 +23,11 @@ const BreadcrumbSEO: React.FC<BreadcrumbSEOProps> = ({ items }) => {
   }
 
   return (
-    <Head>
+    <Helmet>
       <script type="application/ld+json">
         {JSON.stringify(breadcrumbStructuredData)}
       </script>
-    </Head>
+    </Helmet>
   )
 }
 

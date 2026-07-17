@@ -1,5 +1,5 @@
 import React from 'react'
-import { Head } from 'vite-react-ssg'
+import { Helmet } from 'react-helmet-async'
 
 interface SEOHeadProps {
   title?: string
@@ -46,7 +46,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     : null
 
   return (
-    <Head>
+    <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -85,7 +85,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
           {JSON.stringify(ldArray)}
         </script>
       )}
-    </Head>
+    </Helmet>
   )
 }
 
