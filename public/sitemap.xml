@@ -3,283 +3,351 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://expertise.com.ua/</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/kontakty</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/pro-nas</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/tsiny</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/posluhy/ekspertyza-za-ukhvaloiu-sudu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/posluhy/ekspertne-doslidzhennia-za-zaiavoiu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/posluhy/shcho-vkhodyt-u-vartist</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/budivelno-tekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/budivelno-tehnichna-CibHFIeM.png</image:loc>
+      <image:title>Будівельно-технічна експертиза</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/zemelno-tekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/zemelno-technichna-B7xkSXVK.png</image:loc>
+      <image:title>Земельно-технічна експертиза</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/elektrotekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/elektrotehnichna-DTc5lguY.jpg</image:loc>
+      <image:title>ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekonomichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/ekonomichna-CuuvNjvP.jpg</image:loc>
+      <image:title>ЕКОНОМІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/kompleksna-pozhezhna-ta-elektrotekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/kompleksna-pojejo-eletechnichna-BLp3WWvm.png</image:loc>
+      <image:title>КОМПЛЕКСНА ПОЖЕЖНА ТА ЕЛЕКТРОТЕХНІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/avtotekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/avtotechnichna-BKjD1Cef.png</image:loc>
+      <image:title>АВТОТЕХНІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/avtotovaroznavcha-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/avtotovaroznavcha-Bx8H4GJb.png</image:loc>
+      <image:title>АВТОТОВАРОЗНАВЧА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/trasolohichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/trasologichna-DWu3RuMD.png</image:loc>
+      <image:title>ТРАСОЛОГІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekolohichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/ekologichna-Cx-F547X.png</image:loc>
+      <image:title>ЕКОЛОГІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/tovaroznavcha-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/tovaroznavcha-C4J2Yma6.jpg</image:loc>
+      <image:title>ТОВАРОЗНАВЧА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/kompiuterno-tekhnichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/komputerno-tehnichna-h1bU5pJ3.png</image:loc>
+      <image:title>КОМП</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/psykholohichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/psyhologichna-DU-TEFBE.jpg</image:loc>
+      <image:title>ПСИХОЛОГІЧНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/semantyko-tekstualna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/semantyko-tekstualna-CY2UUnhI.jpg</image:loc>
+      <image:title>СЕМАНТИКО-ТЕКСТУАЛЬНА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/pocherkoznavcha-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/pocherkoznavcha-BBFsy_gk.jpg</image:loc>
+      <image:title>ПОЧЕРКОЗНАВЧА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-intelektualnoi-vlasnosti</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/intvlasnist-BTwUFm3X.jpg</image:loc>
+      <image:title>ЕКСПЕРТИЗА ОБ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/mystetvoznavcha-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/mystectvo-CZYCx6nn.jpg</image:loc>
+      <image:title>МИСТЕЦТВОЗНАВЧА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/naukovo-pravova-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://expertise.com.ua/assets/naukovo-pravova-B2NjJwQZ.jpg</image:loc>
+      <image:title>НАУКОВО-ПРАВОВА ЕКСПЕРТИЗА</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/vstanovlennia-vidpovidnosti-normam-dbn</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/vyznachennia-yakosti-ta-otsinka-vartosti-remontno-budivelnykh-robit</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-budivelnoho-proektu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/otsinka-zbytku-pislia-zalyttia</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/otsinka-vartosti-nerukhomosti-dlia-sudu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-koshtorysu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspluatatsiina-prydatnist-budivel-ta-sporud</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-mezh-zemelnoi-dilianky</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-rozpodilu-zemelnoi-dilianky-ta-vyznachennia-poriadku-korystuvannia</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/otsinochna-ekspertyza-zemelnoi-dilianky-dlia-sudu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/bukhhalterska-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-finansovo-kredytnykh-operatsii</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-podatkovoi-zvitnosti</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/transportno-trasolohichna-ekspertyza</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/trasolohichna-ekspertyza-slidiv-zlomu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-programnoho-zabezpechennia</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-dytiacho-batkivskykh-vidnosyn</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/ekspertyza-moralnoi-shkody</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/avtoryzatsiya-tvoriv-mystetstva</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/ekspertyzy/otsinka-vartosti-tvoriv-mystetstva</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/posluhy/ekspertyza-za-ukhvaloiu-sudu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://expertise.com.ua/posluhy/ekspertne-doslidzhennia-za-zaiavoiu</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
