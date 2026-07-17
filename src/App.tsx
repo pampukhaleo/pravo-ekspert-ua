@@ -5,7 +5,6 @@ import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { HelmetProvider } from 'react-helmet-async'
 
 import Index from './pages/Index'
 import ExpertisesListPage from './pages/ExpertisesListPage'
@@ -31,16 +30,14 @@ const queryClient = new QueryClient()
  * Root layout wrapping all pages with providers
  */
 const RootLayout: React.FC = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <ScrollToTop />
-        <Outlet />
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <ScrollToTop />
+      <Outlet />
+    </TooltipProvider>
+  </QueryClientProvider>
 )
 
 export const routes: RouteRecord[] = [
