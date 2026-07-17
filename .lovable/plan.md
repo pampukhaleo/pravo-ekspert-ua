@@ -1,31 +1,39 @@
-## Fix hydration crash: revert to react-helmet-async
+## Проблема
 
-**Проблема:** после клика по любой ссылке — `n is not a function` + React hydration errors #418/#423. Причина: `Head` из `vite-react-ssg` конфликтует с гидрацией (особенно JSON-LD).
+`<Helmet>` из `react-helmet-async` требует `HelmetProvider` в дереве React. В текущей `src/App.tsx` его нет. `vite-react-ssg` оборачивает свой провайдер только на этапе SSG-билда — поэтому статический HTML корректный, но в браузере (dev-превью Lovable и после гидрации) провайдера нет → падает `context.helmet.instances.add`, и приложение уходит в client-only rendering с "Unexpected Application Error".
 
-**Решение:** вернуться на `react-helmet-async` — официально поддерживается `vite-react-ssg`, стабильно рендерит теги и в SSG HTML, и на клиенте.
+## Фикс
 
-### Шаги
+**`src/App.tsx`**: обернуть `RootLayout` в `HelmetProvider` из `react-helmet-async`.
 
-1. **`src/App.tsx`** — обернуть приложение в единственный `<HelmetProvider>`.
-2. **`src/components/SEO/SEOHead.tsx`** — заменить `Head` → `Helmet`, JSON-LD через `<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(data)}} />` внутри `<Helmet>`.
-3. **`src/components/SEO/BreadcrumbSEO.tsx`** — то же.
-4. **`src/components/SEO/FAQPageSEO.tsx`** — то же.
-5. **`src/components/SEO/MetaImages.tsx`** — `Head` → `Helmet`.
-6. **`src/components/SEO/preloadResources.tsx`** — `Head` → `Helmet` (или удалить, если дублирует `index.html`).
-7. **`src/pages/ExpertisePage.tsx`** — исправить `useEffect` со `async` (ScrollToTop warning в логах), убедиться что cleanup `?from=directions` работает синхронно.
-8. Проверить, что `react-helmet-async` есть в `package.json` (если нет — добавить).
+```tsx
+import { HelmetProvider } from 'react-helmet-async'
 
-### Проверка после билда
+const RootLayout: React.FC = () => (
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <ScrollToTop />
+        <Outlet />
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
+)
+```
 
-- `npm run build` → SSG отработал без ошибок.
-- В сгенерированном HTML для `/`, `/ekspertyzy/budivelno-tekhnichna-ekspertyza`, `/tsiny` присутствуют: `<title>`, `<meta name="description">`, `<link rel="canonical">`, все `og:*`, JSON-LD (Breadcrumb, ProfessionalService, FAQPage).
-- Playwright прогон: клики по хедеру/карточкам не выдают ошибок в консоли, роутинг работает.
+Это стандартный паттерн, официально поддерживаемый `vite-react-ssg` (он ищет `HelmetProvider` в дереве и извлекает helmet state при SSG). Ранее (в прошлом ходу) провайдер был удалён из-за ошибочной гипотезы про "конфликт вложенных провайдеров" — на самом деле `vite-react-ssg` рассчитывает, что провайдер поставит пользователь.
 
-### Что НЕ ломается
+## Проверка
 
-- Все титлы/описания/canonical/og — на местах.
-- Все 4 JSON-LD schema — на местах, Rich Results Test продолжит их видеть.
-- Sitemap, robots.txt, llms.txt — не трогаем.
-- URL и canonical не меняются.
+1. `npm run build` — SSG успех, теги `data-rh="true"` и JSON-LD присутствуют в 3-4 сгенерированных HTML (`/`, `/tsiny`, `/ekspertyzy/…`).
+2. Playwright по прод-билду: клики по навигации без ошибок.
+3. В dev-превью Lovable: страница загружается, ошибка `Cannot read properties of undefined (reading 'add')` исчезает.
 
-После имплементации подтвержу результатом сборки и скринами Playwright.
+## Что НЕ меняется
+
+- Все SEO-компоненты (`SEOHead`, `BreadcrumbSEO`, `FAQPageSEO`, `MetaImages`, `preloadResources`) остаются на `Helmet`.
+- Титлы, description, canonical, og:*, JSON-LD (BreadcrumbList, ProfessionalService, FAQPage) — не трогаем.
+- Sitemap, robots.txt, llms.txt, canonical-домен — не трогаем.
+- Индексация не пострадает.
