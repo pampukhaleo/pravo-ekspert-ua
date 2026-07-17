@@ -19,7 +19,9 @@ import NotFound from './pages/NotFound'
 // ScrollToTop component to reset scroll on navigation
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return null
 }
 
