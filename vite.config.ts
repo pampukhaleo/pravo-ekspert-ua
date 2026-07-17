@@ -46,8 +46,4 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  ssr: {
-    // force Vite to compile this CJS dep so its named exports work
-    noExternal: ['react-helmet-async'],
-  },
 }));
