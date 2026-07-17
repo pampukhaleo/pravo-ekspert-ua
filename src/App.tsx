@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import type { RouteRecord } from 'vite-react-ssg'
 import { Outlet, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -30,14 +31,16 @@ const queryClient = new QueryClient()
  * Root layout wrapping all pages with providers
  */
 const RootLayout: React.FC = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ScrollToTop />
-      <Outlet />
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <ScrollToTop />
+        <Outlet />
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 )
 
 export const routes: RouteRecord[] = [
