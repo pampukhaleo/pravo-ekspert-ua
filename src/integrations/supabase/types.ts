@@ -32,6 +32,39 @@ export type Database = {
         }
         Relationships: []
       }
+      consent_logs: {
+        Row: {
+          action: string
+          categories: Json | null
+          created_at: string
+          id: string
+          ip: string | null
+          page_url: string | null
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          categories?: Json | null
+          created_at?: string
+          id?: string
+          ip?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          categories?: Json | null
+          created_at?: string
+          id?: string
+          ip?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       lead_notes: {
         Row: {
           created_at: string
