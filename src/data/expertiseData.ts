@@ -11,6 +11,7 @@ interface ExpertiseData {
     slug: string;
     description: string;
     fullContent: string;
+    seoTitle?: string;
   }[];
   faqs: {
     id: number;
