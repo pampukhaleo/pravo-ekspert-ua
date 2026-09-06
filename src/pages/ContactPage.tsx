@@ -323,6 +323,20 @@ const ContactPage = () => {
               </Form>
             </div>
           </div>
+
+          <div className="max-w-3xl mx-auto mt-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+              Часті питання
+            </h2>
+            <div className="space-y-6">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="font-medium text-lg text-gray-900 mb-2">{faq.question}</h3>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
 
