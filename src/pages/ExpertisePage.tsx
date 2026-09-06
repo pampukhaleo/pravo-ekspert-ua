@@ -73,7 +73,7 @@ export function Component() {
     return clean.length <= n ? clean : clean.slice(0, n - 1).replace(/\s+\S*$/, '') + '…'
   }
   const seoTitle = selectedDirection
-    ? `${selectedDirection.title} | НІСЕ`
+    ? `${selectedDirection.seoTitle ?? selectedDirection.title} | НІСЕ`
     : `${expertise.title} | НІСЕ`
   const seoDescription = truncate(
     selectedDirection
