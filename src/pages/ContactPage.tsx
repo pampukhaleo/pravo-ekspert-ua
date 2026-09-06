@@ -57,7 +57,8 @@ const ContactPage = () => {
     getBreadcrumbData([
       { name: "Головна", url: "https://expertise.com.ua" },
       { name: "Контакти", url: "https://expertise.com.ua/kontakty" }
-    ])
+    ]),
+    getFAQData(faqs)
   ];
   
   const onSubmit = async (data: ContactFormData) => {
