@@ -126,3 +126,8 @@ const ServicePage: React.FC = () => {
 };
 
 export default ServicePage;
+
+// Generate static paths for all service pages
+export function getStaticPaths(): string[] {
+  return Object.keys(services).map(slug => `posluhy/${slug}`);
+}
