@@ -12,7 +12,7 @@ import { Component as ExpertisePage, getStaticPaths as getExpertiseStaticPaths }
 import PricingPage from './pages/PricingPage'
 import ContactPage from './pages/ContactPage'
 import AboutPage from './pages/AboutPage'
-import ServicePage from './pages/ServicePage'
+import ServicePage, { getStaticPaths as getServiceStaticPaths } from './pages/ServicePage'
 import NotFound from './pages/NotFound'
 
 // ScrollToTop component to reset scroll on navigation
@@ -54,7 +54,7 @@ export const routes: RouteRecord[] = [
         getStaticPaths: getExpertiseStaticPaths,
         entry: 'src/pages/ExpertisePage.tsx',
       },
-      { path: 'posluhy/:slug', Component: ServicePage, entry: 'src/pages/ServicePage.tsx' },
+      { path: 'posluhy/:slug', Component: ServicePage, getStaticPaths: getServiceStaticPaths, entry: 'src/pages/ServicePage.tsx' },
       { path: 'tsiny', Component: PricingPage, entry: 'src/pages/PricingPage.tsx' },
       { path: 'kontakty', Component: ContactPage, entry: 'src/pages/ContactPage.tsx' },
       { path: 'pro-nas', Component: AboutPage, entry: 'src/pages/AboutPage.tsx' },
