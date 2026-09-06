@@ -148,7 +148,7 @@ export function Component() {
               <TabsTrigger value="directions" className="flex gap-2 items-center"><MessageSquare size={18} /> Напрямки</TabsTrigger>
               <TabsTrigger value="faq" className="flex gap-2 items-center"><Clock size={18} /> FAQ</TabsTrigger>
             </TabsList>
-            <TabsContent value="overview" className="animate-fade-in"><div className="prose prose-lg max-w-none bg-white rounded-lg shadow-sm p-6" dangerouslySetInnerHTML={{ __html: selectedDirection ? selectedDirection.fullContent : expertise.content }} /></TabsContent>
+            <TabsContent value="overview" className="animate-fade-in"><div className="prose prose-lg max-w-none bg-white rounded-lg shadow-sm p-6"><h2 className="sr-only">Огляд експертизи</h2><div dangerouslySetInnerHTML={{ __html: selectedDirection ? selectedDirection.fullContent : expertise.content }} /></div></TabsContent>
             <TabsContent value="process" className="animate-fade-in">
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-6">Етапи проведення експертизи</h2>
