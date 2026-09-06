@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData, getSiteNavigationData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData, getSiteNavigationData, getFAQData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formLoadTime = useRef<number>(Date.now());
   
