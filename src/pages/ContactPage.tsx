@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import Map from '../components/Map';
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData, getSiteNavigationData } = useStructuredData();
+  const { getOrganizationData, getLocalBusinessData, getBreadcrumbData, getContactPointData, getSiteNavigationData, getFAQData } = useStructuredData();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formLoadTime = useRef<number>(Date.now());
   
@@ -34,6 +34,21 @@ const ContactPage = () => {
     },
   });
   
+  const faqs = [
+    {
+      question: "Як швидко ви відповідаєте на звернення?",
+      answer: "Ми відповідаємо на повідомлення з форми та електронної пошти протягом одного робочого дня. Для термінових питань телефонуйте за номерами, вказаними на цій сторінці."
+    },
+    {
+      question: "Чи можна замовити експертизу онлайн?",
+      answer: "Так, первинну консультацію та оцінку вартості експертизи можна отримати дистанційно — через форму на сайті, за телефоном або електронною поштою. Документи можна надіслати електронно для попереднього аналізу."
+    },
+    {
+      question: "Чи працюєте ви з клієнтами з інших міст України?",
+      answer: "Так, ми проводимо судові експертизи для клієнтів з усієї України. Більшість питань вирішується дистанційно, а матеріали справи можна передати поштовими службами."
+    }
+  ];
+
   const combinedStructuredData = [
     getOrganizationData(),
     getLocalBusinessData(),
@@ -42,7 +57,8 @@ const ContactPage = () => {
     getBreadcrumbData([
       { name: "Головна", url: "https://expertise.com.ua" },
       { name: "Контакти", url: "https://expertise.com.ua/kontakty" }
-    ])
+    ]),
+    getFAQData(faqs)
   ];
   
   const onSubmit = async (data: ContactFormData) => {
@@ -115,6 +131,12 @@ const ContactPage = () => {
             <p className="text-lg text-gray-700">
               Зв'яжіться з нами для консультації або замовлення експертизи
             </p>
+            <p className="text-base text-gray-600 mt-4">
+              Незалежний Інститут Судових Експертиз проводить понад 20 видів судових експертиз для судів,
+              адвокатів, підприємств та приватних осіб. Зверніться до нас, щоб отримати безкоштовну первинну
+              консультацію, дізнатися вартість і строки проведення експертизи або поставити питання експерту —
+              ми відповідаємо протягом одного робочого дня.
+            </p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -156,12 +178,42 @@ const ContactPage = () => {
                       <p className="text-gray-700">04207, Україна, м. Київ, вул. Левка Лук'яненка, 21, корпус 3, офіс 7</p>
                     </div>
                   </div>
+
+                  <div className="flex items-start">
+                    <Clock className="h-6 w-6 text-brand-blue mr-4 mt-1" />
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-1">Графік роботи</h3>
+                      <p className="text-gray-700">Понеділок – П'ятниця: 9:00 – 18:00</p>
+                      <p className="text-gray-700">Субота – Неділя: вихідні</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Наше розташування</h2>
                 <Map />
+                <div className="mt-6">
+                  <h3 className="font-medium text-gray-900 mb-2">Як до нас дістатися</h3>
+                  <p className="text-gray-700">
+                    Наш офіс розташований у Києві за адресою: вул. Левка Лук'яненка, 21, корпус 3, офіс 7.
+                    Найзручніше дістатися громадським транспортом від станцій метро «Лук'янівська» та
+                    «Золоті ворота» — звідти курсують тролейбуси та маршрутні таксі у напрямку вулиці
+                    Левка Лук'яненка. Для відвідувачів на автомобілі поблизу є паркування.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Чим ми можемо допомогти</h2>
+                <ul className="space-y-3 text-gray-700 list-disc list-inside">
+                  <li>Безкоштовна первинна консультація щодо призначення та проведення судової експертизи</li>
+                  <li>Попередня оцінка вартості та строків виконання експертного дослідження</li>
+                  <li>Підбір експерта відповідної спеціальності під вашу справу</li>
+                  <li>Рецензування висновків експертів інших установ</li>
+                  <li>Супровід судових справ та підготовка питань для експерта</li>
+                  <li>Дистанційна робота з клієнтами з усієї України</li>
+                </ul>
               </div>
             </div>
             
@@ -269,6 +321,20 @@ const ContactPage = () => {
                   </button>
                 </form>
               </Form>
+            </div>
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+              Часті питання
+            </h2>
+            <div className="space-y-6">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="font-medium text-lg text-gray-900 mb-2">{faq.question}</h3>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
