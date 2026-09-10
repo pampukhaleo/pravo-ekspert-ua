@@ -82,6 +82,15 @@ const ContactPage = () => {
         throw new Error(error.message);
       }
 
+      // Конверсія: подія відправляється лише після успішного збереження заявки
+      try {
+        const w = window as unknown as { dataLayer?: unknown[] };
+        w.dataLayer = w.dataLayer || [];
+        w.dataLayer.push({ event: 'nadislaty_formu', form_location: 'kontakty' });
+      } catch (e) {
+        console.warn('dataLayer push failed', e);
+      }
+
       toast({
         title: "Повідомлення надіслано",
         description: "Дякуємо за звернення! Ми зв'яжемося з вами найближчим часом.",
